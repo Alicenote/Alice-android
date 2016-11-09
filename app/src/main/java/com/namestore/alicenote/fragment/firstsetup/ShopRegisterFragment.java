@@ -40,7 +40,6 @@ public class ShopRegisterFragment extends CoreFragment {
     LinearLayout linearLayout;
     private FirstSetupAcitivity firstSetupAcitivity;
     FirstSetup firstSetup = new FirstSetup();
-    AppUtils appUtils;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +54,6 @@ public class ShopRegisterFragment extends CoreFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
-        appUtils = new AppUtils(firstSetupAcitivity);
     }
 
     @Override
@@ -147,7 +145,7 @@ public class ShopRegisterFragment extends CoreFragment {
 
                     if (checkEmpty(firstSetup.bussinessName, firstSetup.bussinessType,
                             firstSetup.state, firstSetup.city, firstSetup.postCode, firstSetup.address)) {
-                        appUtils.showNoticeDialog("Please filling in the blanks");
+                        AppUtils.showNoticeDialog(getActivity(), "Please filling in the blanks");
                     } else {
                         if (mActivity instanceof OnFirstSetupActivityListener) {
                             ((OnFirstSetupActivityListener) mActivity).showTimeOpenDoorSalon();

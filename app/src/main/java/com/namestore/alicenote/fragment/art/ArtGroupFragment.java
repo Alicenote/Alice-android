@@ -32,7 +32,6 @@ public class ArtGroupFragment extends CoreFragment {
     ArrayList<Art> artArrayList;
     RecyclerView recyclerViewArt;
     ArtGroupAdapter artGroupAdapter;
-    AppUtils appUtils;
     ArtActivity artActivity;
     Button mButtonAdd;
 
@@ -49,7 +48,6 @@ public class ArtGroupFragment extends CoreFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
-        appUtils = new AppUtils(artActivity);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class ArtGroupFragment extends CoreFragment {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        appUtils.showShortToast("OK");
+                        AppUtils.showShortToast(getActivity(), "OK");
                     }
                 }));
     }
@@ -95,7 +93,7 @@ public class ArtGroupFragment extends CoreFragment {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.button_add_art:
-                appUtils.showNoticeDialog("ADD ART GROUP");
+                AppUtils.showNoticeDialog(getActivity(), "ADD ART GROUP");
                 break;
         }
     }

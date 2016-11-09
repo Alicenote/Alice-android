@@ -33,7 +33,6 @@ public class ShopServicesCategoryFragment extends CoreFragment {
     TextView mTextViewTitle;
     ListView mListViewImageService;
     private FirstSetupAcitivity firstSetupAcitivity;
-    AppUtils appUtils = new AppUtils(getActivity());
 
     @Nullable
     @Override
@@ -93,10 +92,10 @@ public class ShopServicesCategoryFragment extends CoreFragment {
                         }
                         break;
                     case 2:
-                        appUtils.showShortToast("BEAUTY SERVICE");
+                        AppUtils.showShortToast(getActivity(), "BEAUTY SERVICE");
                         break;
                     case 3:
-                        appUtils.showShortToast("COMMING SOON SERVICE");
+                        AppUtils.showShortToast(getActivity(), "COMMING SOON SERVICE");
                         break;
                 }
             }

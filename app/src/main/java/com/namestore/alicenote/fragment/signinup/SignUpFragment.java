@@ -49,7 +49,6 @@ public class SignUpFragment extends CoreFragment {
     LinearLayout linearLayout;
     private StartActivity loginActivity;
     User mUser = new User();
-    AppUtils appUtils ;
 
     @Nullable
     @Override
@@ -63,7 +62,6 @@ public class SignUpFragment extends CoreFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
-        appUtils = new AppUtils(loginActivity);
     }
 
     @Override
@@ -155,8 +153,8 @@ public class SignUpFragment extends CoreFragment {
                         || TextUtils.isEmpty(mUser.telephone) || mUser.gender == 0) {
                     showDialog("Please filling in the blanks");
                 } else {
-                    if (appUtils.checkFirstLastName(mUser.firstName) || appUtils.checkFirstLastName(mUser.lastName)) {
-                        if (appUtils.checkEmail(mUser.email)) {
+                    if (AppUtils.checkFirstLastName(mUser.firstName) || AppUtils.checkFirstLastName(mUser.lastName)) {
+                        if (AppUtils.checkEmail(mUser.email)) {
                             if (mUser.passwordHash.length() < 8) {
                                 showDialog("Pass phai lon hon 8 ky tu");
                             } else {
@@ -176,7 +174,7 @@ public class SignUpFragment extends CoreFragment {
 
                 break;
             case R.id.textview_report_error_signup:
-                appUtils.showShortToast( Constants.REPORT_ERROR);
+                AppUtils.showShortToast(getActivity(), Constants.REPORT_ERROR);
                 break;
             case R.id.button_facebook_signup:
                 onFragmentInteractionListener.onViewClick(Constants.LOGIN_FACEBOOK);

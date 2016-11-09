@@ -45,7 +45,6 @@ public class LoginFragment extends CoreFragment {
     private LoginSignupActivity loginSignupActivity;
     LinearLayout linearLayout;
     User mUser = new User();
-    AppUtils appUtils;
 
     @Nullable
     @Override
@@ -60,7 +59,6 @@ public class LoginFragment extends CoreFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
-        appUtils = new AppUtils(loginSignupActivity);
     }
 
     @Override
@@ -138,7 +136,7 @@ public class LoginFragment extends CoreFragment {
 
                 if (TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.passwordHash)) {
                     showDialog("Please filling in the blanks");
-                } else if (appUtils.checkEmail(mUser.email)) {
+                } else if (AppUtils.checkEmail(mUser.email)) {
                     if (mUser.passwordHash.length() < 8) {
                         showDialog("Password phai lon hon 8 ky tu");
                     } else {
@@ -151,11 +149,11 @@ public class LoginFragment extends CoreFragment {
                 break;
 
             case R.id.textview_forgot_pass:
-                appUtils.showShortToast(Constants.FORGOT_PASS);
+                AppUtils.showShortToast(getActivity(),Constants.FORGOT_PASS);
                 break;
 
             case R.id.textview_report_error_login:
-                appUtils.showShortToast(Constants.REPORT_ERROR);
+                AppUtils.showShortToast(getActivity(),Constants.REPORT_ERROR);
                 break;
 
             case R.id.button_facebook_login:
@@ -167,7 +165,7 @@ public class LoginFragment extends CoreFragment {
                 break;
 
             case R.id.textview_contact:
-                appUtils.showShortToast(Constants.CONTACT_ALICE);
+                AppUtils.showShortToast(getActivity(),Constants.CONTACT_ALICE);
                 break;
 
             case R.id.textview_signup:

@@ -70,7 +70,6 @@ public class LoginSignupActivity extends CoreActivity
     private ProgressDialog prgDialog;
     private GoogleApiClient mGoogleApiClient;
     AccessToken mAccessToken;
-    AppUtils appUtils = new AppUtils(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,13 +153,13 @@ public class LoginSignupActivity extends CoreActivity
 
                             @Override
                             public void onCancel() {
-                                appUtils.logE("FB CANCEL");
+                                AppUtils.logE("FB CANCEL");
                                 mLoginButtonFb.setClickable(true);
                             }
 
                             @Override
                             public void onError(FacebookException exception) {
-                                appUtils.logE("FB ERROR");
+                                AppUtils.logE("FB ERROR");
                                 mLoginButtonFb.setClickable(true);
 
                             }
@@ -324,7 +323,7 @@ public class LoginSignupActivity extends CoreActivity
         aliceApi.login(user).enqueue(new Callback<RSPLoginSignup>() {
             @Override
             public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                appUtils.logE("OK LOGIN || STATUS: " + response.body().getStatus() + "|TOKEN|" + response.body().getToken());
+                AppUtils.logE("OK LOGIN || STATUS: " + response.body().getStatus() + "|TOKEN|" + response.body().getToken());
                 if (response.isSuccessful()) {
                     prgDialog.hide();
                     switch (response.body().getStatus()) {
@@ -346,7 +345,7 @@ public class LoginSignupActivity extends CoreActivity
                             moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
                             break;
                         case LOGED:
-                            appUtils.showShortToast("ban da dang nhap");
+                            AppUtils.showShortToast(LoginSignupActivity.this, "ban da dang nhap");
                             break;
                         case FIRST_LOGIN:
                             moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
@@ -358,9 +357,9 @@ public class LoginSignupActivity extends CoreActivity
             @Override
             public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
                 if (call.isCanceled()) {
-                    appUtils.logE("request was cancelled");
+                    AppUtils.logE("request was cancelled");
                 } else {
-                    appUtils.logE("FAILED " + t.getLocalizedMessage());
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
                 }
             }
         });
@@ -373,7 +372,7 @@ public class LoginSignupActivity extends CoreActivity
         aliceApi.signup(user).enqueue(new Callback<RSPLoginSignup>() {
             @Override
             public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                appUtils.logE("OK SIGNUP || STATUS: " + response.body().getStatus());
+                AppUtils.logE("OK SIGNUP || STATUS: " + response.body().getStatus());
                 prgDialog.hide();
                 if (response.isSuccessful()) {
                     switch (response.body().getStatus()) {
@@ -396,9 +395,9 @@ public class LoginSignupActivity extends CoreActivity
             @Override
             public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
                 if (call.isCanceled()) {
-                    appUtils.logE("request was cancelled");
+                    AppUtils.logE("request was cancelled");
                 } else {
-                    appUtils.logE("FAILED " + t.getLocalizedMessage());
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
                 }
             }
         });
@@ -411,7 +410,7 @@ public class LoginSignupActivity extends CoreActivity
         aliceApi.socialLogin(user).enqueue(new Callback<RSPLoginSignup>() {
             @Override
             public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                appUtils.logE("OK LOGINSOCIAL || STATUS: " + response.body().getStatus());
+                AppUtils.logE("OK LOGINSOCIAL || STATUS: " + response.body().getStatus());
                 switch (response.body().getStatus()) {
                     case SUCCESS:
                         moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
@@ -430,9 +429,9 @@ public class LoginSignupActivity extends CoreActivity
             @Override
             public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
                 if (call.isCanceled()) {
-                    appUtils.logE("request was cancelled");
+                    AppUtils.logE("request was cancelled");
                 } else {
-                    appUtils.logE("FAILED " + t.getLocalizedMessage());
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
                 }
             }
         });

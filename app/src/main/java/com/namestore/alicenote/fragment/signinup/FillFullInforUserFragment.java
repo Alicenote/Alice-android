@@ -48,7 +48,6 @@ public class FillFullInforUserFragment extends CoreFragment {
     Button mButtonOk;
     LinearLayout linearLayout;
     User mUser = new User();
-    AppUtils appUtils;
     private LoginSignupActivity loginSignupActivity;
 
     @Nullable
@@ -63,7 +62,6 @@ public class FillFullInforUserFragment extends CoreFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
-        appUtils = new AppUtils(loginSignupActivity);
     }
 
     @Override
@@ -196,8 +194,8 @@ public class FillFullInforUserFragment extends CoreFragment {
                         || TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.telephone) || mUser.gender == 0) {
                     showDialog("Please filling in the blanks");
                 } else {
-                    if (appUtils.checkFirstLastName(mUser.firstName) || appUtils.checkFirstLastName(mUser.lastName)) {
-                        if (appUtils.checkEmail(mUser.email)) {
+                    if (AppUtils.checkFirstLastName(mUser.firstName) || AppUtils.checkFirstLastName(mUser.lastName)) {
+                        if (AppUtils.checkEmail(mUser.email)) {
                             if (mUser.telephone.length() < 10) {
                                 showDialog("Phone phai lon hon 10 ky tu");
                             } else {

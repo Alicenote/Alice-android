@@ -21,17 +21,6 @@ public class AppUtils {
     AppUtils appUtils;
     Activity activity;
 
-    public AppUtils(Activity activity) {
-        this.activity = activity;
-    }
-
-    public AppUtils getAppUtils() {
-        if (appUtils == null) {
-            appUtils = new AppUtils(activity);
-        }
-        return appUtils;
-    }
-
     public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
             "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                     "\\@" +
@@ -46,23 +35,23 @@ public class AppUtils {
             "^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ]{3,10}+$"
     );
 
-    public void logE(String mess) {
+    public static void logE(String mess) {
         Log.e(Constants.TAG, mess);
     }
 
-    public void showShortToast(String msg) {
+    public static void showShortToast(Activity activity, String msg) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public boolean checkEmail(String email) {
+    public static boolean checkEmail(String email) {
         return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
     }
 
-    public boolean checkFirstLastName(String name) {
+    public static boolean checkFirstLastName(String name) {
         return FISRT_LAST_NAME_PATTERN.matcher(name).matches();
     }
 
-    public void showNoticeDialog(String string) {
+    public static void showNoticeDialog(Activity activity, String string) {
         DialogNotice dialogNotice = new DialogNotice();
         dialogNotice.showDialog(activity, string);
     }
