@@ -1,6 +1,7 @@
 package com.namestore.alicenote.fragment;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,10 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.activity.MainActivity;
 import com.namestore.alicenote.adapter.DashboardCustomRecyclerViewAdapter;
 import com.namestore.alicenote.core.CoreFragment;
+import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.DashboardObject;
-import com.namestore.alicenote.models.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,8 @@ public class DashBoardFragment extends CoreFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fm_dashboard, container, false);
         initViews(view);
         initModels();
@@ -80,7 +84,7 @@ public class DashBoardFragment extends CoreFragment {
         recyclerListViewUpComming.setAdapter(adapter);
 
         recyclerListViewUpComming.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                new OnFragmentInteractionListener.RecyclerItemClickListener(getContext(), new OnFragmentInteractionListener.RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
 
@@ -119,7 +123,7 @@ public class DashBoardFragment extends CoreFragment {
         DashboardCustomRecyclerViewAdapter adapterThisWeek = new DashboardCustomRecyclerViewAdapter(getContext(), listViewContactThisWeek);
         recyclerListViewThisWeek.setAdapter(adapterThisWeek);
         recyclerListViewThisWeek.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                new OnFragmentInteractionListener.RecyclerItemClickListener(getContext(), new OnFragmentInteractionListener.RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
 

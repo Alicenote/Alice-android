@@ -1,7 +1,6 @@
 package com.namestore.alicenote.fragment;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -127,11 +126,11 @@ public class SignUpFragment extends CoreFragment {
         mTextViewAlreadyAccount.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-        ViewUtils.configEditTex(getActivity(), mEditTextEmail, linearLayout, "Email", R.drawable.icon_email, null);
-        ViewUtils.configEditTex(getActivity(), mEditTextPassword, linearLayout, "Password", R.drawable.icon_password, null);
-        ViewUtils.configEditTex(getActivity(), mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email, null);
-        ViewUtils.configEditTex(getActivity(), mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email, null);
-        ViewUtils.configEditTex(getActivity(), mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextEmail, linearLayout, "Email", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextPassword, linearLayout, "Password", R.drawable.icon_password, null);
+        ViewUtils.configEditText(getActivity(), mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email, null);
 
         String[] gender = getResources().getStringArray(R.array.gender);
         ViewUtils.configSpinner(getActivity(), gender, mSpinnerGender);

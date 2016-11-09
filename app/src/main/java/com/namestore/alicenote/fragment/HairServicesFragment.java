@@ -22,9 +22,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.SubServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServices;
 
 import java.util.ArrayList;
@@ -81,7 +79,7 @@ public class HairServicesFragment extends CoreFragment {
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
 
-        ViewUtils.configEditTex(getActivity(), mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
 
         hairServicesArrayList = new ArrayList<>();
 

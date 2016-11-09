@@ -16,9 +16,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.utils.ViewUtils;
 
 /**
@@ -86,10 +84,10 @@ public class SetupInfoSalonFragment extends CoreFragment {
         mButtonBack.setVisibility(View.INVISIBLE);
         mButtonNext.setOnClickListener(this);
         mTextViewTitle.setText("Welcome to AliceNote");
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnName, linearLayout, "Bussiness Name", 0, null);
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnCity, linearLayout, "City", 0, null);
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnAddress, linearLayout, "Address", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnName, linearLayout, "Bussiness Name", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnCity, linearLayout, "City", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnAddress, linearLayout, "Address", 0, null);
 
         configSpinner();
     }

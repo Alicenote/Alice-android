@@ -125,8 +125,8 @@ public class LoginFragment extends CoreFragment {
         mButtonFb.setOnClickListener(this);
         mButtonGoogleP.setOnClickListener(this);
         mTextViewContact.setOnClickListener(this);
-        ViewUtils.configEditTex(getActivity(), mEditTexEmail, linearLayout, "Email", R.drawable.icon_email, mTextViewIncorrect);
-        ViewUtils.configEditTex(getActivity(), mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
+        ViewUtils.configEditText(getActivity(), mEditTexEmail, linearLayout, "Email", R.drawable.icon_email, mTextViewIncorrect);
+        ViewUtils.configEditText(getActivity(), mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
     }
 
 

@@ -20,9 +20,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.SubServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServices;
 import com.namestore.alicenote.utils.ViewUtils;
 
@@ -112,7 +110,7 @@ public class NailServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        ViewUtils.configEditTex(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
+        ViewUtils.configEditText(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
 
         nailServicesArrayList = new ArrayList<>();
 
