@@ -44,7 +44,6 @@ public class HairServicesFragment extends CoreFragment {
     Button mButtonAddService;
     LinearLayout linearLayout;
     private String newService;
-    private ArrayList<String> arrayListHairService;
     SubServicesAdapter subServicesAdapter;
 
     private FirstSetupAcitivity firstSetupAcitivity;
@@ -89,10 +88,10 @@ public class HairServicesFragment extends CoreFragment {
 
         hairServicesArrayList = new ArrayList<>();
 
-        arrayListHairService = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.hair_list_services)));
-        for (int i = 0; i < arrayListHairService.size(); i++) {
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.hair_list_services)));
+        for (int i = 0; i < arrayList.size(); i++) {
             SubServices subServices = new SubServices();
-            subServices.setNameSubServices(arrayListHairService.get(i));
+            subServices.setNameSubServices(arrayList.get(i));
             this.hairServicesArrayList.add(subServices);
         }
 

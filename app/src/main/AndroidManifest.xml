@@ -30,6 +30,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize" />
 
+        <activity
+            android:name=".activity.ArtActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+
+
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <provider

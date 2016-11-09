@@ -42,7 +42,6 @@ public class NailServicesFragment extends CoreFragment {
     LinearLayout linearLayout;
     private FirstSetupAcitivity firstSetupAcitivity;
     private String newService;
-    private ArrayList<String> arrayListNailService;
     SubServicesAdapter subServicesAdapter;
 
     public NailServicesFragment() {
@@ -85,14 +84,14 @@ public class NailServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        ViewUtils.configEditText(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
 
         nailServicesArrayList = new ArrayList<>();
 
-        arrayListNailService = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.nail_list_services)));
-        for (int i = 0; i < arrayListNailService.size(); i++) {
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.nail_list_services)));
+        for (int i = 0; i < arrayList.size(); i++) {
             SubServices subServices = new SubServices();
-            subServices.setNameSubServices(arrayListNailService.get(i));
+            subServices.setNameSubServices(arrayList.get(i));
             this.nailServicesArrayList.add(subServices);
         }
 
@@ -125,8 +124,8 @@ public class NailServicesFragment extends CoreFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_back:
-                if(mActivity instanceof OnFirstSetupActivityListener){
-                    ((OnFirstSetupActivityListener)mActivity).pickSalonService();
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
                 }
                 break;
 

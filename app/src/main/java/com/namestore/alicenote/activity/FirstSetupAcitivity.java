@@ -29,8 +29,7 @@ import java.util.ArrayList;
  */
 
 
-public class FirstSetupAcitivity extends CoreActivity implements View.OnClickListener,
-        OnFragmentInteractionListener,
+public class FirstSetupAcitivity extends CoreActivity implements OnFragmentInteractionListener,
         OnFirstSetupActivityListener {
 
     private ShopRegisterFragment mShopRegisterFragment;
@@ -98,8 +97,6 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
     @Override
     public void showSetupInfoSalon() {
         showFragment(mShopRegisterFragment);
-
-
     }
 
     @Override

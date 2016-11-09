@@ -48,7 +48,7 @@ public class MainServiceAdapter extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_listview_service, parent, false);
+            convertView = inflater.inflate(R.layout.item_service_category, parent, false);
             mViewHolder = new MyViewHolder(convertView);
             convertView.setTag(mViewHolder);
         } else {
