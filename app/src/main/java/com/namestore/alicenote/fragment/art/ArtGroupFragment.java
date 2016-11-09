@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -64,15 +65,16 @@ public class ArtGroupFragment extends CoreFragment {
     protected void initModels() {
         artArrayList = new ArrayList<>();
 
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(R.drawable.spring);
-        arrayList.add(R.drawable.summer);
-        arrayList.add(R.drawable.autumn);
-        arrayList.add(R.drawable.winter);
+        ArrayList<Pair<String, Integer>> arrayList = new ArrayList<>();
+        arrayList.add(new Pair<String, Integer>("SPRING", R.drawable.spring));
+        arrayList.add(new Pair<String, Integer>("SUMMER", R.drawable.summer));
+        arrayList.add(new Pair<String, Integer>("AUTUMN", R.drawable.autumn));
+        arrayList.add(new Pair<String, Integer>("WINTER", R.drawable.winter));
 
         for (int i = 0; i < arrayList.size(); i++) {
             Art artGroup = new Art();
-            artGroup.setDrawableArt(arrayList.get(i));
+            artGroup.setNameArt(arrayList.get(i).first);
+            artGroup.setDrawableArt(arrayList.get(i).second);
             this.artArrayList.add(artGroup);
         }
         artGroupAdapter = new ArtGroupAdapter(artArrayList);

@@ -45,7 +45,7 @@ public class StartActivity extends CoreActivity implements OnFragmentInteraction
         mButtonLogin.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-        Intent mIntent = new Intent(StartActivity.this, FirstSetupAcitivity.class);
+        Intent mIntent = new Intent(StartActivity.this, ArtActivity.class);
         mIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, Constants.SETUP_INFO_SALON);
         startActivity(mIntent);
@@ -67,7 +67,6 @@ public class StartActivity extends CoreActivity implements OnFragmentInteraction
                 moveLoginSignupAct(Constants.KEY_SIGNUP);
                 break;
         }
-
     }
 
     /**

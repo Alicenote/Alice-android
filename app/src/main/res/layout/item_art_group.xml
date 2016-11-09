@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
+
+    <Button
         android:id="@+id/imageview_item_art_group"
         android:layout_width="match_parent"
         android:layout_height="150dp" />

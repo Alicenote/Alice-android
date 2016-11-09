@@ -18,9 +18,6 @@ import java.util.regex.Pattern;
 
 public class AppUtils {
 
-    AppUtils appUtils;
-    Activity activity;
-
     public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
             "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                     "\\@" +

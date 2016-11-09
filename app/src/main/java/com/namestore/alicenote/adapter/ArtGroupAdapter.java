@@ -1,15 +1,13 @@
 package com.namestore.alicenote.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.models.Art;
-import com.namestore.alicenote.models.SubServices;
 
 import java.util.ArrayList;
 
@@ -21,7 +19,7 @@ public class ArtGroupAdapter extends RecyclerView.Adapter<ArtGroupAdapter.ViewHo
 
     private ArrayList<Art> artArrayList;
 
-    public ArtGroupAdapter( ArrayList<Art> artArrayList) {
+    public ArtGroupAdapter(ArrayList<Art> artArrayList) {
         this.artArrayList = artArrayList;
     }
 
@@ -34,7 +32,8 @@ public class ArtGroupAdapter extends RecyclerView.Adapter<ArtGroupAdapter.ViewHo
     @Override
     public void onBindViewHolder(ArtGroupAdapter.ViewHolder holder, int position) {
         holder.bindData(artArrayList.get(position));
-        holder.mImageViewArt.setBackgroundResource(artArrayList.get(position).getDrawableArt());
+        holder.mButtonArt.setBackgroundResource(artArrayList.get(position).getDrawableArt());
+        holder.mButtonArt.setText(artArrayList.get(position).getNameArt());
     }
 
     @Override
@@ -43,11 +42,11 @@ public class ArtGroupAdapter extends RecyclerView.Adapter<ArtGroupAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mImageViewArt;
+        private Button mButtonArt;
 
         public ViewHolder(View view) {
             super(view);
-            mImageViewArt = (ImageView) view.findViewById(R.id.imageview_item_art_group);
+            mButtonArt = (Button) view.findViewById(R.id.imageview_item_art_group);
         }
 
         public void bindData(Art art) {

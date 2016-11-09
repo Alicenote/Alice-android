@@ -6,6 +6,11 @@ package com.namestore.alicenote.models;
 
 public class Art {
 
+
+    private int drawableArt;
+
+    private String nameArt;
+
     public int getDrawableArt() {
         return drawableArt;
     }
@@ -14,7 +19,11 @@ public class Art {
         this.drawableArt = drawableArt;
     }
 
-    private int drawableArt;
+    public String getNameArt() {
+        return nameArt;
+    }
 
-
+    public void setNameArt(String nameArt) {
+        this.nameArt = nameArt;
+    }
 }
