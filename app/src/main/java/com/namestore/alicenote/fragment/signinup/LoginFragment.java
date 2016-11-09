@@ -1,4 +1,4 @@
-package com.namestore.alicenote.fragment;
+package com.namestore.alicenote.fragment.signinup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,13 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.activity.LoginSignupActivity;
 import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+import com.namestore.alicenote.dialog.DialogNotice;
 import com.namestore.alicenote.models.User;
 import com.namestore.alicenote.utils.AppUtils;
 import com.namestore.alicenote.utils.ViewUtils;
+
 
 /**
  * Created by kienht on 10/24/16.
@@ -40,10 +42,10 @@ public class LoginFragment extends CoreFragment {
     Button mButtonGoogleP;
     TextView mTextViewContact;
     SwitchCompat switchCompatLogin;
-    private StartActivity startActivity;
-    OnFragmentInteractionListener listener;
+    private LoginSignupActivity loginSignupActivity;
     LinearLayout linearLayout;
     User mUser = new User();
+    AppUtils appUtils;
 
     @Nullable
     @Override
@@ -51,51 +53,14 @@ public class LoginFragment extends CoreFragment {
 
         View view = inflater.inflate(R.layout.fm_login, container, false);
         initViews(view);
-        initModels();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof StartActivity) {
-            this.startActivity = (StartActivity) context;
-        }
-
-        try {
-            listener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        if (activity instanceof StartActivity) {
-            this.startActivity = (StartActivity) activity;
-        }
-
-        try {
-            listener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-
+        initModels();
+        appUtils = new AppUtils(loginSignupActivity);
     }
 
     @Override
@@ -129,7 +94,6 @@ public class LoginFragment extends CoreFragment {
         ViewUtils.configEditText(getActivity(), mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
     }
 
-
     public void setHintEdittex(String email, String password) {
         mEditTexEmail.setHint(email);
         mEditTexPassword.setHint(password);
@@ -141,42 +105,73 @@ public class LoginFragment extends CoreFragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof LoginSignupActivity) {
+            this.loginSignupActivity = (LoginSignupActivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof StartActivity) {
+            this.loginSignupActivity = (LoginSignupActivity) activity;
+        }
+    }
+
+    private void showDialog(String string) {
+        DialogNotice dialogNotice = new DialogNotice();
+        dialogNotice.showDialog(getActivity(), string);
+
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
-
             case R.id.button_login:
                 mUser.email = mEditTexEmail.getText().toString();
-                mUser.password_hash = mEditTexPassword.getText().toString();
-                if (TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.password_hash)) {
-                    AppUtils.showShortToast(getActivity(), "Please filling in the blanks");
+                mUser.passwordHash = mEditTexPassword.getText().toString();
+
+                if (TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.passwordHash)) {
+                    showDialog("Please filling in the blanks");
+                } else if (appUtils.checkEmail(mUser.email)) {
+                    if (mUser.passwordHash.length() < 8) {
+                        showDialog("Password phai lon hon 8 ky tu");
+                    } else {
+                        onFragmentInteractionListener.onViewClick(Constants.LOGIN_BUTTON, mUser);
+                    }
+
                 } else {
-                    listener.onViewClick(Constants.LOGIN_BUTTON, mUser);
+                    showDialog("Email ko dung dinh dang");
                 }
                 break;
 
             case R.id.textview_forgot_pass:
-                AppUtils.showShortToast(getActivity(),Constants.FORGOT_PASS);
+                appUtils.showShortToast(Constants.FORGOT_PASS);
                 break;
 
             case R.id.textview_report_error_login:
-                AppUtils.showShortToast(getActivity(),Constants.REPORT_ERROR);
+                appUtils.showShortToast(Constants.REPORT_ERROR);
                 break;
 
             case R.id.button_facebook_login:
-                listener.onViewClick(Constants.LOGIN_FACEBOOK, mUser);
+                onFragmentInteractionListener.onViewClick(Constants.LOGIN_FACEBOOK);
                 break;
 
             case R.id.button_google_login:
-                listener.onViewClick(Constants.LOGIN_GOOGLE, mUser);
+                onFragmentInteractionListener.onViewClick(Constants.LOGIN_GOOGLE);
                 break;
 
             case R.id.textview_contact:
-                AppUtils.showShortToast(getActivity(),Constants.CONTACT_ALICE);
+                appUtils.showShortToast(Constants.CONTACT_ALICE);
                 break;
 
             case R.id.textview_signup:
-                listener.onViewClick(Constants.SIGNUP_FRAGMENT);
+                onFragmentInteractionListener.onViewClick(Constants.SIGNUP_FRAGMENT);
                 break;
 
             default:

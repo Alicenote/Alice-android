@@ -29,14 +29,23 @@ import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 
 import static com.namestore.alicenote.data.Constants.NUM_PAGES;
 
+<<<<<<< HEAD
 public class MainActivity extends CoreActivity implements
         NavigationView.OnNavigationItemSelectedListener {
+=======
+public class MainActivity extends CoreActivity implements View.OnClickListener,
+        NavigationView.OnNavigationItemSelectedListener,
+        OnFragmentInteractionListener {
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
     private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
+<<<<<<< HEAD
     private ClientFragment mClientFragment = new ClientFragment();
+=======
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +100,7 @@ public class MainActivity extends CoreActivity implements
             public void onClick(View view) {
                 showServiceFragment();
 
+<<<<<<< HEAD
             }
         });
 
@@ -103,6 +113,8 @@ public class MainActivity extends CoreActivity implements
         });
 
 
+=======
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -118,10 +130,22 @@ public class MainActivity extends CoreActivity implements
         mPager.setCurrentItem(0);
 
     }
+<<<<<<< HEAD
+=======
+
+    public void showClientFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
     public void showClientFragment() {
         mPager.setCurrentItem(1);
     }
+<<<<<<< HEAD
+=======
+
+    public void showServiceFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
     public void showServiceFragment() {
         mPager.setCurrentItem(2);
@@ -134,6 +158,16 @@ public class MainActivity extends CoreActivity implements
 
     public void showMoreFragment() {
         mPager.setCurrentItem(4);
+
+    }
+
+    @Override
+    public void onViewClick(String tag) {
+
+    }
+
+    @Override
+    public void onViewClick(String tag, Object object) {
 
     }
 

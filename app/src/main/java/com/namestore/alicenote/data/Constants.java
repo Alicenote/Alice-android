@@ -8,10 +8,23 @@ public class Constants {
 
     public static final String TAG = "ALICE";
 
+     /*START API SERVER*/
+
+    public static final String URL_SERVER = "http://api.alicenote.com";
+    public static final String API_LOGIN = "/v1/users/login";
+    public static final String API_SOCIAL_LOGIN = "/v1/users/social-login";
+    public static final String API_SIGNUP = "/v1/users/register";
+
+    /*END API SERVER*/
+
     /* LoginSignup Activity */
 
+<<<<<<< HEAD
     //click only
     public static final int NUM_PAGES = 4;
+=======
+    public static final int NUM_PAGES = 5;
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
     public static final int KEY_LOGIN = 0;
     public static final int KEY_SIGNUP = 1;
     public static final String KEY_CHECK_CLIENT = "client.check";
@@ -29,12 +42,11 @@ public class Constants {
     public static final String CONTACT_ALICE = "ContactAlice.Login";
     public static final String LOGIN_BUTTON = "Login.Login";
     public static final String SIGNUP_BUTTON = "Signup.Login";
+    public static final String LOGIN_SOCIAL = "Social.Login";
 
     /* End of Login Activity */
 
     /* First Setup Activity */
-
-    //click only
 
     public static final String FIRST_SETUP_SCREEN = "screen.login.signup";
 
@@ -49,12 +61,11 @@ public class Constants {
 
     /* End of First Setup Activity */
 
-    /*START API SERVER*/
+       /* First Setup Activity */
 
-    public static final String URL_SERVER = "http://api.alicenote.com";
-    public static final String API_LOGIN = "/v1/users/login";
-    public static final String API_SOCIAL_LOGIN = "/v1/users/social-login";
-    public static final String API_SIGNUP = "/v1/users/register";
+    public static final String DASHBOARD_SCREEN = "screen.dashboard";
 
-    /*END API SERVER*/
+
+    /* End of First Setup Activity */
+
 }

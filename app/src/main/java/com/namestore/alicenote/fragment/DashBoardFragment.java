@@ -16,6 +16,10 @@ import com.namestore.alicenote.adapter.DashboardCustomRecyclerViewAdapter;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.DashboardObject;
+<<<<<<< HEAD
+=======
+import com.namestore.alicenote.interfaces.RecyclerItemClickListener;
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
 import java.util.ArrayList;
 import java.util.List;

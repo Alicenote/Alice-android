@@ -1,8 +1,10 @@
-package com.namestore.alicenote.fragment;
+package com.namestore.alicenote.fragment.firstsetup;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +16,20 @@ import android.widget.TextView;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
-import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
+<<<<<<< HEAD:app/src/main/java/com/namestore/alicenote/fragment/SetupInfoSalonFragment.java
+=======
+import com.namestore.alicenote.models.FirstSetup;
+import com.namestore.alicenote.utils.AppUtils;
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82:app/src/main/java/com/namestore/alicenote/fragment/firstsetup/ShopRegisterFragment.java
 import com.namestore.alicenote.utils.ViewUtils;
 
 /**
  * Created by kienht on 10/31/16.
  */
 
-public class SetupInfoSalonFragment extends CoreFragment {
+public class ShopRegisterFragment extends CoreFragment {
 
     Button mButtonBack;
     Button mButtonNext;
@@ -36,26 +42,23 @@ public class SetupInfoSalonFragment extends CoreFragment {
     Spinner mSpinnerBsnType;
     LinearLayout linearLayout;
     private FirstSetupAcitivity firstSetupAcitivity;
-
+    FirstSetup firstSetup = new FirstSetup();
+    AppUtils appUtils;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fm_setup_info_salon, container, false);
+        View view = inflater.inflate(R.layout.fm_shop_register, container, false);
         initViews(view);
-        initModels();
         return view;
 
     }
 
-    public void configSpinner() {
-
-        String[] bussiness_type = getResources().getStringArray(R.array.bussiness_type);
-        String[] bussiness_state = getResources().getStringArray(R.array.us_states);
-
-        ViewUtils.configSpinner(getActivity(), bussiness_type, mSpinnerBsnType);
-        ViewUtils.configSpinner(getActivity(), bussiness_state, mSpinnerBsnState);
-
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initModels();
+        appUtils = new AppUtils(firstSetupAcitivity);
     }
 
     @Override
@@ -64,7 +67,6 @@ public class SetupInfoSalonFragment extends CoreFragment {
         mButtonNext = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_next);
 
         mTextViewTitle = (TextView) view.findViewById(R.id.tile_profile_setup).findViewById(R.id.title_first_setup);
-
 
         mEditTexBsnName = (EditText) view.findViewById(R.id.editText_bussiness_name);
         mEditTexBsnCity = (EditText) view.findViewById(R.id.editText_bussiness_city);
@@ -92,11 +94,21 @@ public class SetupInfoSalonFragment extends CoreFragment {
         configSpinner();
     }
 
+
+    public void configSpinner() {
+        String[] bussiness_type = getResources().getStringArray(R.array.bussiness_type);
+        String[] bussiness_state = getResources().getStringArray(R.array.us_states);
+
+        ViewUtils.configSpinner(getActivity(), bussiness_type, mSpinnerBsnType);
+        ViewUtils.configSpinner(getActivity(), bussiness_state, mSpinnerBsnState);
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof StartActivity) {
+        if (context instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
     }
@@ -105,19 +117,47 @@ public class SetupInfoSalonFragment extends CoreFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if (activity instanceof StartActivity) {
+        if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
         }
     }
+
+    public boolean checkEmpty(String... strings) {
+        boolean isEmpty = false;
+        for (String string : strings) {
+            if ((TextUtils.isEmpty(string))) {
+                isEmpty = true;
+                return isEmpty;
+            }
+        }
+        return isEmpty;
+    }
+
 
     @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.button_next:
-                if (mActivity instanceof OnFirstSetupActivityListener) {
-                    ((OnFirstSetupActivityListener) mActivity).showTimeOpenDoorSalon();
+                if (firstSetupAcitivity != null) {
+                    firstSetup = firstSetupAcitivity.getFirstSetup();
+                    firstSetup.bussinessName = mEditTexBsnName.getText().toString();
+                    firstSetup.bussinessType = mSpinnerBsnType.getSelectedItem().toString();
+                    firstSetup.state = mSpinnerBsnState.getSelectedItem().toString();
+                    firstSetup.city = mEditTexBsnCity.getText().toString();
+                    firstSetup.postCode = mEditTexBsnPostCode.getText().toString();
+                    firstSetup.address = mEditTexBsnAddress.getText().toString();
+
+                    if (checkEmpty(firstSetup.bussinessName, firstSetup.bussinessType,
+                            firstSetup.state, firstSetup.city, firstSetup.postCode, firstSetup.address)) {
+                        appUtils.showNoticeDialog("Please filling in the blanks");
+                    } else {
+                        if (mActivity instanceof OnFirstSetupActivityListener) {
+                            ((OnFirstSetupActivityListener) mActivity).showTimeOpenDoorSalon();
+                        }
+                    }
                 }
+
                 break;
         }
     }

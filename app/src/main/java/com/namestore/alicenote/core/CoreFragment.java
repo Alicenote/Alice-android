@@ -2,8 +2,14 @@ package com.namestore.alicenote.core;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
+import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 
 
 /**
@@ -13,6 +19,7 @@ import android.view.View;
 public abstract class CoreFragment extends Fragment implements View.OnClickListener {
 
     protected CoreActivity mActivity;
+    public OnFragmentInteractionListener onFragmentInteractionListener;
 
     protected abstract void initViews(View view);
 
@@ -22,12 +29,25 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (CoreActivity) getActivity();
+
+        try {
+            onFragmentInteractionListener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mActivity = (CoreActivity) getActivity();
+        try {
+            onFragmentInteractionListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Override

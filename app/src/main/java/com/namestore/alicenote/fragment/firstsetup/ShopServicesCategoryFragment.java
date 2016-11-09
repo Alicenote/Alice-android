@@ -1,4 +1,4 @@
-package com.namestore.alicenote.fragment;
+package com.namestore.alicenote.fragment.firstsetup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,9 +16,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.MainServiceAdapter;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.MainServices;
 import com.namestore.alicenote.utils.AppUtils;
 
@@ -28,21 +26,21 @@ import java.util.ArrayList;
  * Created by kienht on 10/26/16.
  */
 
-public class PickSalonServiceFragment extends CoreFragment {
+public class ShopServicesCategoryFragment extends CoreFragment {
 
     Button mButtonBack;
     Button mButtonNext;
     TextView mTextViewTitle;
     ListView mListViewImageService;
     private FirstSetupAcitivity firstSetupAcitivity;
+    AppUtils appUtils = new AppUtils(getActivity());
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fm_pick_salon_service, container, false);
+        View view = inflater.inflate(R.layout.fm_shop_services_category, container, false);
         initViews(view);
-        initModels();
         return view;
     }
 
@@ -50,25 +48,9 @@ public class PickSalonServiceFragment extends CoreFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initModels();
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
-    }
 
     @Override
     protected void initViews(View view) {
@@ -111,15 +93,32 @@ public class PickSalonServiceFragment extends CoreFragment {
                         }
                         break;
                     case 2:
-                        AppUtils.showShortToast(getActivity(),"BEAUTY SERVICE");
+                        appUtils.showShortToast("BEAUTY SERVICE");
                         break;
                     case 3:
-                        AppUtils.showShortToast(getActivity(),"COMMING SOON SERVICE");
+                        appUtils.showShortToast("COMMING SOON SERVICE");
                         break;
                 }
             }
         });
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
+        }
     }
 
     @Override
