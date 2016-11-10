@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,20 +22,30 @@ import android.widget.Button;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.core.CoreActivity;
+import com.namestore.alicenote.fragment.ClientFragment;
 import com.namestore.alicenote.fragment.DashBoardFragment;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 
 
 import static com.namestore.alicenote.data.Constants.NUM_PAGES;
 
+<<<<<<< HEAD
+public class MainActivity extends CoreActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
+=======
 public class MainActivity extends CoreActivity implements View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener,
         OnFragmentInteractionListener {
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
     private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
+<<<<<<< HEAD
+    private ClientFragment mClientFragment = new ClientFragment();
+=======
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +58,63 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
-  /*      btnDashBoard = (Button) findViewById(R.id.btnDashBoard);
+        btnDashBoard = (Button) findViewById(R.id.btnDashBoard);
         btnCalendar = (Button) findViewById(R.id.btnCalendar);
         btnClient = (Button) findViewById(R.id.btnClient);
         btnService = (Button) findViewById(R.id.btnService);
-        btnMore = (Button) findViewById(R.id.btnMore);*/
+        btnMore = (Button) findViewById(R.id.btnMore);
+
+        btnClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showClientFragment();
+
+            }
+        });
+        btnDashBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDashBoardFragment();
+
+            }
+        });
+
+        btnCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCalendarFragment();
+
+            }
+        });
+
+        btnClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showClientFragment();
+
+            }
+        });
+
+        btnService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showServiceFragment();
+
+<<<<<<< HEAD
+            }
+        });
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMoreFragment();
+
+            }
+        });
 
 
+=======
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -66,27 +127,37 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
     }
 
     public void showDashBoardFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+        mPager.setCurrentItem(0);
 
     }
+<<<<<<< HEAD
+=======
 
     public void showClientFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
+    public void showClientFragment() {
+        mPager.setCurrentItem(1);
     }
+<<<<<<< HEAD
+=======
 
     public void showServiceFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
 
+    public void showServiceFragment() {
+        mPager.setCurrentItem(2);
     }
 
     public void showCalendarFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+        mPager.setCurrentItem(3);
 
     }
 
     public void showMoreFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+        mPager.setCurrentItem(4);
 
     }
 
@@ -107,7 +178,21 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
 
         @Override
         public Fragment getItem(int position) {
-            return new DashBoardFragment();
+            switch (position) {
+                case 0: // Fragment # 0 - This will show FirstFragment
+                    return new DashBoardFragment();
+                case 1: // Fragment # 1 - This will show SecondFragment
+                    return new ClientFragment();
+                case 2:
+                    return new DashBoardFragment();
+                case 3:
+                    return new ClientFragment();
+                case 4:
+                    return new DashBoardFragment();
+
+                default:
+                    return null;
+            }
         }
 
         @Override
@@ -178,6 +263,7 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
         switch (view.getId()) {
             case R.id.btnCalendar:
                 showCalendarFragment();
+                Log.w("dasdfaf", "fasdfsaf");
             case R.id.btnClient:
                 showClientFragment();
             case R.id.btnDashBoard:

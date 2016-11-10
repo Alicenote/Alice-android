@@ -19,9 +19,19 @@ public class Constants {
 
     /* LoginSignup Activity */
 
+<<<<<<< HEAD
+    //click only
+    public static final int NUM_PAGES = 4;
+=======
     public static final int NUM_PAGES = 5;
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82
     public static final int KEY_LOGIN = 0;
     public static final int KEY_SIGNUP = 1;
+    public static final String KEY_CHECK_CLIENT = "client.check";
+    public static final String ADD_CLIENT = "client.add";
+    public static final String VIEW_CLIENT = "client.add";
+    public static final String EDIT_CLIENT = "client.add";
+    public static final String DEL_CLIENT = "client.add";
     public static final String LOGIN_SIGNUP_SCREEN = "screen.login.signup";
     public static final String LOGIN_FRAGMENT = "FragmentLogin.Login";
     public static final String SIGNUP_FRAGMENT = "FragmentSignup.Login";

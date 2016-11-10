@@ -18,8 +18,11 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
+<<<<<<< HEAD:app/src/main/java/com/namestore/alicenote/fragment/SetupInfoSalonFragment.java
+=======
 import com.namestore.alicenote.models.FirstSetup;
 import com.namestore.alicenote.utils.AppUtils;
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82:app/src/main/java/com/namestore/alicenote/fragment/firstsetup/ShopRegisterFragment.java
 import com.namestore.alicenote.utils.ViewUtils;
 
 /**

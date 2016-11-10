@@ -84,7 +84,11 @@ public class NailServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
+<<<<<<< HEAD:app/src/main/java/com/namestore/alicenote/fragment/NailServicesFragment.java
+        ViewUtils.configEditText(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
+=======
         ViewUtils.configEditText(getActivity(), mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
+>>>>>>> a86ee7874173290eebb604c3987ab7530e03ac82:app/src/main/java/com/namestore/alicenote/fragment/firstsetup/NailServicesFragment.java
 
         nailServicesArrayList = new ArrayList<>();
 
