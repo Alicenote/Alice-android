@@ -5,10 +5,8 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.namestore.alicenote.activity.MainActivity"
+    tools:context=".ui.home.MainActivity"
     tools:showIn="@layout/item_main_app_bar">
 
     <android.support.v4.view.ViewPager
@@ -16,59 +14,66 @@
         android:id="@+id/viewPagerMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayoutButton"/>
+        android:layout_above="@+id/layout_scroll_buttons"
+        />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutButton"
-        android:orientation="horizontal"
+    <HorizontalScrollView
+        android:id="@+id/layout_scroll_buttons"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:weightSum="10"
+        android:scrollbars="none"
+        android:overScrollMode="never"
         >
-
-
-        <Button
-            android:text="DashBoard"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayoutButton"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
             android:layout_height="wrap_content"
-            android:textSize="7dp"
-            android:id="@+id/btnDashBoard"
-            android:layout_weight="2" />
+            style="?android:attr/buttonBarStyle"
+            >
 
-        <Button
-            android:text="Calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnCalendar"
-            android:textSize="7dp"
-            android:layout_weight="2"  />
+            <Button
+                android:id="@+id/btnDashBoard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DashBoard"
+                style="?android:attr/buttonBarButtonStyle"
+                />
 
-        <Button
-            android:text="Client"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="7dp"
+            <Button
+                android:id="@+id/btnCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calendar"
+                style="?android:attr/buttonBarButtonStyle"
+                />
 
-            android:id="@+id/btnClient"
-            android:layout_weight="2" />
+            <Button
+                android:id="@+id/btnClient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Client"
+                style="?android:attr/buttonBarButtonStyle"
+                />
 
-        <Button
-            android:text="Service"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="7dp"
-            android:id="@+id/btnService"
-            android:layout_weight="2"  />
-        <Button
-            android:text="more"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="7dp"
-            android:id="@+id/btnMore"
-            android:layout_weight="2"  />
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Service"
+                style="?android:attr/buttonBarButtonStyle"
+                />
+            <Button
+                android:id="@+id/btnMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="more"
+                style="?android:attr/buttonBarButtonStyle"
+                />
+        </LinearLayout>
+    </HorizontalScrollView>
 
 
 </RelativeLayout>

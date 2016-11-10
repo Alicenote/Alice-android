@@ -1,7 +1,8 @@
 <resources>
+    <attr name="layout_height" format="dimension"/>
     <string name="app_name">AliceNote</string>
 
-    <string name="facebook_app_id">513017002219486</string>
+    <string name="facebook_app_id">563635057157680</string>
 
     <string-array name="hour_open">
         <item>Pick hour</item>
@@ -321,5 +322,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_start_activity">StartActivity</string>
 
 </resources>
