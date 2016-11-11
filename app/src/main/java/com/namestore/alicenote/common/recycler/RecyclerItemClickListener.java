@@ -3,6 +3,7 @@ package com.namestore.alicenote.common.recycler;
 /**
  * Created by Nhocnhinho on 1/13/2016.
  */
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;

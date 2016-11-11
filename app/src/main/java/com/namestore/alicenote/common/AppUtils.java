@@ -1,6 +1,7 @@
 package com.namestore.alicenote.common;
 
 import android.app.Activity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -48,6 +49,20 @@ public class AppUtils {
     public static void showNoticeDialog(Activity activity, String string) {
         DialogNotice dialogNotice = new DialogNotice();
         dialogNotice.showDialog(activity, string);
+    }
+
+    public static int getWidthScreen(Activity activity) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        return width;
+    }
+
+    public static int getHeightScreen(Activity activity) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int height = metrics.heightPixels;
+        return height;
     }
 
 }

@@ -92,11 +92,6 @@ public class LoginFragment extends BaseFragment {
         ViewUtils.configEditText(getActivity(), mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
     }
 
-    public void setHintEdittex(String email, String password) {
-        mEditTexEmail.setHint(email);
-        mEditTexPassword.setHint(password);
-    }
-
     public void setTextViewIncorrect(String text) {
         mTextViewIncorrect.setVisibility(View.VISIBLE);
         mTextViewIncorrect.setText(text);
@@ -149,11 +144,11 @@ public class LoginFragment extends BaseFragment {
                 break;
 
             case R.id.textview_forgot_pass:
-                AppUtils.showShortToast(getActivity(),Constants.FORGOT_PASS);
+                AppUtils.showShortToast(getActivity(), Constants.FORGOT_PASS);
                 break;
 
             case R.id.textview_report_error_login:
-                AppUtils.showShortToast(getActivity(),Constants.REPORT_ERROR);
+                AppUtils.showShortToast(getActivity(), Constants.REPORT_ERROR);
                 break;
 
             case R.id.button_facebook_login:
@@ -165,7 +160,7 @@ public class LoginFragment extends BaseFragment {
                 break;
 
             case R.id.textview_contact:
-                AppUtils.showShortToast(getActivity(),Constants.CONTACT_ALICE);
+                AppUtils.showShortToast(getActivity(), Constants.CONTACT_ALICE);
                 break;
 
             case R.id.textview_signup:

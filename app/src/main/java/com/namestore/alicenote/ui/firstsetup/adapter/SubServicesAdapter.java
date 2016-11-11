@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.models.SubServicesObj;
 

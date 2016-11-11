@@ -69,4 +69,11 @@ public class Constants {
 
     /* End of First Setup Activity */
 
+       /* First Setup Activity */
+
+    public static final String ART_SCREEN = "screen.art";
+
+
+    /* End of First Setup Activity */
+
 }

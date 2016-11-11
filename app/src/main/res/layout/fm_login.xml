@@ -86,6 +86,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:theme="@style/MySwitch"
             android:checked="false"
             android:text="Remember me" />
 

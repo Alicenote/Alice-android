@@ -14,7 +14,7 @@ public class BaseResponse implements Serializable {
 
     @SerializedName("status")
     @Expose
-    private int status;
+    protected int status;
 
     public int getStatus() {
         return status;
@@ -22,7 +22,7 @@ public class BaseResponse implements Serializable {
 
     @SerializedName("errors")
     @Expose
-    private JsonObject errors;
+    protected JsonObject errors;
 
     public JsonObject getErrors() {
         return errors;

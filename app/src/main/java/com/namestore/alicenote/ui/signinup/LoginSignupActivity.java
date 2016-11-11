@@ -39,6 +39,7 @@ import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.ui.signinup.fragment.FillFullInforUserFragment;
 import com.namestore.alicenote.ui.signinup.fragment.LoginFragment;
 import com.namestore.alicenote.ui.signinup.fragment.SignUpFragment;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,10 +56,11 @@ import retrofit2.Response;
 public class LoginSignupActivity extends BaseActivity
         implements OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
 
-    public final static int ERROR = 0;
     public final static int SUCCESS = 1;
-    public final static int LOGED = 2;
-    public final static int FIRST_LOGIN = 3;
+    public final static int LOGIN_ERROR = 100;
+    public final static int REGISTER_ERROR = 101;
+    public final static int LOGED = 102;
+    public final static int FIRST_LOGIN = 103;
     private static final int RC_SIGN_IN = 9001;
 
     private AccessTokenTracker mAccessTokenTracker;
@@ -329,19 +331,9 @@ public class LoginSignupActivity extends BaseActivity
                 if (response.isSuccessful()) {
                     prgDialog.hide();
                     switch (response.body().getStatus()) {
-                        case ERROR:
-                            if (response.body().getErrors().has("email")) {
-                                String emailBlank = response.body().getErrors().get("email").getAsString();
-                                String passwordBlank = response.body().getErrors().get("password_hash").getAsString();
-                                if (mLoginFragment != null) {
-                                    mLoginFragment.setHintEdittex(emailBlank, passwordBlank);
-                                }
-                            } else {
-                                String incorrect = response.body().getErrors().get("password_hash").getAsString();
-                                if (mLoginFragment != null) {
-                                    mLoginFragment.setTextViewIncorrect(incorrect);
-                                }
-                            }
+                        case LOGIN_ERROR:
+
+
                             break;
                         case SUCCESS:
                             moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
@@ -378,7 +370,7 @@ public class LoginSignupActivity extends BaseActivity
                 prgDialog.hide();
                 if (response.isSuccessful()) {
                     switch (response.body().getStatus()) {
-                        case ERROR:
+                        case REGISTER_ERROR:
 
                             break;
 

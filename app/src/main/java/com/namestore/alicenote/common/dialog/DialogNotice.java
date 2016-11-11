@@ -3,8 +3,11 @@ package com.namestore.alicenote.common.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,11 +21,14 @@ import com.namestore.alicenote.R;
 public class DialogNotice {
 
     public void showDialog(Activity activity, String msg) {
-        final Dialog dialog = new Dialog(activity);
+        final Dialog dialog = new Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_notice);
-
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        
         TextView text = (TextView) dialog.findViewById(R.id.tvDialogContent);
         text.setText(msg);
 
