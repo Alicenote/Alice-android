@@ -61,7 +61,7 @@ public class LoginSignupActivity extends BaseActivity
     public final static int REGISTER_ERROR = 101;
     public final static int LOGED = 102;
     public final static int FIRST_LOGIN = 103;
-    private static final int RC_SIGN_IN = 9001;
+    private static final int GOOGLE_SIGN_IN = 9001;
 
     private AccessTokenTracker mAccessTokenTracker;
     private CallbackManager mCallbackManagerFb;
@@ -152,7 +152,7 @@ public class LoginSignupActivity extends BaseActivity
                                 //AccessToken mAccessToken = loginResult.getAccessToken();
                                 // PrefUtils.getInstance(LoginScreen.this).set(PrefUtils.KEY_ACCESS_TOKEN_FB, mAccessToken.getToken());
                                 getUserInfoFromFb();
-
+                                setPrgDialog("Loging");
                             }
 
                             @Override
@@ -198,7 +198,7 @@ public class LoginSignupActivity extends BaseActivity
                     }
                     mUser.passwordHash = "";
                     mUser.telephone = "";
-
+                    prgDialog.dismiss();
                     showFillInforUserView();
 
                 } catch (JSONException e) {
@@ -213,7 +213,7 @@ public class LoginSignupActivity extends BaseActivity
     }
 
     public void getUserInfoFromGooglePlus(int requestCode, Intent data) {
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == GOOGLE_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 // Signed in successfully, show authenticated UI.
@@ -280,7 +280,7 @@ public class LoginSignupActivity extends BaseActivity
                 break;
             case Constants.LOGIN_GOOGLE:
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+                startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
                 break;
         }
     }
@@ -332,7 +332,6 @@ public class LoginSignupActivity extends BaseActivity
                     prgDialog.hide();
                     switch (response.body().getStatus()) {
                         case LOGIN_ERROR:
-
 
                             break;
                         case SUCCESS:

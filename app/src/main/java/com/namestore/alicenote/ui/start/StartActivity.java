@@ -47,11 +47,11 @@ public class StartActivity extends BaseActivity implements OnFragmentInteraction
         mButtonLogin.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-        Intent mIntent = new Intent(StartActivity.this, ArtGroupActivity.class);
-        mIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, Constants.SETUP_INFO_SALON);
-        startActivity(mIntent);
-        finish();
+//        Intent mIntent = new Intent(StartActivity.this, ArtGroupActivity.class);
+//        mIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, Constants.SETUP_INFO_SALON);
+//        startActivity(mIntent);
+//        finish();
     }
 
     @Override

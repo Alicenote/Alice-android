@@ -111,7 +111,6 @@ public class SubArtActivity extends BaseActivity implements ArtGroupAdapter.OnAr
         dialogCreatArt.setCancelable(false);
 
         LinearLayout linearLayout = (LinearLayout) dialogCreatArt.findViewById(R.id.linear_layout);
-        linearLayout.setFocusable(true);
         linearLayout.setFocusableInTouchMode(true);
 
         TextView mTitle = (TextView) dialogCreatArt.findViewById(R.id.action_bar).findViewById(R.id.textview_title);
@@ -182,7 +181,6 @@ public class SubArtActivity extends BaseActivity implements ArtGroupAdapter.OnAr
         dialogEditArt.setCancelable(false);
 
         LinearLayout linearLayout = (LinearLayout) dialogEditArt.findViewById(R.id.linear_layout);
-        linearLayout.setFocusable(true);
         linearLayout.setFocusableInTouchMode(true);
 
         TextView mTitle = (TextView) dialogEditArt.findViewById(R.id.action_bar).findViewById(R.id.textview_title);

@@ -5,6 +5,7 @@ import android.content.Context;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -45,6 +46,7 @@ public class FillFullInforUserFragment extends BaseFragment {
     LinearLayout linearLayout;
     UserObj mUser = new UserObj();
     private LoginSignupActivity loginSignupActivity;
+    TextInputLayout mInputPassword;
 
     @Nullable
     @Override
@@ -70,17 +72,19 @@ public class FillFullInforUserFragment extends BaseFragment {
         mEditTextFirstName = (EditText) view.findViewById(R.id.fill_infouser_form).findViewById(R.id.edittext_signup_first_name);
         mEditTextLastName = (EditText) view.findViewById(R.id.fill_infouser_form).findViewById(R.id.edittext_signup_last_name);
         mSpinnerGender = (Spinner) view.findViewById(R.id.fill_infouser_form).findViewById(R.id.spinner_signup_gender);
+        mInputPassword = (TextInputLayout) view.findViewById(R.id.fill_infouser_form).findViewById(R.id.input_password);
     }
 
     @Override
     protected void initModels() {
-        linearLayout.setFocusable(true);
+        linearLayout.setFocusableInTouchMode(true);
         mButtonOk.setOnClickListener(this);
         mEditTextPassword.setVisibility(View.GONE);
-        ViewUtils.configEditText(getActivity(), mEditTextEmail, linearLayout, "Email", R.drawable.icon_email, null);
-        ViewUtils.configEditText(getActivity(), mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email, null);
-        ViewUtils.configEditText(getActivity(), mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email, null);
-        ViewUtils.configEditText(getActivity(), mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email, null);
+        mInputPassword.setVisibility(View.GONE);
+        ViewUtils.configEditText(getActivity(), mEditTextEmail, linearLayout, "", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextPhone, linearLayout, "", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextFirstName, linearLayout, "", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextLastName, linearLayout, "", R.drawable.icon_email, null);
 
         String[] gender = getResources().getStringArray(R.array.gender);
         ViewUtils.configSpinner(getActivity(), gender, mSpinnerGender);
@@ -169,12 +173,10 @@ public class FillFullInforUserFragment extends BaseFragment {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.button_ok:
-
                 mUser.firstName = mEditTextFirstName.getText().toString();
                 mUser.lastName = mEditTextLastName.getText().toString();
                 mUser.email = mEditTextEmail.getText().toString();
                 mUser.telephone = mEditTextPhone.getText().toString();
-
 
                 if (mSpinnerGender.getSelectedItem().toString().equals("Male")) {
                     mUser.gender = SignUpFragment.GENDER_MALE;
