@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
 import com.namestore.alicenote.database.Contact;
 import com.namestore.alicenote.database.DatabaseHandler;
 import com.namestore.alicenote.R;
@@ -83,7 +84,7 @@ public class ClientFragment extends BaseFragment {
     @Override
     protected void initModels() {
         mRecyclerViewSearchBox.addOnItemTouchListener(
-                new OnFragmentInteractionListener.RecyclerItemClickListener(getContext(), new OnFragmentInteractionListener.RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
 

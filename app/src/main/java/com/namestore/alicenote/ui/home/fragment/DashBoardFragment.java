@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
 import com.namestore.alicenote.ui.home.adapter.DashboardCustomRecyclerViewAdapter;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
@@ -32,17 +33,16 @@ public class DashBoardFragment extends BaseFragment {
     private int checkHideUpComming, checkHideThisWeek;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         View view = inflater.inflate(R.layout.fm_dashboard, container, false);
         initViews(view);
         initModels();
         return view;
     }
+
     @Override
     protected void initViews(View view) {
 
@@ -58,10 +58,6 @@ public class DashBoardFragment extends BaseFragment {
         recyclerListViewThisWeek.setHasFixedSize(true);
 
     }
-
-
-
-
 
     @Override
     protected void initModels() {
@@ -82,7 +78,7 @@ public class DashBoardFragment extends BaseFragment {
         recyclerListViewUpComming.setAdapter(adapter);
 
         recyclerListViewUpComming.addOnItemTouchListener(
-                new OnFragmentInteractionListener.RecyclerItemClickListener(getContext(), new OnFragmentInteractionListener.RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
 
@@ -105,7 +101,6 @@ public class DashBoardFragment extends BaseFragment {
         });
 
 
-
         for (int i = 0; i < 6; i++) {
             DashboardObj apk = new DashboardObj(0, null, null, null, null, null);
             apk.setTvNameSevice("Classic Manicure");
@@ -121,7 +116,7 @@ public class DashBoardFragment extends BaseFragment {
         DashboardCustomRecyclerViewAdapter adapterThisWeek = new DashboardCustomRecyclerViewAdapter(getContext(), listViewContactThisWeek);
         recyclerListViewThisWeek.setAdapter(adapterThisWeek);
         recyclerListViewThisWeek.addOnItemTouchListener(
-                new OnFragmentInteractionListener.RecyclerItemClickListener(getContext(), new OnFragmentInteractionListener.RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
 
