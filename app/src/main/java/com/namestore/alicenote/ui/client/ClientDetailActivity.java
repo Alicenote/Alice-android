@@ -3,10 +3,12 @@ package com.namestore.alicenote.ui.client;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.client.fragment.AddClientFragment;
@@ -17,7 +19,7 @@ import com.namestore.alicenote.ui.client.interfaces.OnClientDetailListener;
 import java.util.ArrayList;
 
 public class ClientDetailActivity extends BaseActivity
-        implements View.OnClickListener, OnClientDetailListener {
+        implements View.OnClickListener, OnClientDetailListener, OnFragmentInteractionListener{
     ArrayList<BaseFragment> fragments = new ArrayList<>();
   //  private ClientFragment mClientFragment;
     private AddClientFragment mAddClientFragment;
@@ -32,29 +34,31 @@ public class ClientDetailActivity extends BaseActivity
 
         setContentView(R.layout.activity_client_detail);
 
-        mAddClientFragment = new AddClientFragment();
+        /*mAddClientFragment = new AddClientFragment();
     //    mClientFragment= new ClientFragment();
-        mDelClientFragment =new DelClientFragment();
+       *//* mDelClientFragment =new DelClientFragment();
         mEditClientFragment =new EditClientFragment();
-        mViewClientFragment =new ViewClientFragment();
+        mViewClientFragment =new ViewClientFragment();*//*
         fragments.add(mAddClientFragment);
     //    fragments.add(mClientFragment);
-        fragments.add(mDelClientFragment);
+        *//*fragments.add(mDelClientFragment);
         fragments.add(mEditClientFragment);
-        fragments.add(mViewClientFragment);
+        fragments.add(mViewClientFragment);*//*
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, mAddClientFragment)
+                .add(R.id.container1, mAddClientFragment)
            //     .add(R.id.container, mClientFragment)
-                .add(R.id.container, mDelClientFragment)
+  *//*              .add(R.id.container, mDelClientFragment)
                 .add(R.id.container, mEditClientFragment)
-                .add(R.id.container, mViewClientFragment)
+                .add(R.id.container, mViewClientFragment)*//*
 
-                .commit();
+                .commit();*/
 
         if (getIntent().getExtras()
                 .getString(Constants.KEY_CHECK_CLIENT)
                 .equalsIgnoreCase(Constants.ADD_CLIENT)) {
-            showFragment(mAddClientFragment);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new AddClientFragment()).commit();
+
         }
         if (getIntent().getExtras()
                 .getString(Constants.KEY_CHECK_CLIENT)
@@ -94,7 +98,8 @@ public class ClientDetailActivity extends BaseActivity
 
     @Override
     public void showAddClient() {
-        showFragment(mAddClientFragment);
+      //  showFragment(mAddClientFragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mAddClientFragment).commit();
 
     }
 
@@ -123,5 +128,15 @@ public class ClientDetailActivity extends BaseActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_add_client, menu);
         return true;
+    }
+
+    @Override
+    public void onViewClick(String tag) {
+
+    }
+
+    @Override
+    public void onViewClick(String tag, Object object) {
+
     }
 }

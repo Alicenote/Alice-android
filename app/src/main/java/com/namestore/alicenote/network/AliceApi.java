@@ -1,8 +1,11 @@
 package com.namestore.alicenote.network;
 
+import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.models.UserObj;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -24,5 +27,10 @@ public interface AliceApi {
     @POST(Constants.API_SOCIAL_LOGIN)
     Call<LoginSignupResponse> socialLogin(@Body UserObj user);
 
+    @POST(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
+    Call<DashBoardRespone> searchWeekAppointment();
+
+    @POST(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
+    Call<DashBoardRespone> searchUpCommingAppointment();
 }
 

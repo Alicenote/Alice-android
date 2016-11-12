@@ -18,11 +18,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
+import com.namestore.alicenote.models.DashboardObj;
+import com.namestore.alicenote.network.AliceApi;
+import com.namestore.alicenote.network.Authorization;
+import com.namestore.alicenote.network.ServiceDashBoardGenerator;
+import com.namestore.alicenote.network.ServiceGenerator;
+import com.namestore.alicenote.network.reponse.DashBoardRespone;
+import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.ui.BaseActivity;
-import com.namestore.alicenote.ui.client.fragment.ClientFragment;
+import com.namestore.alicenote.ui.client.fragment.AddClientFragment;
+import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
+import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
+import com.namestore.alicenote.ui.signinup.LoginSignupActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
 
@@ -34,6 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private PagerAdapter mPagerAdapter;
     private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
     private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +119,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             }
         });
 
+
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -109,6 +133,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         navigationView.setNavigationItemSelectedListener(this);
 
     }
+
+
+
+
+
+
 
     public void showDashBoardFragment() {
         mPager.setCurrentItem(0);
@@ -154,7 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 case 0: // Fragment # 0 - This will show FirstFragment
                     return new DashBoardFragment();
                 case 1: // Fragment # 1 - This will show SecondFragment
-                    return new ClientFragment();
+                    return new AddClientFragment();
                 case 2:
                     return new DashBoardFragment();
                 case 3:
@@ -234,7 +264,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnCalendar:
-                showCalendarFragment();
+                showCalendarFragment(); // e ko hieu implement onclick roi ma sao ko click dc ha anh
                 Log.w("dasdfaf", "fasdfsaf");
             case R.id.btnClient:
                 showClientFragment();
