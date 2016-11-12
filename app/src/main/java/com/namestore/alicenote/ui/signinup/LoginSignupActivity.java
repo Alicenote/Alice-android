@@ -24,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.network.Authorization;
 import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
@@ -74,6 +75,7 @@ public class LoginSignupActivity extends BaseActivity
     private ProgressDialog prgDialog;
     private GoogleApiClient mGoogleApiClient;
     AccessToken mAccessToken;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

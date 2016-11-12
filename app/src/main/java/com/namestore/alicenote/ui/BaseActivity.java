@@ -37,4 +37,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

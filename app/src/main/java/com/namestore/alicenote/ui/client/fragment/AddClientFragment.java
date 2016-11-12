@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class AddClientFragment extends BaseFragment {
             edStreetAdress, edAddressLine2, edCity, edState, edCountry, edComment;
     private String textFistName, textLastName, textName, textBirthday, textEmail, textMobilePhone, textWorkPhone,
             textPhone, textAddress, textStreetAdress, textAddressLine2, textCity, textState, textCountry, textComment;
+    private Button mButtonSave;
     private DatabaseHandler db;
 
     @Override
@@ -51,12 +53,19 @@ public class AddClientFragment extends BaseFragment {
         edState = (EditText) view.findViewById(R.id.edState);
         edCountry = (EditText) view.findViewById(R.id.edCountry);
         edComment = (EditText) view.findViewById(R.id.edComment);
+        mButtonSave = (Button) view.findViewById(R.id.btnSave);
     }
 
     @Override
     protected void initModels() {
 
-
+mButtonSave.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        getTextFromEditText();
+        getActivity().finish();
+    }
+});
 
     }
     public void getTextFromEditText() {

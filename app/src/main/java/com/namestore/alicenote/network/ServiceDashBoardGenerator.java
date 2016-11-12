@@ -16,11 +16,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by kienht on 11/4/16.
+ * Created by nhocnhinho on 12/11/2016.
  */
 
-public class ServiceGenerator {
-
+public class ServiceDashBoardGenerator {
     public static <S> S creatService(Class<S> serviceClass) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
@@ -33,9 +32,8 @@ public class ServiceGenerator {
                     public Response intercept(Interceptor.Chain chain) throws IOException {
                         Request request = chain.request()
                                 .newBuilder()
-                                .addHeader("Content-Type", "application/json")
                                 .addHeader("Accept", "application/json")
-                                .addHeader("token", "JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
+                                .addHeader("token","JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
                                 .build();
                         return chain.proceed(request);
                     }
@@ -49,5 +47,6 @@ public class ServiceGenerator {
                 .build();
         return retrofit.create(serviceClass);
     }
+
 
 }

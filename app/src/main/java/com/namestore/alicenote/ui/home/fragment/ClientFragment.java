@@ -1,4 +1,4 @@
-package com.namestore.alicenote.ui.client.fragment;
+package com.namestore.alicenote.ui.home.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +42,7 @@ public class ClientFragment extends BaseFragment {
     private List<ClientObj> listViewObjects = new ArrayList<>();
     private RecyclerView mRecyclerViewSearchBox;
     private String KEY="client.add";
+    private int i=0;
 
 
     @Override
@@ -59,25 +60,28 @@ public class ClientFragment extends BaseFragment {
 
         db = new DatabaseHandler(getContext());
         List<Contact> contactsList = db.getAllContacts();
+
+        mSearchBox = (SearchBox) view.findViewById(R.id.searchbox);
+        mSearchBox.enableVoiceRecognition(this);
+        mSearchBox.setOverflowMenu(R.menu.overflow_menu);
+
         for (Contact cn : contactsList) {
             ClientObj apk = new ClientObj(null);
             apk.setTvName(cn.getName());
             listViewObjects.add(apk);
         }
         for (Contact cn : contactsList) {
+
             SearchResult option = new SearchResult(cn.getName(), getResources().getDrawable(R.drawable.ic_history));
             mSearchBox.addSearchable(option);
         }
-
         mRecyclerViewSearchBox = (RecyclerView) view.findViewById(R.id.recyclerViewSearchBox);//listview cua upcoming
         mRecyclerViewSearchBox.setLayoutManager(new LinearLayoutManager(getContext()));// de xuat hien dc recyclerview trong crollview
         mRecyclerViewSearchBox.setHasFixedSize(true);
         ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), listViewObjects);
         mRecyclerViewSearchBox.setAdapter(adapter);
 
-        mSearchBox = (SearchBox) view.findViewById(R.id.searchbox);
-        mSearchBox.enableVoiceRecognition(this);
-        mSearchBox.setOverflowMenu(R.menu.overflow_menu);
+
 
     }
 
@@ -157,5 +161,23 @@ public class ClientFragment extends BaseFragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+public void UpdateRecycleView(){
+    db = new DatabaseHandler(getContext());
+    List<Contact> contactsList = db.getAllContacts();
+    listViewObjects.clear();
+    for (Contact cn : contactsList) {
+        ClientObj apk = new ClientObj(null);
+        apk.setTvName(cn.getName());
+        listViewObjects.add(apk);
+    }
+    ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), listViewObjects);
+    adapter.notifyDataSetChanged();
+    mRecyclerViewSearchBox.setAdapter(adapter);
 
+}
+    @Override
+    public void onResume() {
+       UpdateRecycleView();
+        super.onResume();
+    }
 }

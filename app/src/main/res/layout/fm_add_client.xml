@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
     >
 
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
+        android:layout_height="wrap_content"
+        android:id="@+id/nestedScrollView"
+        android:layout_above="@+id/btnSave"
         android:fillViewport="true">
 
 
@@ -31,8 +32,8 @@
                 android:layout_alignParentTop="true"
                 android:gravity="center|left"
                 android:paddingLeft="32dp"
-                android:textColor="#000000"
                 android:text="Client Information"
+                android:textColor="#000000"
                 android:textStyle="bold|italic" />
 
             <LinearLayout
@@ -67,11 +68,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
-
                     android:text="First Name"
+                    android:textColor="#000000"
+
+                    android:textSize="18dp"
 
                     />
 
@@ -118,11 +119,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="Last Name"
-                    />
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/edLastName"
@@ -143,6 +143,7 @@
                 android:background="#e5e5e5"
 
                 android:orientation="horizontal"></LinearLayout>>
+
             <LinearLayout
                 android:id="@+id/linearLayoutBirthday"
 
@@ -166,11 +167,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="Birth day"
-                    />
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/edBirthday"
@@ -181,6 +181,7 @@
                     android:inputType="textPersonName"
                     android:paddingLeft="5dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/lineBirthday"
                 android:layout_width="match_parent"
@@ -190,6 +191,7 @@
                 android:background="#e5e5e5"
 
                 android:orientation="horizontal"></LinearLayout>>
+
             <TextView
                 android:id="@+id/tvClientContact"
                 android:layout_width="match_parent"
@@ -198,8 +200,8 @@
                 android:layout_marginTop="40dp"
                 android:gravity="center|left"
                 android:paddingLeft="32dp"
-                android:textColor="#000000"
                 android:text="Client Contact"
+                android:textColor="#000000"
                 android:textStyle="bold|italic" />
 
             <LinearLayout
@@ -235,11 +237,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="E-Mail"
-                    />
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/edEmail"
@@ -284,10 +285,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.3"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="Mobile Phone"
+                    android:textColor="#000000"
+                    android:textSize="18dp"
 
                     />
 
@@ -334,10 +335,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="Work Phone"
+                    android:textColor="#000000"
+                    android:textSize="18dp"
 
                     />
 
@@ -369,9 +370,9 @@
                 android:layout_below="@+id/lineWorkPhone"
                 android:layout_marginTop="40dp"
                 android:gravity="center|left"
-                android:textColor="#000000"
                 android:paddingLeft="32dp"
                 android:text="Address"
+                android:textColor="#000000"
                 android:textStyle="bold|italic" />
 
             <LinearLayout
@@ -407,12 +408,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    android:gravity="center"
-                    android:text="Street Address"
-
                     android:layout_weight="3.3"
+                    android:gravity="center"
+
+                    android:text="Street Address"
                     android:textColor="#000000"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/edStreetAdress"
@@ -457,11 +458,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.2"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="Address Line 2"
-                    />
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/edAddressLine2"
@@ -506,11 +506,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="City"
-                    />
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/edCity"
@@ -609,10 +608,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
                     android:gravity="center"
                     android:text="Country"
+                    android:textColor="#000000"
+                    android:textSize="18dp"
 
                     />
 
@@ -687,33 +686,45 @@
 
 
                     android:textColor="#000000"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp" />
 
 
             </LinearLayout>
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#e5e5e5"
-                android:layout_margin="15dp"
                 android:layout_below="@id/linearComment"
-                android:orientation="horizontal"
-                >
+                android:layout_margin="15dp"
+                android:background="#e5e5e5"
+                android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/edComment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:ems="10"
-                    android:lines="10"
-                    android:background="#FFFFFF"
                     android:layout_margin="1dp"
-                    android:minLines="5"
+                    android:background="#FFFFFF"
+                    android:ems="10"
                     android:gravity="top|left"
+                    android:lines="10"
                     android:maxLines="15"
+                    android:minLines="5"
                     android:paddingLeft="5dp" />
             </LinearLayout>
+
+
+
+
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
-    >
+    </android.support.v4.widget.NestedScrollView>>
+
+    <Button
+        android:text="Button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:id="@+id/btnSave"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
