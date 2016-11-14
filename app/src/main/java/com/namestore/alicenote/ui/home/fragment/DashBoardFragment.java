@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
 import com.namestore.alicenote.network.AliceApi;
-import com.namestore.alicenote.network.Authorization;
 
 import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
@@ -42,7 +41,6 @@ public class DashBoardFragment extends BaseFragment {
     private int checkHideUpComming, checkHideThisWeek;
     private ProgressDialog prgDialog;
     private AliceApi aliceApi;
-    private Authorization auth = new Authorization("116", "JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj");
 
 
     @Override
