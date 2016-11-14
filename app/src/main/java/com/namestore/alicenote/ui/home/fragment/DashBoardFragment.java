@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
 import com.namestore.alicenote.network.AliceApi;
 
@@ -133,68 +134,28 @@ public class DashBoardFragment extends BaseFragment {
 
     public void searchWeekAppointment() {
 
-
-        aliceApi.searchWeekAppointment(116,103).enqueue(new Callback<List<DashBoardRespone>>() {
+        aliceApi.searchWeekAppointment(116, 103).enqueue(new Callback<DashBoardRespone>() {
             @Override
-            public void onResponse(Call<List<DashBoardRespone>> call, Response<List<DashBoardRespone>> response) {
+            public void onResponse(Call<DashBoardRespone> call, Response<DashBoardRespone> response) {
 
+
+                AppUtils.logE("im here");
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < response.body().size(); i++) {
+                    AppUtils.logE("im here" + response.body().getData().get(0).getId());
 
-                        DashboardObj apk = new DashboardObj(0, null, null, null, null, null);
-                        apk.setTvNameSevice(response.body().get(i).getService());
-                        apk.setTvDate("");
-                        apk.setTvDuration(response.body().get(i).getDuration());
-                        apk.setTvNameStaff(response.body().get(i).getStaff());
-                        apk.setTvTimeStart(response.body().get(i).getStartTime());
-                        mListViewContactUpComming.add(apk);
-                        apk.setTvDate(response.body().get(i).getDate());
-                        mListViewContactThisWeek.add(apk);
-
-
-                    }
                 }
 
             }
 
             @Override
-            public void onFailure(Call<List<DashBoardRespone>> call, Throwable t) {
-
+            public void onFailure(Call<DashBoardRespone> call, Throwable t) {
+                if (call.isCanceled()) {
+                    AppUtils.logE("request was cancelled");
+                } else {
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                }
             }
         });
-
-//        aliceApi.searchWeekAppointment().enqueue(new Callback<DashBoardRespone>() {
-//            @Override
-//            public void onResponse(Call<DashBoardRespone> call, Response<DashBoardRespone> response) {
-//                Log.w("fsadfsadjfasdkfl;sj","OK LOGIN || STATUS: " + response.body().getClient() );
-//                if (response.isSuccessful()) {
-//                    prgDialog.hide();
-//                   /* for (int i = 0; i < response.body().size(); i++) {
-//
-//                        DashboardObj apk = new DashboardObj(0, null, null, null, null, null);
-//                        apk.setTvNameSevice(response.body().get(i).getService());
-//                        apk.setTvDate("");
-//                        apk.setTvDuration(response.body().get(i).getDuration());
-//                        apk.setTvNameStaff(response.body().get(i).getStaff());
-//                        apk.setTvTimeStart(response.body().get(i).getStart_time());
-//                        mListViewContactUpComming.add(apk);
-//                        apk.setTvDate(response.body().get(i).getDate());
-//                        mListViewContactThisWeek.add(apk);
-//*/
-//
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<DashBoardRespone> call, Throwable t) {
-//                if (call.isCanceled()) {
-//                    AppUtils.logE("request was cancelled");
-//                } else {
-//                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
-//                }
-//            }
-//        });
 
 
     }
@@ -202,7 +163,7 @@ public class DashBoardFragment extends BaseFragment {
     public void setPrgDialog(String text) {
         prgDialog = new ProgressDialog(getActivity());
         prgDialog.setMessage(text);
-       prgDialog.show();
+        prgDialog.show();
     }
 
 

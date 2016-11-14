@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.namestore.alicenote.network.BaseResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,139 +13,170 @@ import java.util.List;
 
 public class DashBoardRespone extends BaseResponse {
 
-    @SerializedName("id")
+    @SerializedName("totalItem")
     @Expose
-    public int id;
+    public int totalItem;
 
-    @SerializedName("client")
+    @SerializedName("data")
     @Expose
-    public String client;
+    public ArrayList<Data> data;
 
-    @SerializedName("totalPrice")
-    @Expose
-
-    public int totalPrice; // dat ten bien: totalPrice !!!!
-
-
-    @SerializedName("staff")
-    @Expose
-    public String staff;
-
-    @SerializedName("service")
-    @Expose
-    public String service;
-
-    @SerializedName("startTime")
-    @Expose
-    public String startTime;   // startTime !!
-
-    @SerializedName("duration")
-    @Expose
-    public String duration;
-
-
-    @SerializedName("date")
-    @Expose
-    public String date;
-
-    @SerializedName("update")
-    @Expose
-    public String updated;
-
-    @SerializedName("created")
-    @Expose
-    public String created;
-
-    public int getId() {
-        return id;
+    public int getTotalItem() {
+        return totalItem;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTotalItem(int totalItem) {
+        this.totalItem = totalItem;
     }
 
-    public String getClient() {
-        return client;
+    public ArrayList<Data> getData() {
+        return data;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setData(ArrayList<Data> data) {
+        this.data = data;
     }
 
+    public class Data {
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
+        @SerializedName("id")
+        @Expose
+        public int id;
 
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+        @SerializedName("client")
+        @Expose
+        public String client;
 
+        @SerializedName("totalPrice")
+        @Expose
 
-    }
-    public String getStaff() {
-        return staff;
-    }
-
-    public void setStaff(String staff) {
-        this.staff = staff;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public void setService(String service) {
-        this.service = service;
-    }
+        public int totalPrice; // dat ten bien: totalPrice !!!!
 
 
-    public String getStartTime() {
-        return startTime;
-    }
+        @SerializedName("staff")
+        @Expose
+        public String staff;
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+        @SerializedName("service")
+        @Expose
+        public String service;
 
-    }
-    public String getDuration() {
-        return duration;
-    }
+        @SerializedName("startTime")
+        @Expose
+        public String startTime;   // startTime !!
 
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreated() {
-        return created;
-    }
+        @SerializedName("duration")
+        @Expose
+        public String duration;
 
 
-    public void setCreated(String created) {
-        this.created = created;
+        @SerializedName("date")
+        @Expose
+        public String date;
 
-    }
-    public int getStatus() {
-        return mStatus;
-    }
+        @SerializedName("update")
+        @Expose
+        public String updated;
 
-    public String getErrors() {
-        return mErrors;
+        @SerializedName("created")
+        @Expose
+        public String created;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getClient() {
+            return client;
+        }
+
+        public void setClient(String client) {
+            this.client = client;
+        }
+
+
+        public int getTotalPrice() {
+            return totalPrice;
+        }
+
+        public void setTotalPrice(int totalPrice) {
+            this.totalPrice = totalPrice;
+
+
+        }
+
+        public String getStaff() {
+            return staff;
+        }
+
+        public void setStaff(String staff) {
+            this.staff = staff;
+        }
+
+        public String getService() {
+            return service;
+        }
+
+        public void setService(String service) {
+            this.service = service;
+        }
+
+
+        public String getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+
+        }
+
+        public String getDuration() {
+            return duration;
+        }
+
+        public void setDuration(String duration) {
+            this.duration = duration;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getUpdated() {
+            return updated;
+        }
+
+        public void setUpdated(String updated) {
+            this.updated = updated;
+        }
+
+        public String getCreated() {
+            return created;
+        }
+
+
+        public void setCreated(String created) {
+            this.created = created;
+
+        }
+
+        public int getStatus() {
+            return mStatus;
+        }
+
+        public String getErrors() {
+            return mErrors;
+
+        }
 
     }
 }

@@ -30,7 +30,7 @@ public interface AliceApi {
     Call<LoginSignupResponse> socialLogin(@Body UserObj user);
 
     @GET(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
-    Call<List<DashBoardRespone>> searchWeekAppointment(@Query("salon_id") Integer salonId,
+    Call<DashBoardRespone> searchWeekAppointment(@Query("salon_id") Integer salonId,
                                                        @Query("location_id") Integer locationId);
 
     @GET(Constants.API_DASHBOARD_WEEK_APPOINTMENT)

@@ -34,6 +34,7 @@ import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.UserObj;
 import com.namestore.alicenote.common.AppUtils;
 
+import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
 import com.namestore.alicenote.ui.signinup.fragment.FillFullInforUserFragment;
 import com.namestore.alicenote.ui.signinup.fragment.LoginFragment;
 import com.namestore.alicenote.ui.signinup.fragment.SignUpFragment;
@@ -326,6 +327,7 @@ public class LoginSignupActivity extends BaseActivity
         aliceApi.login(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
+                moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
            //     AppUtils.logE("OK LOGIN || STATUS: " + response.body().getStatus() + "|TOKEN|" + response.body().getToken());
 //                if (response.isSuccessful()) {
 //                    prgDialog.hide();
@@ -364,6 +366,7 @@ public class LoginSignupActivity extends BaseActivity
         aliceApi.signup(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
+                moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
                // AppUtils.logE("OK SIGNUP || STATUS: " + response.body().getStatus());
                 prgDialog.hide();
 //                if (response.isSuccessful()) {
@@ -402,6 +405,7 @@ public class LoginSignupActivity extends BaseActivity
         aliceApi.socialLogin(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
+                moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
                // AppUtils.logE("OK LOGINSOCIAL || STATUS: " + response.body().getStatus());
 //                switch (response.body().getStatus()) {
 //                    case SUCCESS:
