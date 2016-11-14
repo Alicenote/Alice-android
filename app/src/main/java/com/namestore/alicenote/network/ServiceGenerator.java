@@ -31,13 +31,26 @@ public class ServiceGenerator {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Interceptor.Chain chain) throws IOException {
-                        Request request = chain.request()
-                                .newBuilder()
+//                        Request request = chain.request()
+//                                .newBuilder()
+//                                .addHeader("Content-Type", "application/json")
+//                                .addHeader("Accept", "application/json")
+//                                .addHeader("token", "JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
+//                                .build();
+//                        return chain.proceed(request);
+
+                        Request original = chain.request();
+
+                        // Request customization: add request headers
+                        Request.Builder requestBuilder = original.newBuilder()
                                 .addHeader("Content-Type", "application/json")
                                 .addHeader("Accept", "application/json")
                                 .addHeader("token", "JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
-                                .build();
+                                .method(original.method(), original.body());
+
+                        Request request = requestBuilder.build();
                         return chain.proceed(request);
+
                     }
                 })
                 .addInterceptor(interceptor).build();

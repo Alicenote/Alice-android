@@ -14,18 +14,18 @@ public class BaseResponse implements Serializable {
 
     @SerializedName("status")
     @Expose
-    protected int status;
+    protected int mStatus;
 
     public int getStatus() {
-        return status;
+        return mStatus;
     }
 
     @SerializedName("errors")
     @Expose
-    protected JsonObject errors;
+    protected String mErrors;
 
-    public JsonObject getErrors() {
-        return errors;
+    public String getErrors() {
+        return mErrors;
     }
 
 }

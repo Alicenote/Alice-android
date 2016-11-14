@@ -13,17 +13,9 @@ public class LoginSignupResponse extends BaseResponse {
 
     @SerializedName("token")
     @Expose
-    private String token;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public JsonObject getErrors() {
-        return errors;
-    }
+    private String mToken;
 
     public String getToken() {
-        return token;
+        return mToken;
     }
 }

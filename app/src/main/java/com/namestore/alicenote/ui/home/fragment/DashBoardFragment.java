@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.Authorization;
+import com.namestore.alicenote.network.BaseResponse;
 import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.ui.home.adapter.DashboardCustomRecyclerViewAdapter;
@@ -133,14 +135,14 @@ public class DashBoardFragment extends BaseFragment {
 
     public void searchWeekAppointment() {
 
-        aliceApi.searchWeekAppointment().enqueue(new Callback<List<DashBoardRespone>>() {
+        aliceApi.searchWeekAppointment(116, 103).enqueue(new Callback<List<BaseResponse>>() {
             @Override
-            public void onResponse(Call<List<DashBoardRespone>> call, Response<List<DashBoardRespone>> response) {
-
+            public void onResponse(Call<List<BaseResponse>> call, Response<List<BaseResponse>> response) {
+                AppUtils.logE(response.code() + "");
             }
 
             @Override
-            public void onFailure(Call<List<DashBoardRespone>> call, Throwable t) {
+            public void onFailure(Call<List<BaseResponse>> call, Throwable t) {
 
             }
         });

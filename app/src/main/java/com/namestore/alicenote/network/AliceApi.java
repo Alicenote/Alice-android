@@ -9,8 +9,10 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by kienht on 11/3/16.
@@ -28,7 +30,8 @@ public interface AliceApi {
     Call<LoginSignupResponse> socialLogin(@Body UserObj user);
 
     @GET(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
-    Call<List<DashBoardRespone>> searchWeekAppointment();
+    Call<List<BaseResponse>> searchWeekAppointment( @Query("salon_id") Integer salonId,
+                                                    @Query("location_id") Integer locationId);
 
     @GET(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
     Call<DashBoardRespone> searchUpCommingAppointment();

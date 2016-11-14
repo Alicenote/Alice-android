@@ -21,7 +21,7 @@ public class Constants {
     public static final String API_SOCIAL_LOGIN = "/v1/users/social-login";
     public static final String API_SIGNUP = "/v1/users/register";
 
-    public static final String API_DASHBOARD_WEEK_APPOINTMENT = "/v1/dash-boards/get-week-appointment?salon_id=116&location_id=103";
+    public static final String API_DASHBOARD_WEEK_APPOINTMENT = "/v1/dash-boards/get-week-appointment";
     public static final String API_DASHBOARD_UPCOMMING_APPOINTMENT = "v1/dash-boards/get-upcomming-appointment?salon_id=89&location_id=113";
 
     /*END API SERVER*/
