@@ -2,6 +2,7 @@ package com.namestore.alicenote.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -45,19 +46,22 @@ public class ViewUtils {
             }
         });
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 linearLayout.setFocusable(true);
                 int childCount = linearLayout.getChildCount();
                 for (int i = 0; i < childCount; i++) {
-                    View view = linearLayout.getChildAt(i);
+                    view = linearLayout.getChildAt(i);
                     view.clearFocus();
                 }
                 InputMethodManager keyBoard =
                         (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
                 keyBoard.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+
+                return false;
             }
+
         });
         editText.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
     }
@@ -65,8 +69,7 @@ public class ViewUtils {
 
     public static void configSpinner(Activity activity, String[] values, Spinner... spinners) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
-                android.R.layout.simple_spinner_item, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         for (Spinner spinner : spinners) {
             spinner.setAdapter(adapter);

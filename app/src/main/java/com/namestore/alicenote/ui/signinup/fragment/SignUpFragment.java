@@ -80,7 +80,7 @@ public class SignUpFragment extends BaseFragment {
 
     @Override
     protected void initModels() {
-        linearLayout.setFocusable(true);
+        linearLayout.setFocusableInTouchMode(true);
 
         mTextViewReport.setOnClickListener(this);
         mButtonFb.setOnClickListener(this);
@@ -88,11 +88,11 @@ public class SignUpFragment extends BaseFragment {
         mTextViewAlreadyAccount.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-        ViewUtils.configEditText(getActivity(), mEditTextEmail, linearLayout, "Email", R.drawable.icon_email, null);
-        ViewUtils.configEditText(getActivity(), mEditTextPassword, linearLayout, "Password", R.drawable.icon_password, null);
-        ViewUtils.configEditText(getActivity(), mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email, null);
-        ViewUtils.configEditText(getActivity(), mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email, null);
-        ViewUtils.configEditText(getActivity(), mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextEmail, linearLayout, "", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextPassword, linearLayout, "", R.drawable.icon_password, null);
+        ViewUtils.configEditText(getActivity(), mEditTextPhone, linearLayout, "", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextFirstName, linearLayout, "", R.drawable.icon_email, null);
+        ViewUtils.configEditText(getActivity(), mEditTextLastName, linearLayout, "", R.drawable.icon_email, null);
 
         String[] gender = getResources().getStringArray(R.array.gender);
         ViewUtils.configSpinner(getActivity(), gender, mSpinnerGender);

@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/action_bar"
-        layout="@layout/layout_action_bar"
+        layout="@layout/layout_action_bar_art"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

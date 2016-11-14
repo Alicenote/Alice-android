@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
-import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.Authorization;
-import com.namestore.alicenote.network.BaseResponse;
-import com.namestore.alicenote.network.ServiceDashBoardGenerator;
+
 import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.ui.home.adapter.DashboardCustomRecyclerViewAdapter;
@@ -52,7 +49,6 @@ public class DashBoardFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(R.layout.fm_dashboard, container, false);
         initViews(view);
         initModels();
@@ -68,12 +64,13 @@ public class DashBoardFragment extends BaseFragment {
         mRecyclerListViewThisWeek = (RecyclerView) view.findViewById(R.id.recyclerViewWeekAppointment);//listview cua thisweek
         btnHideThisWeek = (Button) view.findViewById(R.id.btnHideThisWeek);
 
+
         mRecyclerListViewUpComming.setLayoutManager(new LinearLayoutManager(getContext()));// de xuat hien dc recyclerview trong crollview
         mRecyclerListViewUpComming.setHasFixedSize(true);
         mRecyclerListViewThisWeek.setLayoutManager(new LinearLayoutManager(getContext()));// de xuat hien dc recyclerview trong crollview
         mRecyclerListViewThisWeek.setHasFixedSize(true);
 
-        aliceApi = ServiceDashBoardGenerator.creatService(AliceApi.class);
+        aliceApi = ServiceGenerator.creatService(AliceApi.class);
         searchWeekAppointment();
 
 
@@ -82,10 +79,9 @@ public class DashBoardFragment extends BaseFragment {
 
     @Override
     protected void initModels() {
-
-
         DashboardCustomRecyclerViewAdapter adapter = new DashboardCustomRecyclerViewAdapter(getContext(), mListViewContactUpComming);
         mRecyclerListViewUpComming.setAdapter(adapter);
+
 
         mRecyclerListViewUpComming.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -140,7 +136,7 @@ public class DashBoardFragment extends BaseFragment {
     public void searchWeekAppointment() {
 
 
-        aliceApi.searchWeekAppointment().enqueue(new Callback<List<DashBoardRespone>>() {
+        aliceApi.searchWeekAppointment(116,103).enqueue(new Callback<List<DashBoardRespone>>() {
             @Override
             public void onResponse(Call<List<DashBoardRespone>> call, Response<List<DashBoardRespone>> response) {
 
@@ -160,24 +156,64 @@ public class DashBoardFragment extends BaseFragment {
 
                     }
                 }
+
             }
 
             @Override
             public void onFailure(Call<List<DashBoardRespone>> call, Throwable t) {
-                if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
-                } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
-                }
+
             }
         });
+
+//        aliceApi.searchWeekAppointment().enqueue(new Callback<DashBoardRespone>() {
+//            @Override
+//            public void onResponse(Call<DashBoardRespone> call, Response<DashBoardRespone> response) {
+//                Log.w("fsadfsadjfasdkfl;sj","OK LOGIN || STATUS: " + response.body().getClient() );
+//                if (response.isSuccessful()) {
+//                    prgDialog.hide();
+//                   /* for (int i = 0; i < response.body().size(); i++) {
+//
+//                        DashboardObj apk = new DashboardObj(0, null, null, null, null, null);
+//                        apk.setTvNameSevice(response.body().get(i).getService());
+//                        apk.setTvDate("");
+//                        apk.setTvDuration(response.body().get(i).getDuration());
+//                        apk.setTvNameStaff(response.body().get(i).getStaff());
+//                        apk.setTvTimeStart(response.body().get(i).getStart_time());
+//                        mListViewContactUpComming.add(apk);
+//                        apk.setTvDate(response.body().get(i).getDate());
+//                        mListViewContactThisWeek.add(apk);
+//*/
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<DashBoardRespone> call, Throwable t) {
+//                if (call.isCanceled()) {
+//                    AppUtils.logE("request was cancelled");
+//                } else {
+//                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+//                }
+//            }
+//        });
 
 
     }
 
     public void setPrgDialog(String text) {
+        prgDialog = new ProgressDialog(getActivity());
         prgDialog.setMessage(text);
-        prgDialog.show();
+       prgDialog.show();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        if (prgDialog != null) {
+            prgDialog.dismiss();
+        }
+        super.onDestroy();
     }
 
 }

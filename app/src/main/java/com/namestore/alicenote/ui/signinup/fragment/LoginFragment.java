@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -45,6 +46,8 @@ public class LoginFragment extends BaseFragment {
     private LoginSignupActivity loginSignupActivity;
     LinearLayout linearLayout;
     UserObj mUser = new UserObj();
+    TextInputLayout mInputEmail;
+    TextInputLayout mInputPassword;
 
     @Nullable
     @Override
@@ -76,11 +79,13 @@ public class LoginFragment extends BaseFragment {
         linearLayout = (LinearLayout) view.findViewById(R.id.frgment_login);
         mTextViewIncorrect = (TextView) view.findViewById(R.id.textview_incorrect_login);
         mTextViewIncorrect.setVisibility(View.INVISIBLE);
+        mInputEmail = (TextInputLayout) view.findViewById(R.id.input_email);
+        mInputPassword = (TextInputLayout) view.findViewById(R.id.input_password);
     }
 
     @Override
     protected void initModels() {
-        linearLayout.setFocusable(true);
+        linearLayout.setFocusableInTouchMode(true);
         mTextViewSignup.setOnClickListener(this);
         mButtonLogin.setOnClickListener(this);
         mTextViewForgotPass.setOnClickListener(this);
@@ -88,13 +93,8 @@ public class LoginFragment extends BaseFragment {
         mButtonFb.setOnClickListener(this);
         mButtonGoogleP.setOnClickListener(this);
         mTextViewContact.setOnClickListener(this);
-        ViewUtils.configEditText(getActivity(), mEditTexEmail, linearLayout, "Email", R.drawable.icon_email, mTextViewIncorrect);
-        ViewUtils.configEditText(getActivity(), mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
-    }
-
-    public void setHintEdittex(String email, String password) {
-        mEditTexEmail.setHint(email);
-        mEditTexPassword.setHint(password);
+        ViewUtils.configEditText(getActivity(), mEditTexEmail, linearLayout, "", R.drawable.icon_email, mTextViewIncorrect);
+        ViewUtils.configEditText(getActivity(), mEditTexPassword, linearLayout, "", R.drawable.icon_password, mTextViewIncorrect);
     }
 
     public void setTextViewIncorrect(String text) {
@@ -142,18 +142,17 @@ public class LoginFragment extends BaseFragment {
                     } else {
                         onFragmentInteractionListener.onViewClick(Constants.LOGIN_BUTTON, mUser);
                     }
-
                 } else {
                     showDialog("Email ko dung dinh dang");
                 }
                 break;
 
             case R.id.textview_forgot_pass:
-                AppUtils.showShortToast(getActivity(),Constants.FORGOT_PASS);
+                AppUtils.showShortToast(getActivity(), Constants.FORGOT_PASS);
                 break;
 
             case R.id.textview_report_error_login:
-                AppUtils.showShortToast(getActivity(),Constants.REPORT_ERROR);
+                AppUtils.showShortToast(getActivity(), Constants.REPORT_ERROR);
                 break;
 
             case R.id.button_facebook_login:
@@ -165,7 +164,7 @@ public class LoginFragment extends BaseFragment {
                 break;
 
             case R.id.textview_contact:
-                AppUtils.showShortToast(getActivity(),Constants.CONTACT_ALICE);
+                AppUtils.showShortToast(getActivity(), Constants.CONTACT_ALICE);
                 break;
 
             case R.id.textview_signup:

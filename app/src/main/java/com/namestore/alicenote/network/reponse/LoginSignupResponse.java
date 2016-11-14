@@ -11,27 +11,20 @@ import com.namestore.alicenote.network.BaseResponse;
 
 public class LoginSignupResponse extends BaseResponse {
 
-    @SerializedName("status")
-    @Expose
-    private int status;
-
-    @SerializedName("errors")
-    @Expose
-    private JsonObject errors;
-
     @SerializedName("token")
     @Expose
-    private String token;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public JsonObject getErrors() {
-        return errors;
-    }
+    private String mToken;
 
     public String getToken() {
-        return token;
+        return mToken;
     }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public String getErrors() {
+        return mErrors;
+    }
+
 }

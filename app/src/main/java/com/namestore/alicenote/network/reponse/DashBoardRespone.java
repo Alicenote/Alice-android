@@ -4,11 +4,14 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.namestore.alicenote.network.BaseResponse;
 
+import java.util.List;
+
 /**
  * Created by nhocnhinho on 12/11/2016.
  */
 
 public class DashBoardRespone extends BaseResponse {
+
     @SerializedName("id")
     @Expose
     public int id;
@@ -19,7 +22,9 @@ public class DashBoardRespone extends BaseResponse {
 
     @SerializedName("totalPrice")
     @Expose
+
     public int totalPrice; // dat ten bien: totalPrice !!!!
+
 
     @SerializedName("staff")
     @Expose
@@ -33,16 +38,15 @@ public class DashBoardRespone extends BaseResponse {
     @Expose
     public String startTime;   // startTime !!
 
-
     @SerializedName("duration")
     @Expose
     public String duration;
 
-    // bi trung voi BaseResponse#status
 
     @SerializedName("date")
     @Expose
     public String date;
+
     @SerializedName("update")
     @Expose
     public String updated;
@@ -67,14 +71,16 @@ public class DashBoardRespone extends BaseResponse {
         this.client = client;
     }
 
+
     public int getTotalPrice() {
         return totalPrice;
     }
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
-    }
 
+
+    }
     public String getStaff() {
         return staff;
     }
@@ -91,14 +97,15 @@ public class DashBoardRespone extends BaseResponse {
         this.service = service;
     }
 
+
     public String getStartTime() {
         return startTime;
     }
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
-    }
 
+    }
     public String getDuration() {
         return duration;
     }
@@ -127,7 +134,22 @@ public class DashBoardRespone extends BaseResponse {
         return created;
     }
 
+
     public void setCreated(String created) {
         this.created = created;
+
+    }
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public String getErrors() {
+        return mErrors;
+
     }
 }
+
+
+
+
+

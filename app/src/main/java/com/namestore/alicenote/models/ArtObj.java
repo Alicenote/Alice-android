@@ -6,7 +6,6 @@ package com.namestore.alicenote.models;
 
 public class ArtObj {
 
-
     private int drawableArt;
 
     private String nameArt;

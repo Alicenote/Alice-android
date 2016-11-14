@@ -1,5 +1,6 @@
 package com.namestore.alicenote.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -18,30 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
-import com.namestore.alicenote.common.AppUtils;
-import com.namestore.alicenote.models.DashboardObj;
-import com.namestore.alicenote.network.AliceApi;
-import com.namestore.alicenote.network.Authorization;
-import com.namestore.alicenote.network.ServiceDashBoardGenerator;
-import com.namestore.alicenote.network.ServiceGenerator;
-import com.namestore.alicenote.network.reponse.DashBoardRespone;
-import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.ui.BaseActivity;
+import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.client.fragment.AddClientFragment;
-import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
-import com.namestore.alicenote.ui.signinup.LoginSignupActivity;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
 
@@ -120,9 +104,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         });
 
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -133,11 +114,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         navigationView.setNavigationItemSelectedListener(this);
 
     }
-
-
-
-
-
 
 
     public void showDashBoardFragment() {
@@ -239,6 +215,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+        switch (item.getItemId()) {
+            case R.id.art:
+                startActivity(new Intent(MainActivity.this, ArtGroupActivity.class));
+                break;
+        }
+
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
