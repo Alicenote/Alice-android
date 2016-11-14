@@ -16,7 +16,9 @@ import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.Authorization;
+import com.namestore.alicenote.network.BaseResponse;
 import com.namestore.alicenote.network.ServiceDashBoardGenerator;
+import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.ui.home.adapter.DashboardCustomRecyclerViewAdapter;
 import com.namestore.alicenote.ui.BaseFragment;
@@ -73,7 +75,7 @@ public class DashBoardFragment extends BaseFragment {
 
         aliceApi = ServiceDashBoardGenerator.creatService(AliceApi.class);
         searchWeekAppointment();
-        setPrgDialog("show");
+
 
     }
 
@@ -109,8 +111,6 @@ public class DashBoardFragment extends BaseFragment {
         });
 
 
-
-
         DashboardCustomRecyclerViewAdapter adapterThisWeek = new DashboardCustomRecyclerViewAdapter(getContext(), mListViewContactThisWeek);
         mRecyclerListViewThisWeek.setAdapter(adapterThisWeek);
         mRecyclerListViewThisWeek.addOnItemTouchListener(
@@ -139,31 +139,31 @@ public class DashBoardFragment extends BaseFragment {
 
     public void searchWeekAppointment() {
 
-        aliceApi.searchWeekAppointment().enqueue(new Callback<DashBoardRespone>() {
+
+        aliceApi.searchWeekAppointment().enqueue(new Callback<List<DashBoardRespone>>() {
             @Override
-            public void onResponse(Call<DashBoardRespone> call, Response<DashBoardRespone> response) {
-                Log.w("fsadfsadjfasdkfl;sj","OK LOGIN || STATUS: " + response.body().getClient() );
+            public void onResponse(Call<List<DashBoardRespone>> call, Response<List<DashBoardRespone>> response) {
+
                 if (response.isSuccessful()) {
-                    prgDialog.hide();
-                   /* for (int i = 0; i < response.body().size(); i++) {
+                    for (int i = 0; i < response.body().size(); i++) {
 
                         DashboardObj apk = new DashboardObj(0, null, null, null, null, null);
                         apk.setTvNameSevice(response.body().get(i).getService());
                         apk.setTvDate("");
                         apk.setTvDuration(response.body().get(i).getDuration());
                         apk.setTvNameStaff(response.body().get(i).getStaff());
-                        apk.setTvTimeStart(response.body().get(i).getStart_time());
+                        apk.setTvTimeStart(response.body().get(i).getStartTime());
                         mListViewContactUpComming.add(apk);
                         apk.setTvDate(response.body().get(i).getDate());
                         mListViewContactThisWeek.add(apk);
-*/
 
 
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<DashBoardRespone> call, Throwable t) {
+            public void onFailure(Call<List<DashBoardRespone>> call, Throwable t) {
                 if (call.isCanceled()) {
                     AppUtils.logE("request was cancelled");
                 } else {
@@ -174,15 +174,10 @@ public class DashBoardFragment extends BaseFragment {
 
 
     }
+
     public void setPrgDialog(String text) {
         prgDialog.setMessage(text);
         prgDialog.show();
     }
-    @Override
-    public void onDestroy() {
-        if (prgDialog != null) {
-            prgDialog.dismiss();
-        }
-        super.onDestroy();
-    }
+
 }

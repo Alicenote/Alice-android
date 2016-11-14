@@ -1,6 +1,5 @@
 package com.namestore.alicenote.network.reponse;
 
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.namestore.alicenote.network.BaseResponse;
@@ -12,15 +11,15 @@ import com.namestore.alicenote.network.BaseResponse;
 public class DashBoardRespone extends BaseResponse {
     @SerializedName("id")
     @Expose
-    public String id;
+    public int id;
 
     @SerializedName("client")
     @Expose
     public String client;
 
-    @SerializedName("total_price")
+    @SerializedName("totalPrice")
     @Expose
-    public String total_price;
+    public int totalPrice; // dat ten bien: totalPrice !!!!
 
     @SerializedName("staff")
     @Expose
@@ -30,20 +29,16 @@ public class DashBoardRespone extends BaseResponse {
     @Expose
     public String service;
 
-    @SerializedName("start_time")
+    @SerializedName("startTime")
     @Expose
-    public String start_time;
+    public String startTime;   // startTime !!
 
 
     @SerializedName("duration")
     @Expose
     public String duration;
 
-
-
-    @SerializedName("status")
-    @Expose
-    public String dashBoardStatus;
+    // bi trung voi BaseResponse#status
 
     @SerializedName("date")
     @Expose
@@ -56,66 +51,83 @@ public class DashBoardRespone extends BaseResponse {
     @Expose
     public String created;
 
-
-    public String getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getClient() {
         return client;
     }
 
-    public String getTotal_price() {
-        return total_price;
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getStaff() {
         return staff;
     }
 
-    public String getStart_time() {
-        return start_time;
+    public void setStaff(String staff) {
+        this.staff = staff;
     }
 
     public String getService() {
         return service;
     }
 
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
     public String getDuration() {
         return duration;
     }
 
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public String getDate() {
         return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getUpdated() {
         return updated;
     }
 
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
     public String getCreated() {
         return created;
     }
-    public String getDashBoardStatus() {
-        return dashBoardStatus;
+
+    public void setCreated(String created) {
+        this.created = created;
     }
-
-    public DashBoardRespone(String id, String client, String total_price,String staff,String service,String start_time,
-                            String duration, String dashBoardStatus, String date,String updated, String created) {
-        super();
-        this.id = id;
-        this.client = client;
-        this.total_price =total_price;
-        this.staff =staff;
-        this.service=service;
-        this.start_time=start_time;
-        this.duration=duration;
-        this.dashBoardStatus=dashBoardStatus;
-        this.date=date;
-        this.updated=updated;
-        this.created=created;
-
-    }
-
 }

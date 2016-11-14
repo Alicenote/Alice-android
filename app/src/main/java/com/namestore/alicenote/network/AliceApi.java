@@ -5,10 +5,12 @@ import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.models.UserObj;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 
@@ -27,8 +29,8 @@ public interface AliceApi {
     @POST(Constants.API_SOCIAL_LOGIN)
     Call<LoginSignupResponse> socialLogin(@Body UserObj user);
 
-    @POST(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
-    Call<DashBoardRespone> searchWeekAppointment();
+    @GET("http://api.alicenote.com/v1/dash-boards/get-week-appointment?salon_id=116&location_id=103")
+    Call<List<DashBoardRespone>> searchWeekAppointment();
 
     @POST(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
     Call<DashBoardRespone> searchUpCommingAppointment();

@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceDashBoardGenerator {
-    public static <S> S creatService(Class<S> serviceClass) {
+    public static <S> S creatService(Class<S> serviceClass/* ,final Authorization auth*/) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -30,14 +30,16 @@ public class ServiceDashBoardGenerator {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Interceptor.Chain chain) throws IOException {
-                        Request request = chain.request()
-                                .newBuilder()
 
-                                .addHeader("Accept", "application/json")
-                                .addHeader("id","116")
-                                .addHeader("location","103")
-                                .addHeader("token","JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
-                                .build();
+                        Request original = chain.request();
+
+                        Request.Builder requestBuilder = original.newBuilder()
+                                .header("Accept", "application/json")
+
+                                .header("token","JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
+                                .method(original.method(), original.body());
+
+                        Request request = requestBuilder.build();
                         return chain.proceed(request);
                     }
                 })
@@ -50,6 +52,4 @@ public class ServiceDashBoardGenerator {
                 .build();
         return retrofit.create(serviceClass);
     }
-
-
 }

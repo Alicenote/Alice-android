@@ -35,6 +35,7 @@ public class ServiceGenerator {
                                 .newBuilder()
                                 .addHeader("Content-Type", "application/json")
                                 .addHeader("Accept", "application/json")
+                                .addHeader("token","JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
                                 .build();
                         return chain.proceed(request);
                     }
