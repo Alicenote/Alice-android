@@ -329,24 +329,24 @@ public class LoginSignupActivity extends BaseActivity
         aliceApi.login(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                AppUtils.logE("OK LOGIN || STATUS: " + response.body().getStatus() + "|TOKEN|" + response.body().getToken());
-                if (response.isSuccessful()) {
-                    prgDialog.hide();
-                    switch (response.body().getStatus()) {
-                        case LOGIN_ERROR:
-
-                            break;
-                        case SUCCESS:
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-                            break;
-                        case LOGED:
-                            AppUtils.showShortToast(LoginSignupActivity.this, "ban da dang nhap");
-                            break;
-                        case FIRST_LOGIN:
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-                            break;
-                    }
-                }
+           //     AppUtils.logE("OK LOGIN || STATUS: " + response.body().getStatus() + "|TOKEN|" + response.body().getToken());
+//                if (response.isSuccessful()) {
+//                    prgDialog.hide();
+//                    switch (response.body().getStatus()) {
+//                        case LOGIN_ERROR:
+//
+//                            break;
+//                        case SUCCESS:
+//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+//                            break;
+//                        case LOGED:
+//                            AppUtils.showShortToast(LoginSignupActivity.this, "ban da dang nhap");
+//                            break;
+//                        case FIRST_LOGIN:
+//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+//                            break;
+//                    }
+//                }
             }
 
             @Override
@@ -367,24 +367,24 @@ public class LoginSignupActivity extends BaseActivity
         aliceApi.signup(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                AppUtils.logE("OK SIGNUP || STATUS: " + response.body().getStatus());
+               // AppUtils.logE("OK SIGNUP || STATUS: " + response.body().getStatus());
                 prgDialog.hide();
-                if (response.isSuccessful()) {
-                    switch (response.body().getStatus()) {
-                        case REGISTER_ERROR:
-
-                            break;
-
-                        case SUCCESS:
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-                            break;
-
-                        case LOGED:
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-                            break;
-                    }
-
-                }
+//                if (response.isSuccessful()) {
+//                    switch (response.body().getStatus()) {
+//                        case REGISTER_ERROR:
+//
+//                            break;
+//
+//                        case SUCCESS:
+//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+//                            break;
+//
+//                        case LOGED:
+//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+//                            break;
+//                    }
+//
+//                }
             }
 
             @Override
@@ -405,20 +405,20 @@ public class LoginSignupActivity extends BaseActivity
         aliceApi.socialLogin(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                AppUtils.logE("OK LOGINSOCIAL || STATUS: " + response.body().getStatus());
-                switch (response.body().getStatus()) {
-                    case SUCCESS:
-                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-                        break;
-
-                    case LOGED:
-                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-                        break;
-
-                    case FIRST_LOGIN:
-                        moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-                        break;
-                }
+               // AppUtils.logE("OK LOGINSOCIAL || STATUS: " + response.body().getStatus());
+//                switch (response.body().getStatus()) {
+//                    case SUCCESS:
+//                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+//                        break;
+//
+//                    case LOGED:
+//                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+//                        break;
+//
+//                    case FIRST_LOGIN:
+//                        moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+//                        break;
+//                }
             }
 
             @Override

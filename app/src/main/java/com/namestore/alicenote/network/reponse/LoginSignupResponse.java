@@ -18,4 +18,13 @@ public class LoginSignupResponse extends BaseResponse {
     public String getToken() {
         return mToken;
     }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public String getErrors() {
+        return mErrors;
+    }
+
 }

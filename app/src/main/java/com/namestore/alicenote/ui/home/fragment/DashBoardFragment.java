@@ -135,14 +135,14 @@ public class DashBoardFragment extends BaseFragment {
 
     public void searchWeekAppointment() {
 
-        aliceApi.searchWeekAppointment(116, 103).enqueue(new Callback<List<BaseResponse>>() {
+        aliceApi.searchWeekAppointment(116, 103).enqueue(new Callback<List<DashBoardRespone>>() {
             @Override
-            public void onResponse(Call<List<BaseResponse>> call, Response<List<BaseResponse>> response) {
-                AppUtils.logE(response.code() + "");
+            public void onResponse(Call<List<DashBoardRespone>> call, Response<List<DashBoardRespone>> response) {
+
             }
 
             @Override
-            public void onFailure(Call<List<BaseResponse>> call, Throwable t) {
+            public void onFailure(Call<List<DashBoardRespone>> call, Throwable t) {
 
             }
         });
@@ -186,7 +186,7 @@ public class DashBoardFragment extends BaseFragment {
     public void setPrgDialog(String text) {
         prgDialog = new ProgressDialog(getActivity());
         prgDialog.setMessage(text);
-        prgDialog.show();
+        //prgDialog.show();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.namestore.alicenote.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.Button;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.ui.BaseActivity;
+import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.client.fragment.AddClientFragment;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
@@ -102,9 +104,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         });
 
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -115,11 +114,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         navigationView.setNavigationItemSelectedListener(this);
 
     }
-
-
-
-
-
 
 
     public void showDashBoardFragment() {
@@ -221,6 +215,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+        switch (item.getItemId()) {
+            case R.id.art:
+                startActivity(new Intent(MainActivity.this, ArtGroupActivity.class));
+                break;
+        }
+
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {

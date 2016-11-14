@@ -15,7 +15,7 @@ public class DashBoardRespone extends BaseResponse {
 
     @SerializedName("id")
     @Expose
-    public String id;
+    public int id;
 
     @SerializedName("client")
     @Expose
@@ -23,7 +23,7 @@ public class DashBoardRespone extends BaseResponse {
 
     @SerializedName("total_price")
     @Expose
-    public String total_price;
+    public int total_price;
 
     @SerializedName("staff")
     @Expose
@@ -41,10 +41,6 @@ public class DashBoardRespone extends BaseResponse {
     @Expose
     public String duration;
 
-    @SerializedName("status")
-    @Expose
-    public String dashBoardStatus;
-
     @SerializedName("date")
     @Expose
     public String date;
@@ -57,50 +53,94 @@ public class DashBoardRespone extends BaseResponse {
     @Expose
     public String created;
 
-
-    public String getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getClient() {
         return client;
     }
 
-    public String getTotal_price() {
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public int getTotal_price() {
         return total_price;
+    }
+
+    public void setTotal_price(int total_price) {
+        this.total_price = total_price;
     }
 
     public String getStaff() {
         return staff;
     }
 
-    public String getStart_time() {
-        return start_time;
+    public void setStaff(String staff) {
+        this.staff = staff;
     }
 
     public String getService() {
         return service;
     }
 
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
     public String getDuration() {
         return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getDate() {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getUpdated() {
         return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
     }
 
     public String getCreated() {
         return created;
     }
 
-    public String getDashBoardStatus() {
-        return dashBoardStatus;
+    public void setCreated(String created) {
+        this.created = created;
     }
+
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public String getErrors() {
+        return mErrors;
+    }
+
 }
 
 
