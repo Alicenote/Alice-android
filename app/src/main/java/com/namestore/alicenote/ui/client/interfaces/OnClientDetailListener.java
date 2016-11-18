@@ -9,8 +9,6 @@ public interface OnClientDetailListener {
 
     void showClientView();
 
-    void showEditClient();
-
     void showDeleteClient();
     /*
     void showClient();*/

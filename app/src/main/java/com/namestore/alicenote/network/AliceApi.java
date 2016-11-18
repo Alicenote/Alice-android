@@ -1,11 +1,13 @@
 package com.namestore.alicenote.network;
 
+import com.namestore.alicenote.models.AddEditClientObj;
+import com.namestore.alicenote.network.reponse.AddEditClientResponse;
+import com.namestore.alicenote.network.reponse.ClientResponse;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.models.UserObj;
-
-import java.util.List;
+import com.namestore.alicenote.network.reponse.ViewClientResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -30,11 +32,24 @@ public interface AliceApi {
     Call<LoginSignupResponse> socialLogin(@Body UserObj user);
 
     @GET(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
-    Call<List<DashBoardRespone>> searchWeekAppointment(@Query("salon_id") Integer salonId,
+    Call<DashBoardRespone> searchWeekAppointment(@Query("salon_id") Integer salonId,
                                                        @Query("location_id") Integer locationId);
 
-    @GET(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
+    @GET(Constants.API_DASHBOARD_UPCOMMING_APPOINTMENT)
     Call<DashBoardRespone> searchUpCommingAppointment(@Query("salon_id") Integer salonId,
                                                       @Query("location_id") Integer locationId);
+
+    @GET(Constants.API_CLIENT)
+    Call<ClientResponse> searchClient(@Query("salon_id") Integer salonId,
+                                      @Query("page") Integer locationId,
+                                      @Query("per-page") Integer perPageId,
+                                      @Query("sort") String sortId);
+
+    @GET(Constants.API_VIEW_CLIENT)
+    Call<ViewClientResponse> searchViewClient(@Query("salon_id") Integer salonId, @Query("id")Integer id);
+
+    @POST(Constants.API_ADD_CLIENT)
+    Call<AddEditClientResponse> pushInfoClient (@Body AddEditClientObj addEditClientObj, @Query("salon_id") Integer salonId);
+
 }
 

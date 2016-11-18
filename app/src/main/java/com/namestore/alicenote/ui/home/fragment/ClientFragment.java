@@ -1,12 +1,17 @@
 package com.namestore.alicenote.ui.home.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +19,13 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
-import com.namestore.alicenote.database.Contact;
-import com.namestore.alicenote.database.DatabaseHandler;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.network.AliceApi;
+import com.namestore.alicenote.network.ServiceGenerator;
+import com.namestore.alicenote.network.reponse.ClientResponse;
 import com.namestore.alicenote.ui.client.adapter.ClientCustomRecyclerViewAdapter;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.Constants;
-import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.ClientObj;
 import com.namestore.alicenote.ui.client.ClientDetailActivity;
 import com.quinny898.library.persistentsearch.SearchBox;
@@ -28,6 +33,10 @@ import com.quinny898.library.persistentsearch.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -38,17 +47,20 @@ import static android.app.Activity.RESULT_OK;
 public class ClientFragment extends BaseFragment {
 
     private SearchBox mSearchBox;
-    private DatabaseHandler db;
-    private List<ClientObj> listViewObjects = new ArrayList<>();
+    private List<ClientObj> mClientObjects = new ArrayList<>();
     private RecyclerView mRecyclerViewSearchBox;
-    private String KEY="client.add";
-    private int i=0;
+    private String KEY_ADD = "client.add";
+    private String KEY_VIEW = "client.view";
+    private int i = 0;
+    private AliceApi mAliceApi;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_client, container, false);
+
+
         initViews(view);
         initModels();
         return view;
@@ -58,29 +70,16 @@ public class ClientFragment extends BaseFragment {
     @Override
     protected void initViews(View view) {
 
-        db = new DatabaseHandler(getContext());
-        List<Contact> contactsList = db.getAllContacts();
-
+        mAliceApi = ServiceGenerator.creatService(AliceApi.class);
+        searchClient();
         mSearchBox = (SearchBox) view.findViewById(R.id.searchbox);
         mSearchBox.enableVoiceRecognition(this);
         mSearchBox.setOverflowMenu(R.menu.overflow_menu);
 
-        for (Contact cn : contactsList) {
-            ClientObj apk = new ClientObj(null);
-            apk.setTvName(cn.getName());
-            listViewObjects.add(apk);
-        }
-        for (Contact cn : contactsList) {
 
-            SearchResult option = new SearchResult(cn.getName(), getResources().getDrawable(R.drawable.ic_history));
-            mSearchBox.addSearchable(option);
-        }
-        mRecyclerViewSearchBox = (RecyclerView) view.findViewById(R.id.recyclerViewSearchBox);//listview cua upcoming
-        mRecyclerViewSearchBox.setLayoutManager(new LinearLayoutManager(getContext()));// de xuat hien dc recyclerview trong crollview
+        mRecyclerViewSearchBox = (RecyclerView) view.findViewById(R.id.recyclerViewSearchBox);
+        mRecyclerViewSearchBox.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerViewSearchBox.setHasFixedSize(true);
-        ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), listViewObjects);
-        mRecyclerViewSearchBox.setAdapter(adapter);
-
 
 
     }
@@ -91,7 +90,10 @@ public class ClientFragment extends BaseFragment {
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
+                        Intent mIntent = new Intent(new Intent(getContext(), ClientDetailActivity.class));
+                        mIntent.putExtra(Constants.KEY_ID, mClientObjects.get(position).getId());
+                        mIntent.putExtra(Constants.KEY_CHECK_CLIENT, KEY_VIEW);
+                        startActivity(mIntent);
                     }
                 })
         );
@@ -102,8 +104,8 @@ public class ClientFragment extends BaseFragment {
                 switch (item.getItemId()) {
                     case R.id.action_add:
                         Intent mIntent = new Intent(new Intent(getContext(), ClientDetailActivity.class));
-                        mIntent.putExtra(Constants.KEY_CHECK_CLIENT, KEY);
-                        startActivity(mIntent);
+                        mIntent.putExtra(Constants.KEY_CHECK_CLIENT, Constants.ADD_CLIENT);
+                        startActivityForResult(mIntent, 1406);
                         return true;
                 }
                 return false;
@@ -113,47 +115,53 @@ public class ClientFragment extends BaseFragment {
 
             @Override
             public void onSearchOpened() {
-                //Use this to tint the screen
+
 
             }
 
             @Override
             public void onSearchClosed() {
-                //Use this to un-tint the screen
 
             }
 
             @Override
             public void onSearchTermChanged(String term) {
-                //React to the search term changing
-                //Called after it has updated results
-                Log.w("heloo3", "asdsfsd");
+
             }
 
             @Override
             public void onSearch(String searchTerm) {
-                Log.w("heloo4", "asdsfsd");
-                Toast.makeText(getContext(), searchTerm + " Searched", Toast.LENGTH_LONG).show();
+
             }
 
             @Override
             public void onResultClick(SearchResult result) {
-                //React to a result being clicked
-                Log.w("heloo5", "asdsfsd");
+                Intent mIntent = new Intent(new Intent(getContext(), ClientDetailActivity.class));
+                mIntent.putExtra(Constants.KEY_ID, result.id);
+                mIntent.putExtra(Constants.KEY_CHECK_CLIENT, KEY_VIEW);
+                startActivity(mIntent);
             }
 
             @Override
             public void onSearchCleared() {
-                //Called when the clear button is clicked
-                Log.w("heloo6", "asdsfsd");
+
             }
 
         });
 
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1406) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data.getIntExtra("result", 0) == 1)
+                    UpdateRecycleView();
+            }
+        }
+
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             ArrayList<String> matches = data
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -161,23 +169,50 @@ public class ClientFragment extends BaseFragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-public void UpdateRecycleView(){
-    db = new DatabaseHandler(getContext());
-    List<Contact> contactsList = db.getAllContacts();
-    listViewObjects.clear();
-    for (Contact cn : contactsList) {
-        ClientObj apk = new ClientObj(null);
-        apk.setTvName(cn.getName());
-        listViewObjects.add(apk);
-    }
-    ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), listViewObjects);
-    adapter.notifyDataSetChanged();
-    mRecyclerViewSearchBox.setAdapter(adapter);
 
-}
-    @Override
-    public void onResume() {
-       UpdateRecycleView();
-        super.onResume();
+
+    public void searchClient() {
+        mAliceApi.searchClient(130, 3, 20, "desc").enqueue(new Callback<ClientResponse>() {
+            @Override
+            public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
+                if (response.isSuccessful()) {
+                    mClientObjects.clear();
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        ClientObj jsonArray = new ClientObj(0, null, null, null);
+                        jsonArray.setId(response.body().getData().get(i).getId());
+                        jsonArray.setTvFirstName(response.body().getData().get(i).getFirstName());
+                        jsonArray.setTvLastName(response.body().getData().get(i).getLastName());
+                        jsonArray.setImgAvatar(response.body().getData().get(i).getImage());
+
+                        mClientObjects.add(jsonArray);
+                    }
+                    for (ClientObj cl : mClientObjects) {
+
+                        SearchResult option = new SearchResult(cl.getTvFirstName() + " " +
+                                cl.getTvLastName(), cl.getId(), getResources().getDrawable(R.drawable.ic_history));
+                        mSearchBox.addSearchable(option);
+                    }
+                    ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), mClientObjects);
+                    mRecyclerViewSearchBox.setAdapter(adapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ClientResponse> call, Throwable t) {
+
+            }
+        });
+
     }
+
+    public void UpdateRecycleView() {
+        searchClient();
+        ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), mClientObjects);
+        adapter.notifyDataSetChanged();
+        mRecyclerViewSearchBox.setAdapter(adapter);
+
+    }
+
 }

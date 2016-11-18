@@ -1,31 +1,35 @@
 package com.namestore.alicenote.ui.client;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+
+
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.BaseFragment;
-import com.namestore.alicenote.ui.client.fragment.AddClientFragment;
+import com.namestore.alicenote.ui.client.fragment.AddEditClientFragment;
 import com.namestore.alicenote.ui.client.fragment.DelClientFragment;
-import com.namestore.alicenote.ui.client.fragment.EditClientFragment;
 import com.namestore.alicenote.ui.client.fragment.ViewClientFragment;
 import com.namestore.alicenote.ui.client.interfaces.OnClientDetailListener;
+
 import java.util.ArrayList;
 
 public class ClientDetailActivity extends BaseActivity
-        implements View.OnClickListener, OnClientDetailListener, OnFragmentInteractionListener{
+        implements View.OnClickListener, OnClientDetailListener, OnFragmentInteractionListener {
     ArrayList<BaseFragment> fragments = new ArrayList<>();
-  //  private ClientFragment mClientFragment;
-    private AddClientFragment mAddClientFragment;
+    //  private ClientFragment mClientFragment;
+    public AddEditClientFragment mAddEditClientFragment;
     private DelClientFragment mDelClientFragment;
-    private EditClientFragment mEditClientFragment;
     private ViewClientFragment mViewClientFragment;
+    private String mKeyCheckClient;
+    public int mId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,63 +38,60 @@ public class ClientDetailActivity extends BaseActivity
 
         setContentView(R.layout.activity_client_detail);
 
-        /*mAddClientFragment = new AddClientFragment();
-    //    mClientFragment= new ClientFragment();
-       *//* mDelClientFragment =new DelClientFragment();
-        mEditClientFragment =new EditClientFragment();
-        mViewClientFragment =new ViewClientFragment();*//*
-        fragments.add(mAddClientFragment);
+        mKeyCheckClient = getIntent().getExtras()
+                .getString(Constants.KEY_CHECK_CLIENT);
+
+        mId = getIntent().getExtras()
+                .getInt(Constants.KEY_ID);
+
+
+        mAddEditClientFragment = new AddEditClientFragment();
+
+        mDelClientFragment = new DelClientFragment();
+
+        mViewClientFragment = new ViewClientFragment();
+      /*  fragments.add(mAddEditClientFragment);
     //    fragments.add(mClientFragment);
-        *//*fragments.add(mDelClientFragment);
+        *//**//*fragments.add(mDelClientFragment);
         fragments.add(mEditClientFragment);
-        fragments.add(mViewClientFragment);*//*
+        fragments.add(mViewClientFragment);*//**//*
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container1, mAddClientFragment)
+                .add(R.id.container1, mAddEditClientFragment)
            //     .add(R.id.container, mClientFragment)
-  *//*              .add(R.id.container, mDelClientFragment)
+  *//**//*              .add(R.id.container, mDelClientFragment)
                 .add(R.id.container, mEditClientFragment)
-                .add(R.id.container, mViewClientFragment)*//*
+                .add(R.id.container, mViewClientFragment)*//**//*
 
                 .commit();*/
 
-        if (getIntent().getExtras()
-                .getString(Constants.KEY_CHECK_CLIENT)
-                .equalsIgnoreCase(Constants.ADD_CLIENT)) {
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new AddClientFragment()).commit();
+        if (mKeyCheckClient.equalsIgnoreCase(Constants.ADD_CLIENT)) {
+            showAddClient();
 
         }
-        if (getIntent().getExtras()
-                .getString(Constants.KEY_CHECK_CLIENT)
-                .equalsIgnoreCase(Constants.DEL_CLIENT)) {
-            showFragment(mDelClientFragment);
+        if (mKeyCheckClient.equalsIgnoreCase(Constants.DEL_CLIENT)) {
+            showDeleteClient();
         }
-        if (getIntent().getExtras()
-                .getString(Constants.KEY_CHECK_CLIENT)
-                .equalsIgnoreCase(Constants.VIEW_CLIENT)) {
-            showFragment(mViewClientFragment);
+        if (mKeyCheckClient.equalsIgnoreCase(Constants.VIEW_CLIENT)) {
+            showClientView();
         }
-        if (getIntent().getExtras()
-                .getString(Constants.KEY_CHECK_CLIENT)
-                .equalsIgnoreCase(Constants.EDIT_CLIENT)) {
-            showFragment(mEditClientFragment);
-        }
+        if (mKeyCheckClient.equalsIgnoreCase(Constants.EDIT_CLIENT)) {
 
-
+        }
 
 
     }
-    public void showFragment(Fragment fragmentToShow) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        for (BaseFragment _fragment : fragments) {
-            if (_fragment == fragmentToShow) {
-                transaction.show(fragmentToShow);
-            } else {
-                transaction.hide(_fragment);
-            }
-        }
-        transaction.commit();
-    }
+
+    /*  public void showFragment(Fragment fragmentToShow) {
+          FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+          for (BaseFragment _fragment : fragments) {
+              if (_fragment == fragmentToShow) {
+                  transaction.show(fragmentToShow);
+              } else {
+                  transaction.hide(_fragment);
+              }
+          }
+          transaction.commit();
+      }*/
     @Override
     public void onClick(View view) {
 
@@ -98,37 +99,22 @@ public class ClientDetailActivity extends BaseActivity
 
     @Override
     public void showAddClient() {
-      //  showFragment(mAddClientFragment);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mAddClientFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mAddEditClientFragment).commit();
 
     }
 
     @Override
     public void showClientView() {
-        showFragment(mViewClientFragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mViewClientFragment).commit();
     }
 
-    @Override
-    public void showEditClient() {
-        showFragment(mEditClientFragment);
 
-    }
 
     @Override
     public void showDeleteClient() {
-        showFragment(mDelClientFragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mDelClientFragment).commit();
     }
 
-    /*@Override
-    public void showClient() {
-        showFragment(mClientFragment);
-    }*/
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_client, menu);
-        return true;
-    }
 
     @Override
     public void onViewClick(String tag) {
@@ -139,4 +125,7 @@ public class ClientDetailActivity extends BaseActivity
     public void onViewClick(String tag, Object object) {
 
     }
+
+
+
 }

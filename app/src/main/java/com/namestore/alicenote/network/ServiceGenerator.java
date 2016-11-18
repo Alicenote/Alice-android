@@ -45,8 +45,7 @@ public class ServiceGenerator {
                         Request.Builder requestBuilder = original.newBuilder()
                                 .addHeader("Content-Type", "application/json")
                                 .addHeader("Accept", "application/json")
-
-                                .addHeader("token", "JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
+                                .addHeader("token", "QYw8IRKE-0BVbDKY7AnN4KOi1pyArSmo")
                                 .method(original.method(), original.body());
 
                         Request request = requestBuilder.build();
