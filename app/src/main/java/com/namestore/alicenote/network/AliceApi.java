@@ -1,5 +1,6 @@
 package com.namestore.alicenote.network;
 
+import com.namestore.alicenote.models.Event;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.Constants;
@@ -36,5 +37,8 @@ public interface AliceApi {
     @GET(Constants.API_DASHBOARD_WEEK_APPOINTMENT)
     Call<DashBoardRespone> searchUpCommingAppointment(@Query("salon_id") Integer salonId,
                                                       @Query("location_id") Integer locationId);
+
+    @GET("https://api.myjson.com/bins/1kpjf")
+    Call<List<Event>> getEvent();
 }
 

@@ -7,9 +7,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Art" />
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/calendar"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Calendar" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"

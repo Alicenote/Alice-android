@@ -31,13 +31,6 @@ public class ServiceGenerator {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Interceptor.Chain chain) throws IOException {
-//                        Request request = chain.request()
-//                                .newBuilder()
-//                                .addHeader("Content-Type", "application/json")
-//                                .addHeader("Accept", "application/json")
-//                                .addHeader("token", "JvM5QOH7E2acM1PpIyazWjSSPVzA44Cj")
-//                                .build();
-//                        return chain.proceed(request);
 
                         Request original = chain.request();
 

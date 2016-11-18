@@ -22,6 +22,7 @@ import android.widget.Button;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
+import com.namestore.alicenote.ui.calendar.CalendarActivity;
 import com.namestore.alicenote.ui.client.fragment.AddClientFragment;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
@@ -74,8 +75,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCalendarFragment();
-
+                //showCalendarFragment();
+                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
             }
         });
 
@@ -204,9 +205,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -220,11 +221,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             case R.id.art:
                 startActivity(new Intent(MainActivity.this, ArtGroupActivity.class));
                 break;
+
+            case R.id.calendar:
+                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+                break;
+
         }
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.calendar) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
