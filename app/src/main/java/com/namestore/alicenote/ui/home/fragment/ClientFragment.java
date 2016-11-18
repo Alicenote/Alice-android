@@ -49,9 +49,7 @@ public class ClientFragment extends BaseFragment {
     private SearchBox mSearchBox;
     private List<ClientObj> mClientObjects = new ArrayList<>();
     private RecyclerView mRecyclerViewSearchBox;
-    private String KEY_ADD = "client.add";
-    private String KEY_VIEW = "client.view";
-    private int i = 0;
+
     private AliceApi mAliceApi;
 
 
@@ -92,7 +90,7 @@ public class ClientFragment extends BaseFragment {
                     public void onItemClick(View view, int position) {
                         Intent mIntent = new Intent(new Intent(getContext(), ClientDetailActivity.class));
                         mIntent.putExtra(Constants.KEY_ID, mClientObjects.get(position).getId());
-                        mIntent.putExtra(Constants.KEY_CHECK_CLIENT, KEY_VIEW);
+                        mIntent.putExtra(Constants.KEY_CHECK_CLIENT, Constants.VIEW_CLIENT);
                         startActivity(mIntent);
                     }
                 })
@@ -138,7 +136,8 @@ public class ClientFragment extends BaseFragment {
             public void onResultClick(SearchResult result) {
                 Intent mIntent = new Intent(new Intent(getContext(), ClientDetailActivity.class));
                 mIntent.putExtra(Constants.KEY_ID, result.id);
-                mIntent.putExtra(Constants.KEY_CHECK_CLIENT, KEY_VIEW);
+                mIntent.putExtra(Constants.KEY_CHECK_CLIENT, Constants.VIEW_CLIENT);
+
                 startActivity(mIntent);
             }
 
@@ -154,11 +153,16 @@ public class ClientFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        Log.w("ddm","nhu lon");
         if (requestCode == 1406) {
+            Log.w("ddm","tra ve"+resultCode);
             if (resultCode == Activity.RESULT_OK) {
-                if (data.getIntExtra("result", 0) == 1)
+                Log.w("ddm","nhu lon"+data.getIntExtra("result", 0));
+                if (data.getIntExtra("result", 0) == 1){
+
                     UpdateRecycleView();
+                }
+
             }
         }
 
@@ -175,8 +179,9 @@ public class ClientFragment extends BaseFragment {
         mAliceApi.searchClient(130, 3, 20, "desc").enqueue(new Callback<ClientResponse>() {
             @Override
             public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
+                mClientObjects.clear();
                 if (response.isSuccessful()) {
-                    mClientObjects.clear();
+
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
                         ClientObj jsonArray = new ClientObj(0, null, null, null);
@@ -194,6 +199,7 @@ public class ClientFragment extends BaseFragment {
                         mSearchBox.addSearchable(option);
                     }
                     ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), mClientObjects);
+
                     mRecyclerViewSearchBox.setAdapter(adapter);
 
                 }
@@ -208,7 +214,9 @@ public class ClientFragment extends BaseFragment {
     }
 
     public void UpdateRecycleView() {
+        mClientObjects.clear();
         searchClient();
+
         ClientCustomRecyclerViewAdapter adapter = new ClientCustomRecyclerViewAdapter(getContext(), mClientObjects);
         adapter.notifyDataSetChanged();
         mRecyclerViewSearchBox.setAdapter(adapter);

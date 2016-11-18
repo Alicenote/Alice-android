@@ -5,11 +5,10 @@ package com.namestore.alicenote.ui.client.interfaces;
  */
 
 public interface OnClientDetailListener {
-    void showAddClient();
+    void showAddEditDelClient();
 
     void showClientView();
 
-    void showDeleteClient();
     /*
     void showClient();*/
 }

@@ -3,7 +3,6 @@ package com.namestore.alicenote.ui.client.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
@@ -44,17 +44,17 @@ public class ViewClientFragment extends BaseFragment {
     private AliceApi mAliceApi;
     private ClientDetailActivity mClientDetailActivity;
     private int mId;
-    private Toolbar mToolBar;
-    private ViewClientFragment mViewFragment =new ViewClientFragment();
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fm_view_client, container, false);
-        mToolBar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolBar);
+        super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.fm_view_client, container, false);
+
+
         mId = mClientDetailActivity.mId;
-        mId = 44;
         initViews(view);
         initModels();
         return view;
@@ -84,11 +84,11 @@ public class ViewClientFragment extends BaseFragment {
 
         mAliceApi.searchViewClient(130, mId).enqueue(new Callback<ViewClientResponse>() {
             @Override
-            public void onResponse(Call<ViewClientResponse> call, Response <ViewClientResponse>response) {
+            public void onResponse(Call<ViewClientResponse> call, Response<ViewClientResponse> response) {
                 if (response.isSuccessful()) {
                     tvClName.setText(response.body().getData().getFirstName() + " " +
-                          response.body().data.getLastName());
-                   tvClBirthday.setText(response.body().data.getBirthday());
+                            response.body().data.getLastName());
+                    tvClBirthday.setText(response.body().data.getBirthday());
                     tvClPhone.setText(response.body().data.getPhone());
                     tvClEmail.setText(response.body().data.getEmail());
                     tvClAddreess.setText(response.body().data.getAddress());
@@ -97,7 +97,7 @@ public class ViewClientFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<ViewClientResponse>call, Throwable t) {
+            public void onFailure(Call<ViewClientResponse> call, Throwable t) {
 
                 if (call.isCanceled()) {
                     AppUtils.logE("request was cancelled");
@@ -127,9 +127,10 @@ public class ViewClientFragment extends BaseFragment {
             this.mClientDetailActivity = (ClientDetailActivity) activity;
         }
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_client_detail, menu);
+        inflater.inflate(R.menu.menu_view_client, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -142,12 +143,9 @@ public class ViewClientFragment extends BaseFragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_edit) {
-            Bundle _bundle =new Bundle();
-                   _bundle.putInt(Constants.KEY_CHECK_EDIT_CLIENT,mId);
-                   _bundle.putString(Constants.KEY_CHECK_CLIENT,Constants.EDIT_CLIENT);
-            mViewFragment.setArguments(_bundle);
+Log.w("viewwwwww","viewwwwwww");
             getActivity().getSupportFragmentManager().beginTransaction().
-                    replace(R.id.container, mClientDetailActivity.mAddEditClientFragment).commit();
+                    replace(R.id.container, mClientDetailActivity.mAddEditDelClientFragment).commit();
 
 
             return true;

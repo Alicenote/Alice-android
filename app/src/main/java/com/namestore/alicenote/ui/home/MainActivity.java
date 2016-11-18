@@ -24,7 +24,6 @@ import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.calendar.CalendarActivity;
 
-import com.namestore.alicenote.ui.client.fragment.AddEditClientFragment;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
@@ -76,22 +75,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void onClick(View view) {
                 //showCalendarFragment();
-                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+               // startActivity(new Intent(MainActivity.this, CalendarActivity.class));
             }
         });
 
-        btnClient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showClientFragment();
 
-            }
-        });
 
         btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showServiceFragment();
+              //  showServiceFragment();
 
             }
         });
@@ -99,7 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showMoreFragment();
+             //   showMoreFragment();
 
             }
         });
@@ -160,14 +153,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
                     return new DashBoardFragment();
-                case 1: // Fragment # 1 - This will show SecondFragment
-                    return new AddEditClientFragment();
+                case 1:
+                    // Fragment # 1 - This will show SecondFragment
+                    return new ClientFragment();
                 case 2:
-                    return new DashBoardFragment();
+                    return new ClientFragment();
                 case 3:
                     return new ClientFragment();
                 case 4:
-                    return new DashBoardFragment();
+                    return new ClientFragment();
 
                 default:
                     return null;

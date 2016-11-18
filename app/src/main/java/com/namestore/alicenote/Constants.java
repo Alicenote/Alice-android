@@ -29,7 +29,8 @@ public class Constants {
     public static final String API_CLIENT ="v1/clients";
     public static final String API_VIEW_CLIENT ="/v1/clients/view";
     public static final String API_ADD_CLIENT="/v1/clients/create";
-
+    public static final String API_UPDATE_CLIENT="/v1/clients/update";
+    public static final String API_DEL_CLIENT ="/v1/clients/delete";
 
     /*END API SERVER*/
 
