@@ -48,7 +48,8 @@ public class ClientCustomRecyclerViewAdapter extends
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder viewHolder, final int position) {
-        viewHolder.tvName.setText(listView_Object.get(position).getTvName());
+        viewHolder.tvName.setText(listView_Object.get(position).getTvFirstName()+"  "+
+                listView_Object.get(position).getTvLastName());
 
 
     }

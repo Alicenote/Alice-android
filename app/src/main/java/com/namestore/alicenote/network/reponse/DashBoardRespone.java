@@ -1,5 +1,6 @@
 package com.namestore.alicenote.network.reponse;
 
+import com.google.gson.JsonArray;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.namestore.alicenote.network.BaseResponse;
@@ -155,28 +156,10 @@ public class DashBoardRespone extends BaseResponse {
             return updated;
         }
 
-        public void setUpdated(String updated) {
-            this.updated = updated;
+        public int getTotalItem() {
+            return totalItem;
         }
 
-        public String getCreated() {
-            return created;
-        }
-
-
-        public void setCreated(String created) {
-            this.created = created;
-
-        }
-
-        public int getStatus() {
-            return mStatus;
-        }
-
-        public String getErrors() {
-            return mErrors;
-
-        }
 
     }
 }

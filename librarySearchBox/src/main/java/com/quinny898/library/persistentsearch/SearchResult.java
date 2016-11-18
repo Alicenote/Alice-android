@@ -5,15 +5,17 @@ import android.graphics.drawable.Drawable;
 public class SearchResult {
     public String title;
     public Drawable icon;
+    public int id;
 
     /**
      * Create a search result with text and an icon
      * @param title
      * @param icon
      */
-    public SearchResult(String title, Drawable icon) {
+    public SearchResult(String title,int id, Drawable icon) {
        this.title = title;
        this.icon = icon;
+        this.id =id;
     }
 
     public int viewType = 0;

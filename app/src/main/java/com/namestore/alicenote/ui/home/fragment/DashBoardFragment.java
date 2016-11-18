@@ -37,11 +37,14 @@ public class DashBoardFragment extends BaseFragment {
     private TextView tvSaleIn;
     private List<DashboardObj> mListViewContactUpComming = new ArrayList<>();
     private List<DashboardObj> mListViewContactThisWeek = new ArrayList<>();
-    private RecyclerView mRecyclerListViewUpComming, mRecyclerListViewThisWeek;
-    private Button btnHideUpComming, btnHideThisWeek;
-    private int checkHideUpComming, checkHideThisWeek;
+    private RecyclerView mRecyclerListViewUpComming;
+    private RecyclerView mRecyclerListViewThisWeek;
+    private Button btnHideUpComming;
+    private Button btnHideThisWeek;
+    private int mCheckHideUpComming;
+    private int mCheckHideThisWeek;
     private ProgressDialog prgDialog;
-    private AliceApi aliceApi;
+    private AliceApi mAliceApi;
 
 
     @Override
@@ -69,17 +72,20 @@ public class DashBoardFragment extends BaseFragment {
         mRecyclerListViewThisWeek.setLayoutManager(new LinearLayoutManager(getContext()));// de xuat hien dc recyclerview trong crollview
         mRecyclerListViewThisWeek.setHasFixedSize(true);
 
-        aliceApi = ServiceGenerator.creatService(AliceApi.class);
+        mAliceApi = ServiceGenerator.creatService(AliceApi.class);
         searchWeekAppointment();
+        searchUpCommingAppointment();
 
+        DashboardCustomRecyclerViewAdapter adapter = new DashboardCustomRecyclerViewAdapter(getContext(), mListViewContactUpComming);
+        mRecyclerListViewUpComming.setAdapter(adapter);
 
+        DashboardCustomRecyclerViewAdapter adapterThisWeek = new DashboardCustomRecyclerViewAdapter(getContext(), mListViewContactThisWeek);
+        mRecyclerListViewThisWeek.setAdapter(adapterThisWeek);
     }
 
 
     @Override
     protected void initModels() {
-        DashboardCustomRecyclerViewAdapter adapter = new DashboardCustomRecyclerViewAdapter(getContext(), mListViewContactUpComming);
-        mRecyclerListViewUpComming.setAdapter(adapter);
 
 
         mRecyclerListViewUpComming.addOnItemTouchListener(
@@ -93,21 +99,19 @@ public class DashBoardFragment extends BaseFragment {
         btnHideUpComming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkHideUpComming == 0) {
+                if (mCheckHideUpComming == 0) {
                     mRecyclerListViewUpComming.setVisibility(View.GONE);
                     btnHideUpComming.setText("SHOW");
-                    checkHideUpComming = 1;
+                    mCheckHideUpComming = 1;
                 } else {
                     mRecyclerListViewUpComming.setVisibility(View.VISIBLE);
                     btnHideUpComming.setText("HIDE");
-                    checkHideUpComming = 0;
+                    mCheckHideUpComming = 0;
                 }
             }
         });
 
 
-        DashboardCustomRecyclerViewAdapter adapterThisWeek = new DashboardCustomRecyclerViewAdapter(getContext(), mListViewContactThisWeek);
-        mRecyclerListViewThisWeek.setAdapter(adapterThisWeek);
         mRecyclerListViewThisWeek.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -119,32 +123,36 @@ public class DashBoardFragment extends BaseFragment {
         btnHideThisWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkHideThisWeek == 0) {
+                if (mCheckHideThisWeek == 0) {
                     mRecyclerListViewThisWeek.setVisibility(View.GONE);
                     btnHideThisWeek.setText("SHOW");
-                    checkHideThisWeek = 1;
+                    mCheckHideThisWeek = 1;
                 } else {
                     mRecyclerListViewThisWeek.setVisibility(View.VISIBLE);
                     btnHideThisWeek.setText("HIDE");
-                    checkHideThisWeek = 0;
+                    mCheckHideThisWeek = 0;
                 }
             }
         });
     }
 
     public void searchWeekAppointment() {
-
-        aliceApi.searchWeekAppointment(116, 103).enqueue(new Callback<DashBoardRespone>() {
+        mAliceApi.searchWeekAppointment(116, 103).enqueue(new Callback<DashBoardRespone>() {
             @Override
             public void onResponse(Call<DashBoardRespone> call, Response<DashBoardRespone> response) {
 
-
-                AppUtils.logE("im here");
                 if (response.isSuccessful()) {
-                    AppUtils.logE("im here" + response.body().getData().get(0).getId());
+                    for (int i = 0; i < response.body().getData().size(); i++) {
 
+                        DashboardObj jsonArray = new DashboardObj(0, null, null, null, null, null);
+                        jsonArray.setTvNameSevice(response.body().getData().get(i).getService());
+                        jsonArray.setTvDuration(response.body().getData().get(i).getDuration());
+                        jsonArray.setTvNameStaff(response.body().getData().get(i).getStaff());
+                        jsonArray.setTvTimeStart(response.body().getData().get(i).getStartTime());
+                        jsonArray.setTvDate(response.body().getData().get(i).getDate());
+                        mListViewContactThisWeek.add(jsonArray);
+                    }
                 }
-
             }
 
             @Override
@@ -156,8 +164,36 @@ public class DashBoardFragment extends BaseFragment {
                 }
             }
         });
+    }
 
+    public void searchUpCommingAppointment() {
+        mAliceApi.searchUpCommingAppointment(116, 103).enqueue(new Callback<DashBoardRespone>() {
+            @Override
+            public void onResponse(Call<DashBoardRespone> call, Response<DashBoardRespone> response) {
 
+                if (response.isSuccessful()) {
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        DashboardObj apk = new DashboardObj(0, null, null, null, null, null);
+                        apk.setTvNameSevice(response.body().getData().get(i).getService());
+                        apk.setTvDuration(response.body().getData().get(i).getDuration());
+                        apk.setTvNameStaff(response.body().getData().get(i).getStaff());
+                        apk.setTvTimeStart(response.body().getData().get(i).getStartTime());
+
+                        mListViewContactUpComming.add(apk);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DashBoardRespone> call, Throwable t) {
+                if (call.isCanceled()) {
+                    AppUtils.logE("request was cancelled");
+                } else {
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                }
+            }
+        });
     }
 
     public void setPrgDialog(String text) {

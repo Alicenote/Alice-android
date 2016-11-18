@@ -3,8 +3,10 @@ package com.namestore.alicenote.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
 import android.view.View;
 
+import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 
 
@@ -50,4 +52,11 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onClick(View view) {
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
 }

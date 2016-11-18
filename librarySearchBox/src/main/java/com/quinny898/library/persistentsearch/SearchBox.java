@@ -885,7 +885,7 @@ public class SearchBox extends RelativeLayout {
 
 
 	private void search(String text) {
-		SearchResult option = new SearchResult(text, null);
+		SearchResult option = new SearchResult(text,0, null);
 		search(option, false);
 
 	}
@@ -928,10 +928,7 @@ public class SearchBox extends RelativeLayout {
 			} else {
 				border.setVisibility(View.GONE);
 			}
-		if(	isKeyboardShown(search.getRootView())==false){
-			no++;
-			if(no==41){closeSearch();
-		}}
+
 			final TextView title = (TextView) convertView
 					.findViewById(R.id.title);
 			title.setText(option.title);

@@ -8,28 +8,52 @@ import java.io.Serializable;
 
 
 public class ClientObj implements Serializable {
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    private String tvName;
+    public String getTvLastName() {
+        return tvLastName;
+    }
 
+    public void setTvLastName(String tvLastName) {
+        this.tvLastName = tvLastName;
+    }
 
-    public String getTvName() {
-        return tvName;
+    public String getTvFirstName() {
+        return tvFirstName;
+    }
+
+    public void setTvFirstName(String tvFirstName) {
+        this.tvFirstName = tvFirstName;
+    }
+
+    private int id;
+    private String tvFirstName;
+    private String tvLastName;
+    private String imgAvatar;
+
+    public String getImgAvatar() {
+        return imgAvatar;
+    }
+
+    public void setImgAvatar(String imgAvatar) {
+        this.imgAvatar = imgAvatar;
     }
 
 
-    public void setTvName(String tvName) {
-        this.tvName = tvName;
-    }
-
-
-
-
-
-    public ClientObj(String tvName) {
+    public ClientObj(int id ,String tvFirstName,String tvLastName,String imgAvatar) {
         super();
 
-        this.tvName = tvName;
+        this.id = id;
+        this.tvFirstName = tvFirstName;
+        this.tvLastName = tvLastName;
+        this.imgAvatar = imgAvatar;
+
 
     }
 }

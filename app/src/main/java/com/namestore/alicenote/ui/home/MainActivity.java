@@ -23,7 +23,8 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.calendar.CalendarActivity;
-import com.namestore.alicenote.ui.client.fragment.AddClientFragment;
+
+import com.namestore.alicenote.ui.client.fragment.AddEditClientFragment;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
@@ -38,7 +39,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private PagerAdapter mPagerAdapter;
     private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
     private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 case 0: // Fragment # 0 - This will show FirstFragment
                     return new DashBoardFragment();
                 case 1: // Fragment # 1 - This will show SecondFragment
-                    return new AddClientFragment();
+                    return new AddEditClientFragment();
                 case 2:
                     return new DashBoardFragment();
                 case 3:
@@ -268,6 +268,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         }
 
     }
-
 
 }
