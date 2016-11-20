@@ -172,13 +172,13 @@
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/edBirthday"
+                <TextView
+                    android:id="@+id/tvBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
+                    android:hint="YYYY/MM/DD"
+                    android:gravity="center"
                     android:paddingLeft="5dp" />
             </LinearLayout>
 
@@ -307,9 +307,20 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/linearLayoutEmail"
                 android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/mErrorEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-                android:orientation="horizontal"></LinearLayout>>
+                    android:gravity="center"
+                    android:background="#e5e5e5"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+
+                    />
+
+            </LinearLayout>>
 
             <LinearLayout
                 android:id="@+id/linearLayoutMobilePhone"
@@ -347,7 +358,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.2"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:paddingLeft="5dp" />
             </LinearLayout>
 

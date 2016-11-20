@@ -153,11 +153,11 @@ public class ClientFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.w("ddm","nhu lon");
+
         if (requestCode == 1406) {
-            Log.w("ddm","tra ve"+resultCode);
+
             if (resultCode == Activity.RESULT_OK) {
-                Log.w("ddm","nhu lon"+data.getIntExtra("result", 0));
+
                 if (data.getIntExtra("result", 0) == 1){
 
                     UpdateRecycleView();

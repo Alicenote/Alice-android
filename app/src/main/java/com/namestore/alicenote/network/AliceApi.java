@@ -18,6 +18,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -57,7 +58,7 @@ public interface AliceApi {
 
     @POST(Constants.API_ADD_CLIENT)
     Call<AddEditDelClientResponse> pushInfoClient (@Body AddEditClientObj addEditClientObj, @Query("salon_id") Integer salonId);
-    @POST(Constants.API_UPDATE_CLIENT)
+    @PUT(Constants.API_UPDATE_CLIENT)
     Call<AddEditDelClientResponse> updateInfoClient (@Body AddEditClientObj addEditClientObj,
                                                      @Query("salon_id") Integer salonId, @Query("id") Integer id);
     @DELETE(Constants.API_DEL_CLIENT)
