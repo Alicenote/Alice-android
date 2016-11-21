@@ -3,6 +3,7 @@ package com.namestore.alicenote.ui.client.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,9 +58,13 @@ public class ViewClientFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fm_view_client, container, false);
-
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mClientDetailActivity.mToolBar);
+        mClientDetailActivity.mToolBar.setTitle("View Client");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setHasOptionsMenu(true);
 
         mId = mClientDetailActivity.mId;
         initViews(view);
@@ -171,6 +176,10 @@ public class ViewClientFragment extends BaseFragment {
                     replace(R.id.container, mClientDetailActivity.mAddEditDelClientFragment).commit();
 
 
+            return true;
+        }
+        if (id == android.R.id.home) {
+            getActivity().onBackPressed();
             return true;
         }
 

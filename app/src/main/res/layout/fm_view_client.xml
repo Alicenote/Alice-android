@@ -5,7 +5,6 @@
     android:layout_height="match_parent">
 
 
-
     <LinearLayout
         android:id="@+id/linearLayoutTop"
         android:layout_width="match_parent"
@@ -155,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-
+            android:gravity="center"
             android:paddingLeft="5dp" />
     </LinearLayout>
 
@@ -195,7 +194,9 @@
             android:id="@+id/tvClAddreess"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+
+            android:gravity="center" />
     </LinearLayout>
 
     <TextView

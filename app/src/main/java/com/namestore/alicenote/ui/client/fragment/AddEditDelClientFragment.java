@@ -15,9 +15,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +57,7 @@ import java.util.Calendar;
  * Created by nhocnhinho on 09/11/2016.
  */
 
-public class AddEditDelClientFragment extends BaseFragment {
+public class AddEditDelClientFragment extends BaseFragment implements AdapterView.OnItemSelectedListener {
     private EditText edFistName;
     private EditText editGender;
     private EditText edLastName;
@@ -69,7 +72,7 @@ public class AddEditDelClientFragment extends BaseFragment {
     private String textFistName;
     private String textLastName;
     private String textBirthday;
-    private String textGender;
+
     private String textEmail;
     private String textMobilePhone;
     private String textPhone;
@@ -81,13 +84,16 @@ public class AddEditDelClientFragment extends BaseFragment {
 
     private AliceApi mAliceApi;
 
+    private int mIntGender;
+
     private TextView tvBirthday;
     private TextView mTvErrorEmail;
     private AddEditClientObj mAddEditClientObj = new AddEditClientObj();
 
-    LinearLayout mLinearLayout;
+    private LinearLayout mLinearLayout;
     private ClientDetailActivity mClientDetailActivity;
 
+    Spinner mSpinnerGender;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,12 +101,15 @@ public class AddEditDelClientFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mClientDetailActivity.mToolBar);
-        mClientDetailActivity.mToolBar.setTitle("Add Client");
+
+        if (mClientDetailActivity.mKeyCheckClient.
+                equals(Constants.ADD_CLIENT))
+            mClientDetailActivity.mToolBar.setTitle("Add Client");
+        else
+            mClientDetailActivity.mToolBar.setTitle("Edit Client");
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //  ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         View view = inflater.inflate(R.layout.fm_add_edit_client, container, false);
-
         setHasOptionsMenu(true);
 
 
@@ -121,7 +130,6 @@ public class AddEditDelClientFragment extends BaseFragment {
         edMobilePhone = (EditText) view.findViewById(R.id.edMobilePhone);
         edAddress = (EditText) view.findViewById(R.id.edAddress);
         edComment = (EditText) view.findViewById(R.id.edComment);
-        editGender = (EditText) view.findViewById(R.id.edGender);
 
         mButtonDel = (Button) view.findViewById(R.id.btnDel);
 
@@ -130,7 +138,13 @@ public class AddEditDelClientFragment extends BaseFragment {
 
         tvBirthday = (TextView) view.findViewById(R.id.tvBirthday);
 
+        mSpinnerGender = (Spinner) view.findViewById(R.id.spinner_edGender);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.gender, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGender.setAdapter(adapter);
+        mSpinnerGender.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -163,6 +177,19 @@ public class AddEditDelClientFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // 0 la male
+        //1 la female
+        //2 la other
+              mIntGender = position;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     public void getTextFromEditText() {
 
 
@@ -183,7 +210,7 @@ public class AddEditDelClientFragment extends BaseFragment {
 
         } else
             textLastName = edLastName.getText().toString();
-        textGender = editGender.getText().toString();
+
         textMobilePhone = edMobilePhone.getText().toString();
 
         textBirthday = tvBirthday.getText().toString();
@@ -211,7 +238,7 @@ public class AddEditDelClientFragment extends BaseFragment {
         mAddEditClientObj.setEmail(textEmail);
         mAddEditClientObj.setFirstName(textFistName);
         mAddEditClientObj.setLastName(textLastName);
-        mAddEditClientObj.setGender(1);
+        mAddEditClientObj.setGender(mIntGender);
         mAddEditClientObj.setPhone(textPhone);
 
 
@@ -301,6 +328,7 @@ public class AddEditDelClientFragment extends BaseFragment {
 
     }
 
+
     public void searchViewClient() {
 
         mAliceApi.searchViewClient(130, mClientDetailActivity.mId).enqueue(new Callback<ViewClientResponse>() {
@@ -314,7 +342,8 @@ public class AddEditDelClientFragment extends BaseFragment {
                     edMobilePhone.setText(response.body().getData().getClient().getPhone());
                     edAddress.setText(response.body().getData().getClient().getAddress());
                     edComment.setText(response.body().getData().getClient().getDescription());
-                    //      editGender.setText(response.body().data.getGender());
+                    mSpinnerGender.setSelection(response.body().getData().getClient().getGender());
+
 
 
                 }
@@ -419,10 +448,10 @@ public class AddEditDelClientFragment extends BaseFragment {
             getTextFromEditText();
 
             if (mClientDetailActivity.mKeyCheckClient.
-                    equals(Constants.ADD_CLIENT)) {// truong them client
+                    equals(Constants.ADD_CLIENT)) {
                 if (textEmail.equals("error") || textFistName.equals("error")
                         || textLastName.equals("error")) {
-                    Toast.makeText(getActivity(), "Failed , please check again !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Add Failed , please check again !!!", Toast.LENGTH_SHORT).show();
                 } else
                     pushInfoClient();
 
@@ -430,7 +459,7 @@ public class AddEditDelClientFragment extends BaseFragment {
             } else {//truong update client
                 if (textEmail.equals("error") || textFistName.equals("error")
                         || textLastName.equals("error")) {
-                    Toast.makeText(getActivity(), "Failed , please check again !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Update Failed, please check again !!!", Toast.LENGTH_SHORT).show();
                 } else
                     updateInfoClient();
 
@@ -445,5 +474,6 @@ public class AddEditDelClientFragment extends BaseFragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

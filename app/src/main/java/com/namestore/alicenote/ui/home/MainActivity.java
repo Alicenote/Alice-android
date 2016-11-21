@@ -38,12 +38,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private PagerAdapter mPagerAdapter;
     private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
     private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
-
+    public    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mPager = (ViewPager) findViewById(R.id.viewPagerMain);
@@ -74,8 +74,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showCalendarFragment();
-               // startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+            //    showCalendarFragment();
+                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
             }
         });
 
@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  showServiceFragment();
+           //    showServiceFragment();
 
             }
         });
@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //   showMoreFragment();
+             //  showMoreFragment();
 
             }
         });
@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(1);
     }
 
-    public void showServiceFragment() {
+  /*  public void showServiceFragment() {
         mPager.setCurrentItem(2);
     }
 
@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void showMoreFragment() {
         mPager.setCurrentItem(4);
 
-    }
+    }*/
 
     @Override
     public void onViewClick(String tag) {
@@ -156,12 +156,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 case 1:
                     // Fragment # 1 - This will show SecondFragment
                     return new ClientFragment();
-                case 2:
+              /*  case 2:
                     return new ClientFragment();
                 case 3:
                     return new ClientFragment();
                 case 4:
-                    return new ClientFragment();
+                    return new ClientFragment();*/
 
                 default:
                     return null;
@@ -170,7 +170,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         @Override
         public int getCount() {
-            return NUM_PAGES;
+          /*  return NUM_PAGES;*/
+            return 2;
         }
     }
 
@@ -247,16 +248,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnCalendar:
-                showCalendarFragment(); // e ko hieu implement onclick roi ma sao ko click dc ha anh
+         //       showCalendarFragment(); // e ko hieu implement onclick roi ma sao ko click dc ha anh
                 Log.w("dasdfaf", "fasdfsaf");
             case R.id.btnClient:
                 showClientFragment();
             case R.id.btnDashBoard:
                 showDashBoardFragment();
             case R.id.btnService:
-                showServiceFragment();
+        //        showServiceFragment();
             case R.id.btnMore:
-                showMoreFragment();
+        //        showMoreFragment();
 
 
         }

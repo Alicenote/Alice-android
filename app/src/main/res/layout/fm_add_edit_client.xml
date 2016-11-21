@@ -214,20 +214,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3.5"
+                    android:layout_weight="2.5"
                     android:gravity="center"
                     android:text="Gender"
+                    android:paddingRight="60dp"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/edGender"
+                <Spinner
+                    android:id="@+id/spinner_edGender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp" />
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"/>
             </LinearLayout>
 
 

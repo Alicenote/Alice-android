@@ -63,22 +63,20 @@ public class ClientDetailActivity extends BaseActivity
                 .commit();*/
 
         if (mKeyCheckClient.equalsIgnoreCase(Constants.ADD_CLIENT)) {
-            mToolBar.setTitle("Add Client");
+
             showAddEditDelClient();
 
         }
         if (mKeyCheckClient.equalsIgnoreCase(Constants.EDIT_CLIENT)) {
-            mToolBar.setTitle("Edit Client");
+
             showAddEditDelClient();
         }
 
         if (mKeyCheckClient.equalsIgnoreCase(Constants.VIEW_CLIENT)) {
             showClientView();
-            mToolBar.setTitle("View Client");
+
         }
 
-        returnIntent.putExtra("result", 1);
-       setResult(Activity.RESULT_OK,returnIntent);
     }
 
     /*  public void showFragment(Fragment fragmentToShow) {
