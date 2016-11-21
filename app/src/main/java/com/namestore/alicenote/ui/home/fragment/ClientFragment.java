@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,13 +57,13 @@ public class ClientFragment extends BaseFragment {
 
     private AliceApi mAliceApi;
     private Button mBtnAddNewCLient;
-    private MainActivity mMainActivity;
+
+   private MainActivity mMainActivity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_client, container, false);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mMainActivity.toolbar);
-        mMainActivity.toolbar.hideOverflowMenu();
+
 
         initViews(view);
         initModels();
@@ -121,6 +123,13 @@ public class ClientFragment extends BaseFragment {
                         return true;
                 }
                 return false;
+            }
+        });
+        mSearchBox.setMenuListener(new SearchBox.MenuListener() {
+            @Override
+            public void onMenuClick() {
+
+                mMainActivity.drawer.openDrawer(GravityCompat.START);
             }
         });
         mSearchBox.setSearchListener(new SearchBox.SearchListener() {
@@ -236,6 +245,7 @@ public class ClientFragment extends BaseFragment {
         mRecyclerViewSearchBox.setAdapter(adapter);
 
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -253,6 +263,4 @@ public class ClientFragment extends BaseFragment {
             this.mMainActivity = (MainActivity) activity;
         }
     }
-
-
 }

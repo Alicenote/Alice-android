@@ -1,6 +1,7 @@
 package com.namestore.alicenote.ui.client.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -93,6 +94,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
     private LinearLayout mLinearLayout;
     private ClientDetailActivity mClientDetailActivity;
 
+    private ProgressDialog prgDialog;
     Spinner mSpinnerGender;
 
     @Override
@@ -145,6 +147,10 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGender.setAdapter(adapter);
         mSpinnerGender.setOnItemSelectedListener(this);
+        prgDialog = new ProgressDialog(getContext());
+        prgDialog.setCancelable(false);
+
+
     }
 
     @Override
@@ -182,7 +188,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
         // 0 la male
         //1 la female
         //2 la other
-              mIntGender = position;
+        mIntGender = position;
     }
 
     @Override
@@ -274,7 +280,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
 
 
     public void pushInfoClient() {
-
+        prgDialog.show();
         mAliceApi.pushInfoClient(mAddEditClientObj, 130).enqueue(new Callback<AddEditDelClientResponse>() {
             @Override
             public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
@@ -285,11 +291,13 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result", 1);
                         getActivity().setResult(Activity.RESULT_OK, returnIntent);
+                        prgDialog.hide();
                         getActivity().finish();
                     }
 
                 } else {
                     Toast.makeText(getContext(), "Add Client Completed", Toast.LENGTH_SHORT).show();
+                    prgDialog.hide();
                 }
 
             }
@@ -303,6 +311,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
     }
 
     public void updateInfoClient() {
+        prgDialog.show();
         mAliceApi.updateInfoClient(mAddEditClientObj, 130, mClientDetailActivity.mId).enqueue(new Callback<AddEditDelClientResponse>() {
             @Override
             public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
@@ -313,9 +322,11 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result", 1);
                         getActivity().setResult(Activity.RESULT_OK, returnIntent);
+                        prgDialog.hide();
                         getActivity().finish();
                     } else
                         Toast.makeText(getActivity(), "Update Client Fail", Toast.LENGTH_SHORT).show();
+                    prgDialog.hide();
                 }
 
             }
@@ -330,7 +341,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
 
 
     public void searchViewClient() {
-
+        prgDialog.show();
         mAliceApi.searchViewClient(130, mClientDetailActivity.mId).enqueue(new Callback<ViewClientResponse>() {
             @Override
             public void onResponse(Call<ViewClientResponse> call, Response<ViewClientResponse> response) {
@@ -344,9 +355,9 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
                     edComment.setText(response.body().getData().getClient().getDescription());
                     mSpinnerGender.setSelection(response.body().getData().getClient().getGender());
 
-
-
+                    prgDialog.hide();
                 }
+
             }
 
             @Override
@@ -364,6 +375,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
     }
 
     public void delInfoClient() {
+        prgDialog.show();
         mAliceApi.delClient(130, mClientDetailActivity.mId).enqueue(new Callback<AddEditDelClientResponse>() {
             @Override
             public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
@@ -374,6 +386,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result", 1);
                         getActivity().setResult(Activity.RESULT_OK, returnIntent);
+                        prgDialog.hide();
                         getActivity().finish();
 
                     } else

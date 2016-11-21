@@ -1,19 +1,27 @@
 package com.namestore.alicenote.ui.client.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.namestore.alicenote.R;
@@ -22,6 +30,7 @@ import com.namestore.alicenote.models.DashboardObj;
 import com.namestore.alicenote.models.ViewClientObj;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.ServiceGenerator;
+import com.namestore.alicenote.network.reponse.AddEditDelClientResponse;
 import com.namestore.alicenote.network.reponse.ViewClientResponse;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.client.ClientDetailActivity;
@@ -53,6 +62,8 @@ public class ViewClientFragment extends BaseFragment {
     private int mId;
     private List<ViewClientObj> mListViewClient = new ArrayList<>();
     private RecyclerView mRecyclerViewClient;
+    private ProgressBar mProgressBar;
+    private Button mBtnViewClientDel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,6 +96,8 @@ public class ViewClientFragment extends BaseFragment {
         mRecyclerViewClient = (RecyclerView) view.findViewById(R.id.recyclerViewClient);
         mRecyclerViewClient.setLayoutManager(new LinearLayoutManager(getContext()));// de xuat hien dc recyclerview trong crollview
         mRecyclerViewClient.setHasFixedSize(true);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.prgBarViewClient);
+        mBtnViewClientDel = (Button) view.findViewById(R.id.btnViewClientDel);
 
     }
 
@@ -92,8 +105,12 @@ public class ViewClientFragment extends BaseFragment {
     protected void initModels() {
 
         searchViewClient();
-        ViewClientCustomRecycleAdapter adapterThisWeek = new ViewClientCustomRecycleAdapter(getContext(), mListViewClient);
-        mRecyclerViewClient.setAdapter(adapterThisWeek);
+        mBtnViewClientDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDelDialog();
+            }
+        });
 
     }
 
@@ -101,6 +118,7 @@ public class ViewClientFragment extends BaseFragment {
     public void searchViewClient() {
 
         mAliceApi.searchViewClient(130, mId).enqueue(new Callback<ViewClientResponse>() {
+
             @Override
             public void onResponse(Call<ViewClientResponse> call, Response<ViewClientResponse> response) {
                 if (response.isSuccessful()) {
@@ -122,6 +140,10 @@ public class ViewClientFragment extends BaseFragment {
                     jsonArray.setTvClMoney(response.body().getData().getAppointments().getAppointment().get(i).getTotalPrice());
                     mListViewClient.add(jsonArray);
                 }
+                ViewClientCustomRecycleAdapter adapterThisWeek = new ViewClientCustomRecycleAdapter(getContext(), mListViewClient);
+                mRecyclerViewClient.setAdapter(adapterThisWeek);
+                mProgressBar.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -132,6 +154,58 @@ public class ViewClientFragment extends BaseFragment {
                 } else {
                     AppUtils.logE("FAILED " + t.getLocalizedMessage());
                 }
+            }
+        });
+
+
+    }
+
+    public void showDelDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setTitle("Warning !!!");
+        builder.setMessage("Are you sure to delete this client");
+        builder.setPositiveButton("OK!!!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                delInfoClient();
+
+
+            }
+        })
+                .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        builder.create().show();
+    }
+
+    public void delInfoClient() {
+        mAliceApi.delClient(130, mClientDetailActivity.mId).enqueue(new Callback<AddEditDelClientResponse>() {
+            @Override
+            public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
+
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus() == 1) {
+                        Toast.makeText(getContext(), "Delete Client Completed", Toast.LENGTH_SHORT).show();
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result", 1);
+                        getActivity().setResult(Activity.RESULT_OK, returnIntent);
+                        getActivity().finish();
+
+                    } else
+                        Toast.makeText(getActivity(), "Delete Client Fail", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AddEditDelClientResponse> call, Throwable t) {
+
             }
         });
 
@@ -186,4 +260,12 @@ public class ViewClientFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onDestroy() {
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.GONE);
+        }
+        super.onDestroy();
+    }
 }
