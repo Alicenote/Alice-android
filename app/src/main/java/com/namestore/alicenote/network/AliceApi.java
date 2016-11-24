@@ -3,7 +3,8 @@ package com.namestore.alicenote.network;
 import com.namestore.alicenote.models.AppointmentObj;
 import com.namestore.alicenote.models.AddEditClientObj;
 import com.namestore.alicenote.network.reponse.FillFirstSetupResponse;
-import com.namestore.alicenote.network.reponse.AddEditClientResponse;
+
+import com.namestore.alicenote.network.reponse.AddEditDelClientResponse;
 import com.namestore.alicenote.network.reponse.ClientResponse;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
@@ -17,8 +18,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -63,7 +66,12 @@ public interface AliceApi {
     Call<ViewClientResponse> searchViewClient(@Query("salon_id") Integer salonId, @Query("id") Integer id);
 
     @POST(Constants.API_ADD_CLIENT)
-    Call<AddEditClientResponse> pushInfoClient(@Body AddEditClientObj addEditClientObj, @Query("salon_id") Integer salonId);
+    Call<AddEditDelClientResponse> pushInfoClient (@Body AddEditClientObj addEditClientObj, @Query("salon_id") Integer salonId);
+    @PUT(Constants.API_UPDATE_CLIENT)
+    Call<AddEditDelClientResponse> updateInfoClient (@Body AddEditClientObj addEditClientObj,
+                                                     @Query("salon_id") Integer salonId, @Query("id") Integer id);
+    @DELETE(Constants.API_DEL_CLIENT)
+    Call<AddEditDelClientResponse> delClient (@Query("salon_id") Integer salonId, @Query("id") Integer id);
 
 }
 

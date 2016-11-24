@@ -53,10 +53,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
 
 }

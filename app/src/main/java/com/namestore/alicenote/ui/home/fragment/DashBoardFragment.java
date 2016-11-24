@@ -1,13 +1,21 @@
 package com.namestore.alicenote.ui.home.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
@@ -17,6 +25,7 @@ import com.namestore.alicenote.network.AliceApi;
 
 import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
+import com.namestore.alicenote.ui.home.MainActivity;
 import com.namestore.alicenote.ui.home.adapter.DashboardCustomRecyclerViewAdapter;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.models.DashboardObj;
@@ -43,15 +52,28 @@ public class DashBoardFragment extends BaseFragment {
     private Button btnHideThisWeek;
     private int mCheckHideUpComming;
     private int mCheckHideThisWeek;
-    private ProgressDialog prgDialog;
+
     private AliceApi mAliceApi;
+    private Toolbar toolbar;
+    private MainActivity mMainActivity;
 
-
+    private ProgressBar mProgressBarUpComming,mProgressBarWeek;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fm_dashboard, container, false);
+
+
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+          toolbar.setTitle("DashBoard");
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle((Activity) getContext(),mMainActivity.drawer , toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mMainActivity.drawer.setDrawerListener(toggle);
+        toggle.syncState();
         initViews(view);
         initModels();
         return view;
@@ -60,7 +82,7 @@ public class DashBoardFragment extends BaseFragment {
     @Override
     protected void initViews(View view) {
 
-        tvSaleIn = (TextView) view.findViewById(R.id.tvSaleIn);
+
         mRecyclerListViewUpComming = (RecyclerView) view.findViewById(R.id.recyclerViewUpcommingAppointment);//listview cua upcoming
         btnHideUpComming = (Button) view.findViewById(R.id.btnHideUpComming);
         mRecyclerListViewThisWeek = (RecyclerView) view.findViewById(R.id.recyclerViewWeekAppointment);//listview cua thisweek
@@ -81,6 +103,8 @@ public class DashBoardFragment extends BaseFragment {
 
         DashboardCustomRecyclerViewAdapter adapterThisWeek = new DashboardCustomRecyclerViewAdapter(getContext(), mListViewContactThisWeek);
         mRecyclerListViewThisWeek.setAdapter(adapterThisWeek);
+        mProgressBarUpComming = (ProgressBar) view.findViewById(R.id.prgBarUpComming);
+        mProgressBarWeek = (ProgressBar) view.findViewById(R.id.prgBarWeekAppointment);
     }
 
 
@@ -152,6 +176,7 @@ public class DashBoardFragment extends BaseFragment {
                         jsonArray.setTvDate(response.body().getData().get(i).getDate());
                         mListViewContactThisWeek.add(jsonArray);
                     }
+                    mProgressBarWeek.setVisibility(View.GONE);
                 }
             }
 
@@ -167,6 +192,7 @@ public class DashBoardFragment extends BaseFragment {
     }
 
     public void searchUpCommingAppointment() {
+
         mAliceApi.searchUpCommingAppointment(116, 103).enqueue(new Callback<DashBoardRespone>() {
             @Override
             public void onResponse(Call<DashBoardRespone> call, Response<DashBoardRespone> response) {
@@ -182,6 +208,7 @@ public class DashBoardFragment extends BaseFragment {
 
                         mListViewContactUpComming.add(apk);
                     }
+                    mProgressBarUpComming.setVisibility(View.GONE);
                 }
             }
 
@@ -196,19 +223,34 @@ public class DashBoardFragment extends BaseFragment {
         });
     }
 
-    public void setPrgDialog(String text) {
-        prgDialog = new ProgressDialog(getActivity());
-        prgDialog.setMessage(text);
-        prgDialog.show();
-    }
+
 
 
     @Override
     public void onDestroy() {
-        if (prgDialog != null) {
-            prgDialog.dismiss();
+        if (mProgressBarUpComming != null||mProgressBarWeek!=null) {
+            mProgressBarUpComming.setVisibility(View.GONE);
+            mProgressBarWeek.setVisibility(View.GONE);
         }
         super.onDestroy();
     }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainActivity) {
+            this.mMainActivity = (MainActivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof MainActivity) {
+            this.mMainActivity = (MainActivity) activity;
+        }
+    }
+
 
 }

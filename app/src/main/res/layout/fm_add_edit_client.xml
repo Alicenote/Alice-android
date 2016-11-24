@@ -11,10 +11,10 @@
 
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nestedScrollView"
-        android:layout_above="@+id/btnSave"
+        android:layout_below="@+id/Appbar"
         android:fillViewport="true">
 
 
@@ -172,13 +172,13 @@
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/edBirthday"
+                <TextView
+                    android:id="@+id/tvBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
+                    android:hint="YYYY/MM/DD"
+                    android:gravity="center"
                     android:paddingLeft="5dp" />
             </LinearLayout>
 
@@ -191,6 +191,7 @@
                 android:background="#e5e5e5"
 
                 android:orientation="horizontal"></LinearLayout>>
+
             <LinearLayout
                 android:id="@+id/linearLayoutGender"
 
@@ -213,20 +214,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3.5"
+                    android:layout_weight="2.5"
                     android:gravity="center"
                     android:text="Gender"
+                    android:paddingRight="60dp"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/edGender"
+                <Spinner
+                    android:id="@+id/spinner_edGender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp" />
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"/>
             </LinearLayout>
 
 
@@ -306,9 +307,20 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/linearLayoutEmail"
                 android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/mErrorEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-                android:orientation="horizontal"></LinearLayout>>
+                    android:gravity="center"
+                    android:background="#e5e5e5"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+
+                    />
+
+            </LinearLayout>>
 
             <LinearLayout
                 android:id="@+id/linearLayoutMobilePhone"
@@ -346,7 +358,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.2"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:paddingLeft="5dp" />
             </LinearLayout>
 
@@ -360,8 +372,10 @@
 
                 android:orientation="horizontal"></LinearLayout>>
 
+
+
             <LinearLayout
-                android:id="@+id/linearLayoutWorkPhone"
+                android:id="@+id/linearLayoutStreetAdress"
 
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -382,89 +396,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3.5"
-                    android:gravity="center"
-                    android:text="Work Phone"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-
-                    />
-
-                <EditText
-                    android:id="@+id/edWorkPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineWorkPhone"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/linearLayoutWorkPhone"
-                android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
-
-                android:orientation="horizontal"></LinearLayout>>
-
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/lineWorkPhone"
-                android:layout_marginTop="40dp"
-                android:gravity="center|left"
-                android:paddingLeft="32dp"
-                android:text="Address"
-                android:textColor="#000000"
-                android:textStyle="bold|italic" />
-
-            <LinearLayout
-                android:id="@+id/lineAdress"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/tvAddress"
-                android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
-
-                android:orientation="horizontal"></LinearLayout>>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutStreetAdress"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/lineAdress"
-
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-
-                    android:layout_weight="4.5"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
 
                     android:layout_weight="3.3"
                     android:gravity="center"
 
-                    android:text="Street Address"
+                    android:text="Address"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/edStreetAdress"
+                    android:id="@+id/edAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2.2"
@@ -474,211 +415,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lineStreetAddress"
+                android:id="@+id/lineAddress"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/linearLayoutStreetAdress"
-                android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
-
-                android:orientation="horizontal"></LinearLayout>>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutAddressLine2"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/lineStreetAddress"
-
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-
-                    android:layout_weight="4.5"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3.2"
-                    android:gravity="center"
-                    android:text="Address Line 2"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/edAddressLine2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.3"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineAddressLine2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/linearLayoutAddressLine2"
-                android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
-
-                android:orientation="horizontal"></LinearLayout>>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutCity"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/lineAddressLine2"
-
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-
-                    android:layout_weight="4.5"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3.5"
-                    android:gravity="center"
-                    android:text="City"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/edCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineCity"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/linearLayoutCity"
-                android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
-
-                android:orientation="horizontal"></LinearLayout>>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayoutState"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/lineCity"
-
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-
-                    android:layout_weight="4.5"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3.1"
-                    android:gravity="center"
-                    android:text="State/Province"
-
-
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/edState"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.4"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineState"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/linearLayoutState"
-                android:layout_marginLeft="10dp"
-                android:background="#e5e5e5"
-
-                android:orientation="horizontal"></LinearLayout>>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayoutCountry"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/lineState"
-
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-
-                    android:layout_weight="4.5"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3.5"
-                    android:gravity="center"
-                    android:text="Country"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-
-                    />
-
-                <EditText
-                    android:id="@+id/edCountry"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineCountry"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/linearLayoutCountry"
                 android:layout_marginLeft="10dp"
                 android:background="#e5e5e5"
 
@@ -689,7 +429,7 @@
                 android:id="@+id/tvOther"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@+id/lineCountry"
+                android:layout_below="@+id/lineAddress"
                 android:layout_marginTop="40dp"
                 android:gravity="center|left"
                 android:paddingLeft="32dp"
@@ -741,6 +481,7 @@
 
             <LinearLayout
 
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linearComment"
@@ -763,16 +504,17 @@
             </LinearLayout>
 
 
-
+            <Button
+                android:id="@+id/btnDel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/linearLayout"
+                android:text="Delete" />
 
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>>
 
-    <Button
-        android:text="Button"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    </android.support.v4.widget.NestedScrollView>
+    >
 
-        android:id="@+id/btnSave"
-        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

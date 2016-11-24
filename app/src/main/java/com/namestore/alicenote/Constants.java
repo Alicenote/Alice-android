@@ -31,11 +31,13 @@ public class Constants {
     /*DashBoard*/
     public static final String API_DASHBOARD_WEEK_APPOINTMENT = "/v1/dash-boards/get-week-appointment";
     public static final String API_DASHBOARD_UPCOMMING_APPOINTMENT = "v1/dash-boards/get-upcomming-appointment";
-    /*Client*/
-    public static final String API_CLIENT = "/v1/clients";
-    public static final String API_VIEW_CLIENT = "/v1/clients/view";
-    public static final String API_ADD_CLIENT = "/v1/clients/create";
 
+  /*Client*/
+    public static final String API_CLIENT ="v1/clients";
+    public static final String API_VIEW_CLIENT ="/v1/clients/view";
+    public static final String API_ADD_CLIENT="/v1/clients/create";
+    public static final String API_UPDATE_CLIENT="/v1/clients/update";
+    public static final String API_DEL_CLIENT ="/v1/clients/delete";
 
     /*END API SERVER*/
 

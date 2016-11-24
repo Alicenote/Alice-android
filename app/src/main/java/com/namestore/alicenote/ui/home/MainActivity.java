@@ -24,7 +24,6 @@ import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.calendar.CalendarActivity;
 
-import com.namestore.alicenote.ui.client.fragment.AddEditClientFragment;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
@@ -39,13 +38,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private PagerAdapter mPagerAdapter;
     private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
     private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
-
+    public  DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         mPager = (ViewPager) findViewById(R.id.viewPagerMain);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
@@ -75,23 +72,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showCalendarFragment();
+            //    showCalendarFragment();
                 startActivity(new Intent(MainActivity.this, CalendarActivity.class));
             }
         });
 
-        btnClient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showClientFragment();
 
-            }
-        });
 
         btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showServiceFragment();
+           //    showServiceFragment();
 
             }
         });
@@ -99,18 +90,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showMoreFragment();
+             //  showMoreFragment();
 
             }
         });
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -126,7 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(1);
     }
 
-    public void showServiceFragment() {
+  /*  public void showServiceFragment() {
         mPager.setCurrentItem(2);
     }
 
@@ -138,7 +123,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void showMoreFragment() {
         mPager.setCurrentItem(4);
 
-    }
+    }*/
 
     @Override
     public void onViewClick(String tag) {
@@ -160,14 +145,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
                     return new DashBoardFragment();
-                case 1: // Fragment # 1 - This will show SecondFragment
-                    return new AddEditClientFragment();
-                case 2:
-                    return new DashBoardFragment();
+                case 1:
+                    // Fragment # 1 - This will show SecondFragment
+                    return new ClientFragment();
+              /*  case 2:
+                    return new ClientFragment();
                 case 3:
                     return new ClientFragment();
                 case 4:
-                    return new DashBoardFragment();
+                    return new ClientFragment();*/
 
                 default:
                     return null;
@@ -176,7 +162,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         @Override
         public int getCount() {
-            return NUM_PAGES;
+          /*  return NUM_PAGES;*/
+            return 2;
         }
     }
 
@@ -185,8 +172,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+
+        if (mPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
     }
 
@@ -199,9 +193,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -253,16 +245,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnCalendar:
-                showCalendarFragment(); // e ko hieu implement onclick roi ma sao ko click dc ha anh
+         //       showCalendarFragment(); // e ko hieu implement onclick roi ma sao ko click dc ha anh
                 Log.w("dasdfaf", "fasdfsaf");
             case R.id.btnClient:
                 showClientFragment();
             case R.id.btnDashBoard:
                 showDashBoardFragment();
             case R.id.btnService:
-                showServiceFragment();
+        //        showServiceFragment();
             case R.id.btnMore:
-                showMoreFragment();
+        //        showMoreFragment();
 
 
         }
