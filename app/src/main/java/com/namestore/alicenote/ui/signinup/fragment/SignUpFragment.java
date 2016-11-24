@@ -23,6 +23,9 @@ import com.namestore.alicenote.models.UserObj;
 import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.ViewUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by kienht on 10/24/16.
  */
@@ -94,7 +97,7 @@ public class SignUpFragment extends BaseFragment {
         ViewUtils.configEditText(getActivity(), mEditTextFirstName, linearLayout, "", R.drawable.icon_email, null);
         ViewUtils.configEditText(getActivity(), mEditTextLastName, linearLayout, "", R.drawable.icon_email, null);
 
-        String[] gender = getResources().getStringArray(R.array.gender);
+        ArrayList<String> gender = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gender)));
         ViewUtils.configSpinner(getActivity(), gender, mSpinnerGender);
     }
 

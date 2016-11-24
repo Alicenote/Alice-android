@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,18 +16,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
-import com.namestore.alicenote.ui.BaseFragment;
-import com.namestore.alicenote.ui.firstsetup.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.models.FirstSetupObj;
 import com.namestore.alicenote.common.AppUtils;
+import com.namestore.alicenote.network.request.FirstSetupRequest;
+import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
+import com.namestore.alicenote.ui.firstsetup.interfaces.OnFirstSetupActivityListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by kienht on 10/31/16.
  */
 
 public class ShopRegisterFragment extends BaseFragment {
+
+    public static final int BSN_TYPE = 0;
+    public static final int BSN_STATE = 1;
 
     Button mButtonBack;
     Button mButtonNext;
@@ -39,7 +45,13 @@ public class ShopRegisterFragment extends BaseFragment {
     Spinner mSpinnerBsnType;
     LinearLayout linearLayout;
     private FirstSetupAcitivity firstSetupAcitivity;
-    FirstSetupObj firstSetup = new FirstSetupObj();
+    ArrayList<String> arrayListDemo = new ArrayList<>();
+    private String bsnName;
+    private int bsnType = 0;
+    private int bsnState = 0;
+    private String bsnCity;
+    private String bsnPostcode;
+    private String bsnAddress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +84,6 @@ public class ShopRegisterFragment extends BaseFragment {
         mSpinnerBsnType = (Spinner) view.findViewById(R.id.spinner_bussiness_type);
 
         linearLayout = (LinearLayout) view.findViewById(R.id.frgment_setup_info_salon);
-
     }
 
     @Override
@@ -86,18 +97,89 @@ public class ShopRegisterFragment extends BaseFragment {
         ViewUtils.configEditText(getActivity(), mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
         ViewUtils.configEditText(getActivity(), mEditTexBsnAddress, linearLayout, "Address", 0, null);
 
-        configSpinner();
+        configSpinnerBsnType(arrayListDemo);
+        configSpinnerBsnState(arrayListDemo);
+
+        getItemIdFromSpinner(mSpinnerBsnType, BSN_TYPE);
+        getItemIdFromSpinner(mSpinnerBsnState, BSN_STATE);
     }
 
-
-    public void configSpinner() {
-        String[] bussiness_type = getResources().getStringArray(R.array.bussiness_type);
-        String[] bussiness_state = getResources().getStringArray(R.array.us_states);
-
-        ViewUtils.configSpinner(getActivity(), bussiness_type, mSpinnerBsnType);
-        ViewUtils.configSpinner(getActivity(), bussiness_state, mSpinnerBsnState);
+    public void configSpinnerBsnType(ArrayList<String> arrayList) {
+        ViewUtils.configSpinner(getActivity(), arrayList, mSpinnerBsnType);
     }
 
+    public void configSpinnerBsnState(ArrayList<String> arrayList) {
+        ViewUtils.configSpinner(getActivity(), arrayList, mSpinnerBsnState);
+    }
+
+    private void getItemIdFromSpinner(Spinner spinner, final int tag) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int id, long l) {
+                switch (tag) {
+                    case BSN_TYPE:
+                        bsnType = id;
+                        break;
+                    case BSN_STATE:
+                        bsnState = id;
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    public boolean checkEmpty(String... strings) {
+        boolean isEmpty = false;
+        for (String string : strings) {
+            if ((TextUtils.isEmpty(string))) {
+                isEmpty = true;
+                return isEmpty;
+            }
+        }
+        return isEmpty;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()) {
+            case R.id.button_next:
+                if (firstSetupAcitivity != null) {
+                    bsnName = mEditTexBsnName.getText().toString();
+                    bsnCity = mEditTexBsnCity.getText().toString();
+                    bsnPostcode = mEditTexBsnPostCode.getText().toString();
+                    bsnAddress = mEditTexBsnAddress.getText().toString();
+
+                    //Thêm infor data salon vào firstSetupRequest Obj
+//                    FirstSetupRequest.Infor infor = new FirstSetupRequest().new Infor(bsnName, bsnType, bsnState,
+//                            bsnCity, bsnPostcode, bsnAddress);
+//
+//                    firstSetupAcitivity.firstSetupRequest.setInfor(infor);
+//
+//                    if (mActivity instanceof OnFirstSetupActivityListener) {
+//                        ((OnFirstSetupActivityListener) mActivity).showWorkingDayFragment();
+//                    }
+
+                    if (checkEmpty(bsnName, bsnCity, bsnPostcode, bsnAddress) || bsnType == 0 || bsnState == 0) {
+                        AppUtils.showNoticeDialog(getActivity(), "Please filling in the blanks");
+                    } else {
+                        FirstSetupRequest.Infor infor = firstSetupAcitivity.firstSetupRequest.new Infor(bsnName, bsnType, bsnState,
+                                bsnCity, bsnPostcode, bsnAddress);
+
+                        firstSetupAcitivity.firstSetupRequest.setInfor(infor);
+
+                        if (mActivity instanceof OnFirstSetupActivityListener) {
+                            ((OnFirstSetupActivityListener) mActivity).showWorkingDayFragment();
+                        }
+                    }
+                }
+                break;
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -114,46 +196,6 @@ public class ShopRegisterFragment extends BaseFragment {
 
         if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
-    }
-
-    public boolean checkEmpty(String... strings) {
-        boolean isEmpty = false;
-        for (String string : strings) {
-            if ((TextUtils.isEmpty(string))) {
-                isEmpty = true;
-                return isEmpty;
-            }
-        }
-        return isEmpty;
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-        switch (view.getId()) {
-            case R.id.button_next:
-                if (firstSetupAcitivity != null) {
-                    firstSetup = firstSetupAcitivity.getFirstSetup();
-                    firstSetup.bussinessName = mEditTexBsnName.getText().toString();
-                    firstSetup.bussinessType = mSpinnerBsnType.getSelectedItem().toString();
-                    firstSetup.state = mSpinnerBsnState.getSelectedItem().toString();
-                    firstSetup.city = mEditTexBsnCity.getText().toString();
-                    firstSetup.postCode = mEditTexBsnPostCode.getText().toString();
-                    firstSetup.address = mEditTexBsnAddress.getText().toString();
-
-                    if (checkEmpty(firstSetup.bussinessName, firstSetup.bussinessType,
-                            firstSetup.state, firstSetup.city, firstSetup.postCode, firstSetup.address)) {
-                        AppUtils.showNoticeDialog(getActivity(), "Please filling in the blanks");
-                    } else {
-                        if (mActivity instanceof OnFirstSetupActivityListener) {
-                            ((OnFirstSetupActivityListener) mActivity).showTimeOpenDoorSalon();
-                        }
-                    }
-                }
-
-                break;
         }
     }
 }

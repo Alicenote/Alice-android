@@ -208,7 +208,6 @@
     </string-array>
 
     <string-array name="duration_time_service">
-        <item>Durations Time</item>
         <item>15m</item>
         <item>30m</item>
         <item>45m</item>

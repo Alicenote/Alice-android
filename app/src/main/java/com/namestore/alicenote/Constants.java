@@ -9,6 +9,10 @@ import java.io.Serializable;
 public class Constants {
 
     public static final String TAG = "ALICE";
+    public static String TOKEN = "null";
+
+    public static final int NAIL = 0;
+    public static final int HAIR = 1;
 
     public static final class Database {
         public static final String DB_NAME = "alice.db";
@@ -22,13 +26,15 @@ public class Constants {
     public static final String API_LOGIN = "/v1/users/login";
     public static final String API_SOCIAL_LOGIN = "/v1/users/social-login";
     public static final String API_SIGNUP = "/v1/users/register";
-/*DashBoard*/
+    public static final String API_FILL_SETUP_SALON = "/v1/welcomes/get-setup";
+    public static final String API_REQUEST_SETUP_SALON = "/v1/welcomes/set-setup";
+    /*DashBoard*/
     public static final String API_DASHBOARD_WEEK_APPOINTMENT = "/v1/dash-boards/get-week-appointment";
     public static final String API_DASHBOARD_UPCOMMING_APPOINTMENT = "v1/dash-boards/get-upcomming-appointment";
-  /*Client*/
-    public static final String API_CLIENT ="v1/clients";
-    public static final String API_VIEW_CLIENT ="/v1/clients/view";
-    public static final String API_ADD_CLIENT="/v1/clients/create";
+    /*Client*/
+    public static final String API_CLIENT = "/v1/clients";
+    public static final String API_VIEW_CLIENT = "/v1/clients/view";
+    public static final String API_ADD_CLIENT = "/v1/clients/create";
 
 
     /*END API SERVER*/
@@ -41,9 +47,9 @@ public class Constants {
 
 
     public static final String KEY_CHECK_CLIENT = "client.check";
-    public static final String KEY_ID ="client.id";
-    public static final String KEY_RESUME ="client.resume";
-    public static final String KEY_CHECK_EDIT_CLIENT="clien.check.edit";
+    public static final String KEY_ID = "client.id";
+    public static final String KEY_RESUME = "client.resume";
+    public static final String KEY_CHECK_EDIT_CLIENT = "clien.check.edit";
     public static final String ADD_CLIENT = "client.add";
     public static final String VIEW_CLIENT = "client.view";
     public static final String EDIT_CLIENT = "client.edit";

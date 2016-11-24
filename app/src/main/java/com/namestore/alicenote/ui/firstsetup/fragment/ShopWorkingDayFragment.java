@@ -1,7 +1,10 @@
 package com.namestore.alicenote.ui.firstsetup.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +16,31 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
+import com.namestore.alicenote.network.request.FirstSetupRequest;
 import com.namestore.alicenote.ui.BaseFragment;
+import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
 import com.namestore.alicenote.ui.firstsetup.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.common.ViewUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by kienht on 10/25/16.
  */
 
 public class ShopWorkingDayFragment extends BaseFragment {
+
+    public static final int MONDAY = 1;
+    public static final int TUESDAY = 2;
+    public static final int WEDNESDAY = 3;
+    public static final int THURSDAY = 4;
+    public static final int FRIDAY = 5;
+    public static final int SATURDAY = 6;
+    public static final int SUNDAY = 7;
+
     Button mButtonBack;
     Button mButtonNext;
     TextView mTextViewTitle;
@@ -39,15 +58,12 @@ public class ShopWorkingDayFragment extends BaseFragment {
     Spinner mSpinnerTimeStartFriday, mSpinnerTimeEndFriday;
     Spinner mSpinnerTimeStartSaturday, mSpinnerTimeEndSaturday;
     Spinner mSpinnerTimeStartSunday, mSpinnerTimeEndSunday;
+    private FirstSetupAcitivity firstSetupAcitivity;
 
-//    class WorkingDay {
-//        String day;
-//        int startTime;
-//        int endTime;
-//        boolean checked = false;
-//    }
-//
-//    List<WorkingDay> workingDays = new ArrayList<>();
+
+    List<String> status = new ArrayList<>();
+    List<Pair<Integer, Integer>> hour = new ArrayList<>();
+    ArrayList<FirstSetupRequest.Schedule> scheduleArrayList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -61,20 +77,15 @@ public class ShopWorkingDayFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//
-//        for (int i = 2; i <= 8; i++) {
-//            WorkingDay item = new WorkingDay();
-//            item.day = "Thu " + i;
-//            item.startTime = 0;
-//            item.endTime = 0;
-//            workingDays.add(item);
-//        }
-
         initModels();
     }
 
     @Override
     protected void initModels() {
+        for (int i = 0; i < 7; i++) {
+            hour.add(i, null);
+            scheduleArrayList.add(i, null);
+        }
         mTextViewTitle.setText("When is \"Your Salon\" Open?");
         mButtonBack.setOnClickListener(this);
         mButtonNext.setOnClickListener(this);
@@ -83,12 +94,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     public void setupSpinner() {
-        // thu 2
-//        mCheckBoxMonday.setChecked(workingDays.get(0).checked);
-//        mSpinnerTimeStartMonday.setSelection(workingDays.get(0).startTime);
-//        mSpinnerTimeEndMonday.setSelection(workingDays.get(0).endTime);
         mCheckBoxMonday.setText("Monday");
-
         mCheckBoxTuesday.setText("Tuesday");
         mCheckBoxWednesday.setText("Wednesday");
         mCheckBoxThursday.setText("Thursday");
@@ -98,8 +104,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     public void configSpinner() {
-        String[] hour_open = getResources().getStringArray(R.array.hour_open);
-
+        ArrayList<String> hour_open = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.hour_open)));
         ViewUtils.configSpinner(getActivity(), hour_open, mSpinnerTimeEndMonday, mSpinnerTimeEndTuesday,
                 mSpinnerTimeEndWednesday, mSpinnerTimeEndThursday, mSpinnerTimeEndFriday,
                 mSpinnerTimeEndSaturday, mSpinnerTimeEndSunday,
@@ -144,21 +149,35 @@ public class ShopWorkingDayFragment extends BaseFragment {
         mSpinnerTimeStartSunday = (Spinner) view.findViewById(R.id.day7).findViewById(R.id.hour_start);
         mSpinnerTimeEndSunday = (Spinner) view.findViewById(R.id.day7).findViewById(R.id.hour_end);
 
-        initEvent();
+        for (int i = 0; i < 7; i++) {
+            status.add(i, "on");
+        }
+
+        initScheduleMonday();
+        initScheduleTuesday();
+        initScheduleWednesday();
+        initScheduleThursDay();
+        initScheduleFriday();
+        initScheduleSaturday();
+        initScheduleSunday();
     }
 
-    private void initEvent() {
+    /**
+     * Các phương thức initSchedule để đăng ký lắng nghe sự kiện của checkboxDay và Spinner Start End hour
+     */
+
+    private void initScheduleMonday() {
         mCheckBoxMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //  workingDays.get(0).checked = b;
+                status.add(0, b ? "on" : "off");
             }
         });
 
         mSpinnerTimeStartMonday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                // workingDays.get(0).startTime = position;
+                hour.set(0, new Pair<Integer, Integer>(position - 1, 0));
             }
 
             @Override
@@ -170,7 +189,205 @@ public class ShopWorkingDayFragment extends BaseFragment {
         mSpinnerTimeEndMonday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                // workingDays.get(0).endTime = position;
+                hour.set(0, new Pair<Integer, Integer>(hour.get(0).first, position - 1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void initScheduleTuesday() {
+        mCheckBoxTuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                status.add(1, b ? "on" : "off");
+            }
+        });
+
+        mSpinnerTimeStartTuesday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(1, new Pair<Integer, Integer>(position - 1, 0));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mSpinnerTimeEndTuesday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(1, new Pair<Integer, Integer>(hour.get(1).first, position - 1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void initScheduleWednesday() {
+        mCheckBoxWednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                status.add(2, b ? "on" : "off");
+            }
+        });
+
+        mSpinnerTimeStartWednesday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(2, new Pair<Integer, Integer>(position - 1, 0));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mSpinnerTimeEndWednesday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(2, new Pair<Integer, Integer>(hour.get(2).first, position - 1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void initScheduleThursDay() {
+        mCheckBoxThursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                status.add(3, b ? "on" : "off");
+            }
+        });
+
+        mSpinnerTimeStartThursday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(3, new Pair<Integer, Integer>(position - 1, 0));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mSpinnerTimeEndThursday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(3, new Pair<Integer, Integer>(hour.get(3).first, position - 1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void initScheduleFriday() {
+        mCheckBoxFriday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                status.add(4, b ? "on" : "off");
+            }
+        });
+
+        mSpinnerTimeStartFriday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(4, new Pair<Integer, Integer>(position - 1, 0));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mSpinnerTimeEndFriday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(4, new Pair<Integer, Integer>(hour.get(4).first, position - 1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void initScheduleSaturday() {
+        mCheckBoxSaturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                status.add(5, b ? "on" : "off");
+            }
+        });
+
+        mSpinnerTimeStartSaturday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(5, new Pair<Integer, Integer>(position - 1, 0));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mSpinnerTimeEndSaturday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(5, new Pair<Integer, Integer>(hour.get(5).first, position - 1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void initScheduleSunday() {
+        mCheckBoxSunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                status.add(6, b ? "on" : "off");
+            }
+        });
+
+        mSpinnerTimeStartSunday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(6, new Pair<Integer, Integer>(position - 1, 0));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mSpinnerTimeEndSunday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                hour.set(6, new Pair<Integer, Integer>(hour.get(6).first, position - 1));
             }
 
             @Override
@@ -185,17 +402,70 @@ public class ShopWorkingDayFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.button_back:
                 if (mActivity instanceof OnFirstSetupActivityListener) {
-                    ((OnFirstSetupActivityListener) mActivity).showSetupInfoSalon();
+                    ((OnFirstSetupActivityListener) mActivity).showShopRegisterFragment();
                 }
                 break;
+
             case R.id.button_next:
+                for (int i = 0; i < 7; i++) {
+                    if (hour.get(i).first == -1 || hour.get(i).second == -1 || hour.get(i).first >= hour.get(i).second) {
+                        AppUtils.showNoticeDialog(getActivity(), "Please choose open hour or end hour");
+                        return;
+                    }
+                }
+                //Thêm list Schedule data salon vào firstSetupRequest Obj
+                FirstSetupRequest.Schedule monday = new FirstSetupRequest().new Schedule(MONDAY, "Monday", String.valueOf(hour.get(0).first),
+                        String.valueOf(hour.get(0).second), status.get(0));
+                FirstSetupRequest.Schedule tuesday = new FirstSetupRequest().new Schedule(TUESDAY, "Tuesday", String.valueOf(hour.get(1).first),
+                        String.valueOf(hour.get(1).second), status.get(1));
+                FirstSetupRequest.Schedule wednesday = new FirstSetupRequest().new Schedule(WEDNESDAY, "Wednesday", String.valueOf(hour.get(2).first),
+                        String.valueOf(hour.get(2).second), status.get(2));
+                FirstSetupRequest.Schedule thursday = new FirstSetupRequest().new Schedule(THURSDAY, "Thursday", String.valueOf(hour.get(3).first),
+                        String.valueOf(hour.get(3).second), status.get(3));
+                FirstSetupRequest.Schedule friday = new FirstSetupRequest().new Schedule(FRIDAY, "Friday", String.valueOf(hour.get(4).first),
+                        String.valueOf(hour.get(4).second), status.get(4));
+                FirstSetupRequest.Schedule saturday = new FirstSetupRequest().new Schedule(SATURDAY, "Saturday", String.valueOf(hour.get(5).first),
+                        String.valueOf(hour.get(5).second), status.get(5));
+                FirstSetupRequest.Schedule sunday = new FirstSetupRequest().new Schedule(SUNDAY, "Sunday", String.valueOf(hour.get(6).first),
+                        String.valueOf(hour.get(6).second), status.get(6));
+
+                FirstSetupRequest.Schedule[] schedules = {monday, tuesday, wednesday, thursday, friday, saturday, sunday};
+
+                firstSetupAcitivity.firstSetupRequest.setSchedules(addScheduleArrayList(scheduleArrayList, schedules));
+
                 if (mActivity instanceof OnFirstSetupActivityListener) {
-                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
+                    ((OnFirstSetupActivityListener) mActivity).showShopServicesCategoryFragment();
                 }
                 break;
             default:
                 break;
         }
         super.onClick(view);
+    }
+
+    public ArrayList<FirstSetupRequest.Schedule> addScheduleArrayList(
+            ArrayList<FirstSetupRequest.Schedule> arrayList, FirstSetupRequest.Schedule[] schedules) {
+        for (int i = 0; i < 7; i++) {
+            arrayList.set(i, schedules[i]);
+        }
+        return arrayList;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
+        }
     }
 }

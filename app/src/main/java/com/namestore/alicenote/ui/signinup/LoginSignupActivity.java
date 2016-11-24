@@ -2,6 +2,7 @@ package com.namestore.alicenote.ui.signinup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.PrefUtils;
 import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
@@ -35,6 +37,7 @@ import com.namestore.alicenote.models.UserObj;
 import com.namestore.alicenote.common.AppUtils;
 
 import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
+import com.namestore.alicenote.ui.home.MainActivity;
 import com.namestore.alicenote.ui.signinup.fragment.FillFullInforUserFragment;
 import com.namestore.alicenote.ui.signinup.fragment.LoginFragment;
 import com.namestore.alicenote.ui.signinup.fragment.SignUpFragment;
@@ -73,7 +76,6 @@ public class LoginSignupActivity extends BaseActivity
     private ProgressDialog prgDialog;
     private GoogleApiClient mGoogleApiClient;
     AccessToken mAccessToken;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,8 +198,7 @@ public class LoginSignupActivity extends BaseActivity
                     } else {
                         mUser.gender = SignUpFragment.GENDER_FEMALE;
                     }
-                    mUser.passwordHash = "";
-                    mUser.telephone = "";
+                    mUser.imageAvatar = "http://graph.facebook.com/" + mUser.id + "/picture?type=square&width=300&height=300";
                     prgDialog.dismiss();
                     showFillInforUserView();
 
@@ -224,7 +225,10 @@ public class LoginSignupActivity extends BaseActivity
                 mUser.email = acct.getEmail();
                 mUser.id = acct.getId();
                 mUser.gender = 0;
-                //Uri personPhoto = acct.getPhotoUrl();
+                Uri personPhoto = acct.getPhotoUrl();
+                if (personPhoto != null) {
+                    mUser.imageAvatar = personPhoto.toString();
+                }
 
                 showFillInforUserView();
 
@@ -255,10 +259,12 @@ public class LoginSignupActivity extends BaseActivity
     }
 
     public void moveIntent(int key, Class<?> cls) {
+
         Intent mIntent = new Intent(LoginSignupActivity.this, cls);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, key);
         startActivity(mIntent);
+        finish();
     }
 
     public void setPrgDialog(String text) {
@@ -301,51 +307,53 @@ public class LoginSignupActivity extends BaseActivity
         mUser = (UserObj) object;
         switch (tag) {
             case Constants.LOGIN_BUTTON:
-                hideKeyBoard();
-                setPrgDialog("Loging");
+                // hideKeyBoard();
+                setPrgDialog("Login...");
                 login(mUser);
                 break;
 
             case Constants.SIGNUP_BUTTON:
-                hideKeyBoard();
-                setPrgDialog("Register");
+                // hideKeyBoard();
+                setPrgDialog("Register...");
                 signUp(mUser);
                 break;
 
             case Constants.LOGIN_SOCIAL:
-                hideKeyBoard();
-                setPrgDialog("Loging");
+                // hideKeyBoard();
+                setPrgDialog("Login...");
                 loginSocial(mUser);
                 break;
         }
     }
 
     /**
-     * API LOGIN
+     * @param user to  LOGIN
      */
     public void login(UserObj user) {
         aliceApi.login(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-           //     AppUtils.logE("OK LOGIN || STATUS: " + response.body().getStatus() + "|TOKEN|" + response.body().getToken());
-//                if (response.isSuccessful()) {
-//                    prgDialog.hide();
-//                    switch (response.body().getStatus()) {
-//                        case LOGIN_ERROR:
-//
-//                            break;
-//                        case SUCCESS:
-//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-//                            break;
-//                        case LOGED:
-//                            AppUtils.showShortToast(LoginSignupActivity.this, "ban da dang nhap");
-//                            break;
-//                        case FIRST_LOGIN:
-//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-//                            break;
-//                    }
-//                }
+                if (response.isSuccessful()) {
+                    prgDialog.hide();
+                    switch (response.body().getStatus()) {
+                        case LOGIN_ERROR:
+                            AppUtils.showShortToast(LoginSignupActivity.this, response.body().getErrors());
+                            break;
+                        case SUCCESS:
+                            Constants.TOKEN = response.body().getmToken();
+                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+                            break;
+                        case LOGED:
+                            AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
+                            break;
+                        case FIRST_LOGIN:
+                            Constants.TOKEN = response.body().getmToken();
+                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                            break;
+                    }
+                }
             }
 
             @Override
@@ -360,31 +368,28 @@ public class LoginSignupActivity extends BaseActivity
     }
 
     /**
-     * API SIGNUP
+     * @param user to  SIGNUP
      */
     public void signUp(UserObj user) {
         aliceApi.signup(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-               // AppUtils.logE("OK SIGNUP || STATUS: " + response.body().getStatus());
                 prgDialog.hide();
-//                if (response.isSuccessful()) {
-//                    switch (response.body().getStatus()) {
-//                        case REGISTER_ERROR:
-//
-//                            break;
-//
-//                        case SUCCESS:
-//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-//                            break;
-//
-//                        case LOGED:
-//                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-//                            break;
-//                    }
-//
-//                }
+                if (response.isSuccessful()) {
+                    switch (response.body().getStatus()) {
+                        case REGISTER_ERROR:
+                            AppUtils.showShortToast(LoginSignupActivity.this, response.body().getErrors());
+                            break;
+                        case SUCCESS:
+                            Constants.TOKEN = response.body().getmToken();
+                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                            break;
+                        case LOGED:
+                            AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
+                            break;
+                    }
+                }
             }
 
             @Override
@@ -399,27 +404,27 @@ public class LoginSignupActivity extends BaseActivity
     }
 
     /**
-     * API LOGIN FB or GOOGLE PLUS
+     * @param user to LOGIN FB or GOOGLE PLUS
      */
     public void loginSocial(UserObj user) {
         aliceApi.socialLogin(user).enqueue(new Callback<LoginSignupResponse>() {
             @Override
             public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-               // AppUtils.logE("OK LOGINSOCIAL || STATUS: " + response.body().getStatus());
-//                switch (response.body().getStatus()) {
-//                    case SUCCESS:
-//                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-//                        break;
-//
-//                    case LOGED:
-//                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-//                        break;
-//
-//                    case FIRST_LOGIN:
-//                        moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-//                        break;
-//                }
+                if (response.isSuccessful()) {
+                    switch (response.body().getStatus()) {
+                        case SUCCESS:
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+                            break;
+                        case LOGED:
+                            AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
+                            break;
+                        case FIRST_LOGIN:
+                            Constants.TOKEN = response.body().getmToken();
+                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                            break;
+                    }
+                }
             }
 
             @Override
@@ -436,7 +441,6 @@ public class LoginSignupActivity extends BaseActivity
     public void showDialog(String string) {
         DialogNotice dialogNotice = new DialogNotice();
         dialogNotice.showDialog(this, string);
-
     }
 
     public UserObj getUser() {

@@ -1,15 +1,15 @@
 package com.namestore.alicenote.ui.firstsetup.interfaces;
 
 public interface OnFirstSetupActivityListener {
-    void showSetupInfoSalon();
+    void showShopRegisterFragment();
 
-    void showTimeOpenDoorSalon();
+    void showWorkingDayFragment();
 
-    void pickSalonService();
+    void showShopServicesCategoryFragment();
 
-    void nailService();
+    void showNailServiceFragment();
 
-    void hairService();
+    void showHairServiceFragment();
 
-    void configServices();
+    void showServicesDetailFragment();
 }

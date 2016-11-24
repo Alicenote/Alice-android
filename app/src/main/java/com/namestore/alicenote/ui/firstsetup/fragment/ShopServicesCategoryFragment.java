@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.recycler.RecyclerItemClickListener;
+import com.namestore.alicenote.models.SubServicesObj;
+import com.namestore.alicenote.network.request.FirstSetupRequest;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.firstsetup.adapter.ServicesCategoryAdapter;
 import com.namestore.alicenote.ui.firstsetup.interfaces.OnFirstSetupActivityListener;
@@ -34,8 +39,9 @@ public class ShopServicesCategoryFragment extends BaseFragment {
     Button mButtonBack;
     Button mButtonNext;
     TextView mTextViewTitle;
-    ArrayList<ServicesCategoryObj> servicesCategoryObjArrayList;
-    ArrayList<Integer> arrayListData;
+    ArrayList<ServicesCategoryObj> servicesCategoryObjArrayList = new ArrayList<>();
+    ArrayList<Pair<String, Integer>> arrayListData = new ArrayList<>();
+    ArrayList<String> arrayListDemo = new ArrayList<>();
     RecyclerView recyclerView;
     ServicesCategoryAdapter servicesCategoryAdapter;
     private FirstSetupAcitivity firstSetupAcitivity;
@@ -49,13 +55,11 @@ public class ShopServicesCategoryFragment extends BaseFragment {
         return view;
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
     }
-
 
     @Override
     protected void initViews(View view) {
@@ -75,18 +79,19 @@ public class ShopServicesCategoryFragment extends BaseFragment {
     protected void initModels() {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setOnClickListener(this);
+        updateRecyclerView(arrayListDemo);
 
-        servicesCategoryObjArrayList = new ArrayList<>();
+    }
 
-        arrayListData = new ArrayList<>();
-        arrayListData.add(R.drawable.nail_service);
-        arrayListData.add(R.drawable.hair_service);
-        arrayListData.add(R.drawable.beauty_service);
-        arrayListData.add(R.drawable.commingsoon);
+    public void updateRecyclerView(ArrayList<String> arrayList) {
+        arrayListData.add(new Pair<String, Integer>("NAIL", R.drawable.nail_service));
+        arrayListData.add(new Pair<String, Integer>("HAIR", R.drawable.hair_service));
+        arrayListData.add(new Pair<String, Integer>("BEAUTY", R.drawable.beauty_service));
 
         for (int i = 0; i < arrayListData.size(); i++) {
             ServicesCategoryObj servicesCategoryObj = new ServicesCategoryObj();
-            servicesCategoryObj.setImgResId(arrayListData.get(i));
+            servicesCategoryObj.setNameService(arrayListData.get(i).first);
+            servicesCategoryObj.setImgResId(arrayListData.get(i).second);
             this.servicesCategoryObjArrayList.add(servicesCategoryObj);
         }
         servicesCategoryAdapter = new ServicesCategoryAdapter(getActivity(), servicesCategoryObjArrayList);
@@ -97,30 +102,67 @@ public class ShopServicesCategoryFragment extends BaseFragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
                         switch (position) {
-                            case 0:
+                            case Constants.NAIL:
                                 if (mActivity instanceof OnFirstSetupActivityListener) {
-                                    ((OnFirstSetupActivityListener) mActivity).nailService();
+                                    ((OnFirstSetupActivityListener) mActivity).showNailServiceFragment();
                                 }
                                 break;
-                            case 1:
+                            case Constants.HAIR:
                                 if (mActivity instanceof OnFirstSetupActivityListener) {
-                                    ((OnFirstSetupActivityListener) mActivity).hairService();
+                                    ((OnFirstSetupActivityListener) mActivity).showHairServiceFragment();
                                 }
                                 break;
                             case 2:
                                 AppUtils.showShortToast(getActivity(), "BEAUTY SERVICE");
-                                break;
-                            case 3:
-                                AppUtils.showShortToast(getActivity(), "COMMING SOON SERVICE");
                                 break;
                         }
 
                     }
                 })
         );
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_back:
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).showWorkingDayFragment();
+                }
+                break;
+            case R.id.button_next:
+
+                if (firstSetupAcitivity.serviceArrayList.get(Constants.NAIL) == null ||
+                        firstSetupAcitivity.serviceArrayList.get(Constants.HAIR) == null) {
+                    AppUtils.showNoticeDialog(getActivity(), "Plz config service");
+                    return;
+                }
+
+                firstSetupAcitivity.firstSetupRequest.setServices(firstSetupAcitivity.serviceArrayList);
+
+                //update List All Sub Services 1 lần duy nhất
+                if (firstSetupAcitivity.subServicesObjArrayList.size() == 0) {
+                    ArrayList<FirstSetupRequest.Service.SubServices> subServicesTotal = new ArrayList<>();
+                    subServicesTotal.addAll(0, firstSetupAcitivity.serviceArrayList.get(Constants.NAIL).getSubServices());
+                    subServicesTotal.addAll(firstSetupAcitivity.sizeNailArrayList, firstSetupAcitivity.serviceArrayList.get(Constants.HAIR).getSubServices());
+                    for (int i = 0; i < subServicesTotal.size(); i++) {
+                        SubServicesObj[] subServicesObjs = new SubServicesObj[subServicesTotal.size()];
+                        subServicesObjs[i] = new SubServicesObj(subServicesTotal.get(i).getNameService());
+                        firstSetupAcitivity.subServicesObjArrayList.add(subServicesObjs[i]);
+                    }
+                    firstSetupAcitivity.updateListAllSubServices(firstSetupAcitivity.subServicesObjArrayList);
+                }
+
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).showServicesDetailFragment();
+                }
+                break;
+
+            default:
+                break;
+        }
+        super.onClick(view);
     }
 
     @Override
@@ -138,26 +180,6 @@ public class ShopServicesCategoryFragment extends BaseFragment {
         if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_back:
-                if (mActivity instanceof OnFirstSetupActivityListener) {
-                    ((OnFirstSetupActivityListener) mActivity).showTimeOpenDoorSalon();
-                }
-                break;
-            case R.id.button_next:
-                if (mActivity instanceof OnFirstSetupActivityListener) {
-                    ((OnFirstSetupActivityListener) mActivity).configServices();
-                }
-                break;
-
-            default:
-                break;
-        }
-        super.onClick(view);
     }
 
 }

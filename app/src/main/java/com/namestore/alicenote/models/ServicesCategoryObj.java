@@ -6,7 +6,17 @@ package com.namestore.alicenote.models;
 
 public class ServicesCategoryObj {
 
-    int imgResId;
+    private String nameService;
+
+    private int imgResId;
+
+    public String getNameService() {
+        return nameService;
+    }
+
+    public void setNameService(String nameService) {
+        this.nameService = nameService;
+    }
 
     public int getImgResId() {
         return imgResId;

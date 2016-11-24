@@ -1,8 +1,11 @@
 package com.namestore.alicenote.network;
 
+import android.app.Activity;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.namestore.alicenote.Constants;
+import com.namestore.alicenote.common.PrefUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +41,8 @@ public class ServiceGenerator {
                         Request.Builder requestBuilder = original.newBuilder()
                                 .addHeader("Content-Type", "application/json")
                                 .addHeader("Accept", "application/json")
-                                .addHeader("token", "QYw8IRKE-0BVbDKY7AnN4KOi1pyArSmo")
+                                .addHeader("token", Constants.TOKEN)
+                                //.addHeader("token", "jDUBzRdIJc2Vdm8LsVWoKclt07EFWHJ9")
                                 .method(original.method(), original.body());
 
                         Request request = requestBuilder.build();

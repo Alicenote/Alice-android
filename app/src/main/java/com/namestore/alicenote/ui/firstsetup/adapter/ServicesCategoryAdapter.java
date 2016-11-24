@@ -39,6 +39,7 @@ public class ServicesCategoryAdapter extends RecyclerView.Adapter<ServicesCatego
     public void onBindViewHolder(ServicesCategoryAdapter.ViewHolder holder, int position) {
         holder.bindData(servicesCategoryObjArrayList.get(position));
         holder.mButtonServicesCategory.setBackgroundResource(servicesCategoryObjArrayList.get(position).getImgResId());
+        holder.mButtonServicesCategory.setText(servicesCategoryObjArrayList.get(position).getNameService());
     }
 
     public void addItem(ServicesCategoryObj servicesCategoryObj) {

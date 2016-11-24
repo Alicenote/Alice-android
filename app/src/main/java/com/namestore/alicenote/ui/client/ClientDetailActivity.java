@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.BaseFragment;
@@ -17,6 +18,7 @@ import com.namestore.alicenote.ui.client.fragment.AddEditClientFragment;
 import com.namestore.alicenote.ui.client.fragment.DelClientFragment;
 import com.namestore.alicenote.ui.client.fragment.ViewClientFragment;
 import com.namestore.alicenote.ui.client.interfaces.OnClientDetailListener;
+import com.namestore.alicenote.ui.signinup.fragment.LoginFragment;
 
 import java.util.ArrayList;
 
@@ -35,21 +37,18 @@ public class ClientDetailActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_client_detail);
 
-        mKeyCheckClient = getIntent().getExtras()
-                .getString(Constants.KEY_CHECK_CLIENT);
+        mKeyCheckClient = getIntent().getExtras().getString(Constants.KEY_CHECK_CLIENT);
 
-        mId = getIntent().getExtras()
-                .getInt(Constants.KEY_ID);
-
+        mId = getIntent().getExtras().getInt(Constants.KEY_ID);
 
         mAddEditClientFragment = new AddEditClientFragment();
 
         mDelClientFragment = new DelClientFragment();
 
         mViewClientFragment = new ViewClientFragment();
+
       /*  fragments.add(mAddEditClientFragment);
     //    fragments.add(mClientFragment);
         *//**//*fragments.add(mDelClientFragment);
@@ -64,21 +63,19 @@ public class ClientDetailActivity extends BaseActivity
 
                 .commit();*/
 
-        if (mKeyCheckClient.equalsIgnoreCase(Constants.ADD_CLIENT)) {
-            showAddClient();
-
-        }
-        if (mKeyCheckClient.equalsIgnoreCase(Constants.DEL_CLIENT)) {
-            showDeleteClient();
-        }
-        if (mKeyCheckClient.equalsIgnoreCase(Constants.VIEW_CLIENT)) {
-            showClientView();
-        }
-        if (mKeyCheckClient.equalsIgnoreCase(Constants.EDIT_CLIENT)) {
-
-        }
-
-
+//        if (mKeyCheckClient.equalsIgnoreCase(Constants.ADD_CLIENT)) {
+//            showAddClient();
+//        }
+//        if (mKeyCheckClient.equalsIgnoreCase(Constants.DEL_CLIENT)) {
+//            showDeleteClient();
+//        }
+//        if (mKeyCheckClient.equalsIgnoreCase(Constants.VIEW_CLIENT)) {
+//            showClientView();
+//        }
+//        if (mKeyCheckClient.equalsIgnoreCase(Constants.EDIT_CLIENT)) {
+//
+//        }
+       // showAddClient();
     }
 
     /*  public void showFragment(Fragment fragmentToShow) {
@@ -109,7 +106,6 @@ public class ClientDetailActivity extends BaseActivity
     }
 
 
-
     @Override
     public void showDeleteClient() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDelClientFragment).commit();
@@ -125,7 +121,6 @@ public class ClientDetailActivity extends BaseActivity
     public void onViewClick(String tag, Object object) {
 
     }
-
 
 
 }

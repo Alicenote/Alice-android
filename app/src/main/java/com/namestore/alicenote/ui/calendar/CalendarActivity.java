@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import com.alamkanak.weekview.WeekViewEvent;
-import com.namestore.alicenote.models.Event;
+import com.namestore.alicenote.models.AppointmentObj;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.ServiceGenerator;
 
@@ -22,7 +22,7 @@ import retrofit2.Response;
  * Created by Raquib-ul-Alam Kanak on 1/3/2014.
  * Website: http://alamkanak.github.io
  */
-public class CalendarActivity extends CalendarBaseActivity implements Callback<List<Event>> {
+public class CalendarActivity extends CalendarBaseActivity implements Callback<List<AppointmentObj>> {
 
     private List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
     boolean calledNetwork = false;
@@ -35,6 +35,7 @@ public class CalendarActivity extends CalendarBaseActivity implements Callback<L
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Loading");
         prgDialog.show();
+        aliceApi = ServiceGenerator.creatService(AliceApi.class);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class CalendarActivity extends CalendarBaseActivity implements Callback<L
 
         // Download events from network if it hasn't been done already. To understand how events are
         // downloaded using retrofit, visit http://square.github.io/retrofit
-        aliceApi = ServiceGenerator.creatService(AliceApi.class);
+
         if (!calledNetwork) {
             aliceApi.getEvent().enqueue(this);
             calledNetwork = true;
@@ -74,7 +75,7 @@ public class CalendarActivity extends CalendarBaseActivity implements Callback<L
 
 
     @Override
-    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+    public void onResponse(Call<List<AppointmentObj>> call, Response<List<AppointmentObj>> response) {
         if (response.isSuccessful()) {
             prgDialog.dismiss();
             this.events.clear();
@@ -87,7 +88,7 @@ public class CalendarActivity extends CalendarBaseActivity implements Callback<L
     }
 
     @Override
-    public void onFailure(Call<List<Event>> call, Throwable t) {
+    public void onFailure(Call<List<AppointmentObj>> call, Throwable t) {
         prgDialog.dismiss();
     }
 }

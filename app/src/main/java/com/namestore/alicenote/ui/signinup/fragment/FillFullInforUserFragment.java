@@ -29,6 +29,9 @@ import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.signinup.LoginSignupActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by kienht on 11/8/16.
  * Bắt user điền đầy đủ thông tin khi đăng nhập qua fb hoặc google plus
@@ -86,7 +89,7 @@ public class FillFullInforUserFragment extends BaseFragment {
         ViewUtils.configEditText(getActivity(), mEditTextFirstName, linearLayout, "", R.drawable.icon_email, null);
         ViewUtils.configEditText(getActivity(), mEditTextLastName, linearLayout, "", R.drawable.icon_email, null);
 
-        String[] gender = getResources().getStringArray(R.array.gender);
+        ArrayList<String> gender = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gender)));
         ViewUtils.configSpinner(getActivity(), gender, mSpinnerGender);
 
         mSpinnerGender.setOnTouchListener(new View.OnTouchListener() {

@@ -30,7 +30,6 @@ public class UserObj implements Serializable {
     @Expose
     public String lastName;
 
-
     @SerializedName("gender")
     @Expose
     public int gender;
@@ -42,6 +41,10 @@ public class UserObj implements Serializable {
     @SerializedName("id")
     @Expose
     public String id;
+
+    @SerializedName("image_avatar")
+    @Expose
+    public String imageAvatar;
 
     public int getGender() {
         return gender;

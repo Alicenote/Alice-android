@@ -1,5 +1,6 @@
 package com.namestore.alicenote.ui.firstsetup.adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.daimajia.swipe.SwipeLayout;
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.models.SubServicesObj;
 
@@ -22,10 +23,20 @@ import java.util.List;
 
 public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.ViewHolder> {
 
-    ArrayList<SubServicesObj> subServices;
+    private ArrayList<SubServicesObj> subServicesObjArrayList;
+    private Activity activity;
+    private int tag;
+    private OnSubServicesClickListener listener;
 
-    public SubServicesAdapter(List<SubServicesObj> subServices){
-        this.subServices = new ArrayList<>(subServices);
+    public interface OnSubServicesClickListener {
+        void onDeleteSubServiceItem(int position, int tag);
+    }
+
+    public SubServicesAdapter(Activity activity, List<SubServicesObj> subServicesObjArrayList, OnSubServicesClickListener listener, int tag) {
+        this.activity = activity;
+        this.subServicesObjArrayList = new ArrayList<>(subServicesObjArrayList);
+        this.tag = tag;
+        this.listener = listener;
     }
 
     @Override
@@ -36,54 +47,59 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
 
     @Override
     public void onBindViewHolder(final SubServicesAdapter.ViewHolder holder, int position) {
-        holder.bindData(subServices.get(position));
+        holder.bindData(subServicesObjArrayList.get(position));
 
         //in some cases, it will prevent unwanted situations
         holder.checkboxService.setOnCheckedChangeListener(null);
 
         //if true, your checkbox will be selected, else unselected
-        holder.checkboxService.setChecked(subServices.get(position).isSelected());
+        holder.checkboxService.setChecked(subServicesObjArrayList.get(position).isCheck());
 
         holder.checkboxService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                subServices.get(holder.getAdapterPosition()).setSelected(isChecked);
+                subServicesObjArrayList.get(holder.getAdapterPosition()).setCheck(isChecked);
             }
         });
     }
 
     public void addItem(SubServicesObj item) {
-        subServices.add(item);
-        notifyItemInserted(subServices.size() - 1);
+        subServicesObjArrayList.add(item);
+        notifyItemInserted(subServicesObjArrayList.size() - 1);
     }
 
     public void addItem(int position, SubServicesObj item) {
-        subServices.add(position, item);
+        subServicesObjArrayList.add(position, item);
         notifyItemInserted(position);
     }
 
     public void removeItem(int position) {
-        subServices.remove(position);
+        subServicesObjArrayList.remove(position);
         notifyItemRemoved(position);
     }
 
     public void removeItem(SubServicesObj item) {
-        int index = subServices.indexOf(item);
+        int index = subServicesObjArrayList.indexOf(item);
         if (index < 0)
             return;
-        subServices.remove(index);
+        subServicesObjArrayList.remove(index);
         notifyItemRemoved(index);
     }
 
     public void replaceItem(int postion, SubServicesObj item) {
-        subServices.remove(postion);
-        subServices.add(postion, item);
+        subServicesObjArrayList.remove(postion);
+        subServicesObjArrayList.add(postion, item);
         notifyItemChanged(postion);
+    }
+
+    public void clearData() {
+        subServicesObjArrayList.clear(); //clear list
+        notifyDataSetChanged(); //let your adapter know about the changes and reload view.
     }
 
     @Override
     public int getItemCount() {
-        return subServices.size();
+        return subServicesObjArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -92,14 +108,15 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
         private CheckBox checkboxService;
         private Button buttonDelete;
 
-        public ViewHolder(final View v) {
-            super(v);
-            textNameServices = (TextView) v.findViewById(R.id.sub_service_name);
-            checkboxService = (CheckBox) v.findViewById(R.id.sub_service_checkbox);
-            buttonDelete = (Button) v.findViewById(R.id.sub_service_delete);
+        public ViewHolder(final View view) {
+            super(view);
+            textNameServices = (TextView) view.findViewById(R.id.sub_service_name);
+            checkboxService = (CheckBox) view.findViewById(R.id.sub_service_checkbox);
+            buttonDelete = (Button) view.findViewById(R.id.sub_service_delete);
         }
 
-        public void bindData(SubServicesObj subServices) {
+        public void bindData(final SubServicesObj subServices) {
+
             textNameServices.setText(subServices.getNameSubServices());
             textNameServices.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,11 +128,20 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
                     }
                 }
             });
+
             buttonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     removeItem(getAdapterPosition());
                     buttonDelete.setClickable(false);
+                    switch (tag) {
+                        case Constants.NAIL:
+                            listener.onDeleteSubServiceItem(getPosition(), Constants.NAIL);
+                            break;
+                        case Constants.HAIR:
+                            listener.onDeleteSubServiceItem(getPosition(), Constants.HAIR);
+                            break;
+                    }
                 }
             });
         }

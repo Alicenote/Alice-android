@@ -45,7 +45,8 @@ public class ViewClientFragment extends BaseFragment {
     private ClientDetailActivity mClientDetailActivity;
     private int mId;
     private Toolbar mToolBar;
-    private ViewClientFragment mViewFragment =new ViewClientFragment();
+    private ViewClientFragment mViewFragment = new ViewClientFragment();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,11 +85,11 @@ public class ViewClientFragment extends BaseFragment {
 
         mAliceApi.searchViewClient(130, mId).enqueue(new Callback<ViewClientResponse>() {
             @Override
-            public void onResponse(Call<ViewClientResponse> call, Response <ViewClientResponse>response) {
+            public void onResponse(Call<ViewClientResponse> call, Response<ViewClientResponse> response) {
                 if (response.isSuccessful()) {
                     tvClName.setText(response.body().getData().getFirstName() + " " +
-                          response.body().data.getLastName());
-                   tvClBirthday.setText(response.body().data.getBirthday());
+                            response.body().data.getLastName());
+                    tvClBirthday.setText(response.body().data.getBirthday());
                     tvClPhone.setText(response.body().data.getPhone());
                     tvClEmail.setText(response.body().data.getEmail());
                     tvClAddreess.setText(response.body().data.getAddress());
@@ -97,7 +98,7 @@ public class ViewClientFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<ViewClientResponse>call, Throwable t) {
+            public void onFailure(Call<ViewClientResponse> call, Throwable t) {
 
                 if (call.isCanceled()) {
                     AppUtils.logE("request was cancelled");
@@ -127,6 +128,7 @@ public class ViewClientFragment extends BaseFragment {
             this.mClientDetailActivity = (ClientDetailActivity) activity;
         }
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_client_detail, menu);
@@ -142,9 +144,9 @@ public class ViewClientFragment extends BaseFragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_edit) {
-            Bundle _bundle =new Bundle();
-                   _bundle.putInt(Constants.KEY_CHECK_EDIT_CLIENT,mId);
-                   _bundle.putString(Constants.KEY_CHECK_CLIENT,Constants.EDIT_CLIENT);
+            Bundle _bundle = new Bundle();
+            _bundle.putInt(Constants.KEY_CHECK_EDIT_CLIENT, mId);
+            _bundle.putString(Constants.KEY_CHECK_CLIENT, Constants.EDIT_CLIENT);
             mViewFragment.setArguments(_bundle);
             getActivity().getSupportFragmentManager().beginTransaction().
                     replace(R.id.container, mClientDetailActivity.mAddEditClientFragment).commit();
