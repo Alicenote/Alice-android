@@ -16,23 +16,25 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.network.request.FirstSetupRequest;
 import com.namestore.alicenote.ui.firstsetup.adapter.SubServicesAdapter;
 import com.namestore.alicenote.ui.BaseFragment;
-import com.namestore.alicenote.ui.firstsetup.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.models.SubServicesObj;
 import com.namestore.alicenote.common.ViewUtils;
 
 import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
+import com.namestore.alicenote.ui.firstsetup.interfaces.OnFirstSetupActivityListener;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by kienht on 10/26/16.
  */
-public class NailServicesFragment extends BaseFragment {
+public class NailServicesFragment extends BaseFragment implements SubServicesAdapter.OnSubServicesClickListener {
 
-    ArrayList<SubServicesObj> nailServicesArrayList;
+    public static final int NAIL_ID_ON_SERVER = 1;
     private RecyclerView recyclerViewNailService;
     TextView mTextViewTitle;
     EditText mEditTexAddNailService;
@@ -43,9 +45,7 @@ public class NailServicesFragment extends BaseFragment {
     private FirstSetupAcitivity firstSetupAcitivity;
     private String newService;
     SubServicesAdapter subServicesAdapter;
-
-    public NailServicesFragment() {
-    }
+    public ArrayList<SubServicesObj> nailServicesArrayList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +64,6 @@ public class NailServicesFragment extends BaseFragment {
 
     @Override
     protected void initViews(View view) {
-
         recyclerViewNailService = (RecyclerView) view.findViewById(R.id.list_nail_services);
         recyclerViewNailService.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewNailService.setHasFixedSize(true);
@@ -85,20 +84,79 @@ public class NailServicesFragment extends BaseFragment {
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
         ViewUtils.configEditText(getActivity(), mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
-        nailServicesArrayList = new ArrayList<>();
+        updateRecyclerView(new ArrayList<SubServicesObj>());
+    }
 
-        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.nail_list_services)));
-        for (int i = 0; i < arrayList.size(); i++) {
-            SubServicesObj subServices = new SubServicesObj();
-            subServices.setNameSubServices(arrayList.get(i));
-            this.nailServicesArrayList.add(subServices);
-        }
+    public void updateRecyclerView(final ArrayList<SubServicesObj> subServicesObjs) {
+        this.nailServicesArrayList = subServicesObjs;
 
-        subServicesAdapter = new SubServicesAdapter(this.nailServicesArrayList);
+        subServicesAdapter = new SubServicesAdapter(getActivity(), nailServicesArrayList, this, Constants.NAIL);
 
         recyclerViewNailService.setAdapter(subServicesAdapter);
         recyclerViewNailService.setItemAnimator(new DefaultItemAnimator());
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_back:
+
+                ArrayList<FirstSetupRequest.Service.SubServices> subServicesArrayList = new ArrayList<>();
+                FirstSetupRequest.Service.SubServices[] subServices = new FirstSetupRequest.Service.SubServices[nailServicesArrayList.size()];
+                for (int i = 0; i < subServices.length; i++) {
+                    subServices[i] = new FirstSetupRequest().new Service().new SubServices(nailServicesArrayList.get(i).getNameSubServices(),
+                            nailServicesArrayList.get(i).isCheck(), 0, 0, true);
+                    subServicesArrayList.add(subServices[i]);
+                }
+                firstSetupAcitivity.sizeNailArrayList = nailServicesArrayList.size();
+
+                FirstSetupRequest.Service.Group nailGroup = new FirstSetupRequest().new Service().new Group(NAIL_ID_ON_SERVER, "Nail");
+                FirstSetupRequest.Service nailServices = new FirstSetupRequest().new Service(nailGroup, subServicesArrayList);
+
+                firstSetupAcitivity.serviceArrayList.set(Constants.NAIL, nailServices);
+
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).showShopServicesCategoryFragment();
+                }
+                break;
+
+            /**
+             * Add nail Service
+             * */
+            case R.id.button_add_nail_service:
+                newService = mEditTexAddNailService.getText().toString();
+                SubServicesObj temp = new SubServicesObj();
+                temp.setNameSubServices(newService);
+                temp.setCheck(true);
+                if (!TextUtils.isEmpty(newService)) {
+                    mEditTexAddNailService.getText().clear();
+                    subServicesAdapter.addItem(temp);
+                    recyclerViewNailService.scrollToPosition(subServicesAdapter.getItemCount() - 1);
+
+                    //update list Nail Sub Services after add Item
+                    nailServicesArrayList.add(temp);
+                    if (firstSetupAcitivity.subServicesObjArrayList.size() != 0) {
+                        firstSetupAcitivity.subServicesObjArrayList.add(firstSetupAcitivity.sizeNailArrayList, temp);
+                        firstSetupAcitivity.swap();
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+        super.onClick(view);
+    }
+
+    @Override
+    public void onDeleteSubServiceItem(int position, int tag) {
+        if (tag == Constants.NAIL) {
+            nailServicesArrayList.remove(position);
+            if (firstSetupAcitivity.subServicesObjArrayList.size() != 0) {
+                firstSetupAcitivity.subServicesObjArrayList.remove(position);
+                firstSetupAcitivity.swap();
+            }
+        }
     }
 
     @Override
@@ -119,32 +177,5 @@ public class NailServicesFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_back:
-                if (mActivity instanceof OnFirstSetupActivityListener) {
-                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
-                }
-                break;
 
-            /**
-             * Add nail Service
-             * */
-            case R.id.button_add_nail_service:
-                newService = mEditTexAddNailService.getText().toString();
-                SubServicesObj temp = new SubServicesObj();
-                temp.setNameSubServices(newService);
-                if (!TextUtils.isEmpty(newService)) {
-                    mEditTexAddNailService.getText().clear();
-                    subServicesAdapter.addItem(temp);
-                    recyclerViewNailService.scrollToPosition(subServicesAdapter.getItemCount() - 1);
-                }
-                break;
-
-            default:
-                break;
-        }
-        super.onClick(view);
-    }
 }

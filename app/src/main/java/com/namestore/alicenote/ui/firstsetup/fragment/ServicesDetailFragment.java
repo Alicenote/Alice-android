@@ -1,9 +1,7 @@
 package com.namestore.alicenote.ui.firstsetup.fragment;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,42 +9,41 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
+import com.namestore.alicenote.network.BaseResponse;
 import com.namestore.alicenote.ui.firstsetup.adapter.AllServicesAdapter;
 import com.namestore.alicenote.ui.BaseFragment;
-import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.ui.firstsetup.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServicesObj;
 
 import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by kienht on 10/26/16.
  */
 
-public class ServicesDetailFragment extends BaseFragment {
+public class ServicesDetailFragment extends BaseFragment implements AllServicesAdapter.OnItemClickListener {
 
-    ArrayList<SubServicesObj> servicesArrayList;
-    private RecyclerView listNameServices;
+    private RecyclerView recyclerView;
     TextView mTextViewTitle;
     Button mButtonBack;
     Button mButtonNext;
-    Button mButtonCancel;
-    Button mButtonOk;
-    Dialog configDialog;
-    TextView mTextViewTitleDialog;
     private FirstSetupAcitivity firstSetupAcitivity;
     OnFragmentInteractionListener listener;
-
-    public ServicesDetailFragment() {
-    }
+    AllServicesAdapter allServicesAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,55 +51,93 @@ public class ServicesDetailFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.fm_services_detail, container, false);
         initViews(view);
-        initModels();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initModels();
 
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void initViews(View view) {
+        recyclerView = (RecyclerView) view.findViewById(R.id.list_services);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
 
+        mTextViewTitle = (TextView) view.findViewById(R.id.title_config_name_service).findViewById(R.id.title_first_setup);
+        mTextViewTitle.setText("Prices and duarations\nof services at \"Your Salon\"");
+        mButtonBack = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_back);
+        mButtonNext = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_next);
     }
 
-    public void dialogConfigService() {
-        configDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        configDialog.setContentView(R.layout.dialog_config_service);
-        configDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        configDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        configDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        configDialog.setCancelable(false);
-        mTextViewTitleDialog = (TextView) configDialog.findViewById(R.id.title_config_service_dialog);
-        mButtonCancel = (Button) configDialog.findViewById(R.id.button_cancel);
-        mButtonOk = (Button) configDialog.findViewById(R.id.button_ok);
-
-        mButtonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                configDialog.hide();
-            }
-        });
-
-        mButtonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                configDialog.hide();
-            }
-        });
+    @Override
+    protected void initModels() {
+        mButtonBack.setOnClickListener(this);
+        mButtonNext.setOnClickListener(this);
+        updateRecyclerView(new ArrayList<SubServicesObj>());
     }
 
-    public void showDialog(String title) {
-        if (configDialog != null) {
-            mTextViewTitleDialog.setText(title);
-            configDialog.show();
+    public void updateRecyclerView(ArrayList<SubServicesObj> arrayList) {
+        String durationTimeService[] = getResources().getStringArray(R.array.duration_time_service);
+
+        allServicesAdapter = new AllServicesAdapter(this.getActivity(), arrayList, durationTimeService, this);
+
+        recyclerView.setAdapter(allServicesAdapter);
+    }
+
+    public void swapDataRecyclerView(ArrayList<SubServicesObj> arrayList) {
+        allServicesAdapter.swapData(arrayList);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_back:
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).showShopServicesCategoryFragment();
+                }
+                break;
+            case R.id.button_next:
+                listener.onViewClick(Constants.DASHBOARD_SCREEN);
+                break;
+
+            default:
+                break;
         }
+        super.onClick(view);
     }
 
+    @Override
+    public void onClickSpinnerDurationTime(int position, int positionSpinner) {
+        AppUtils.logE("position " + position + "||" + "positionSpinner " + positionSpinner);
+        firstSetupAcitivity.serviceArrayList.get(position >= firstSetupAcitivity.sizeNailArrayList ? Constants.HAIR : Constants.NAIL)
+                .getSubServices().get(position >= firstSetupAcitivity.sizeNailArrayList ? position - firstSetupAcitivity.sizeNailArrayList : position)
+                .setDuration(positionSpinner);
+    }
+
+    @Override
+    public void onClickEdittexPrice(int position, float price) {
+        AppUtils.logE("position " + position + "||" + "price " + price);
+        firstSetupAcitivity.serviceArrayList.get(position >= firstSetupAcitivity.sizeNailArrayList ? Constants.HAIR : Constants.NAIL)
+                .getSubServices().get(position >= firstSetupAcitivity.sizeNailArrayList ? position - firstSetupAcitivity.sizeNailArrayList : position)
+                .setPrice(price);
+    }
+
+    @Override
+    public void onClickCheckBoxStaff(int position, boolean isWork) {
+        AppUtils.logE("position " + position + "||" + "price " + isWork);
+        firstSetupAcitivity.serviceArrayList.get(position >= firstSetupAcitivity.sizeNailArrayList ? Constants.HAIR : Constants.NAIL)
+                .getSubServices().get(position >= firstSetupAcitivity.sizeNailArrayList ? position - firstSetupAcitivity.sizeNailArrayList : position)
+                .setWork(isWork);
+    }
+
+    @Override
+    public void onClickItem(int position) {
+        recyclerView.scrollToPosition(position);
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -134,64 +169,5 @@ public class ServicesDetailFragment extends BaseFragment {
         }
     }
 
-    @Override
-    protected void initViews(View view) {
-        configDialog = new Dialog(firstSetupAcitivity, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-
-        listNameServices = (RecyclerView) view.findViewById(R.id.list_services);
-        listNameServices.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listNameServices.setHasFixedSize(true);
-
-        mTextViewTitle = (TextView) view.findViewById(R.id.title_config_name_service).findViewById(R.id.title_first_setup);
-        mTextViewTitle.setText("Prices and duarations\nof services at \"Your Salon\"");
-        mButtonBack = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_back);
-        mButtonNext = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_next);
-    }
-
-    @Override
-    protected void initModels() {
-
-        mButtonBack.setOnClickListener(this);
-        mButtonNext.setOnClickListener(this);
-        //dialogConfigService();
-
-        servicesArrayList = new ArrayList<>();
-
-        String listServices[] = getResources().getStringArray(R.array.list_service);
-        String durationTimeService[] = getResources().getStringArray(R.array.duration_time_service);
-
-        for (int i = 0; i < listServices.length; i++) {
-            SubServicesObj services = new SubServicesObj();
-            services.setNameSubServices(listServices[i]);
-            this.servicesArrayList.add(services);
-        }
-        AllServicesAdapter adapter = new AllServicesAdapter(this.servicesArrayList, new AllServicesAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(SubServicesObj item) {
-
-
-            }
-        }, durationTimeService, this.getActivity());
-
-        listNameServices.setAdapter(adapter);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_back:
-                if (mActivity instanceof OnFirstSetupActivityListener) {
-                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
-                }
-                break;
-            case R.id.button_next:
-                listener.onViewClick(Constants.DASHBOARD_SCREEN);
-                break;
-
-            default:
-                break;
-        }
-        super.onClick(view);
-    }
 
 }

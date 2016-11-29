@@ -109,7 +109,8 @@ public class ClientFragment extends BaseFragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_add:
-                        Intent mIntent = new Intent(new Intent(getContext(), ClientDetailActivity.class));
+                        //  Intent mIntent = new Intent(new Intent(getContext(), ClientDetailActivity.class));
+                        Intent mIntent = new Intent(getActivity(), ClientDetailActivity.class);
                         mIntent.putExtra(Constants.KEY_CHECK_CLIENT, Constants.ADD_CLIENT);
                         startActivityForResult(mIntent, 1406);
                         return true;

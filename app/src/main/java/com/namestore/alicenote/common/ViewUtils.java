@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by kienht on 11/8/16.
  */
@@ -67,9 +69,9 @@ public class ViewUtils {
     }
 
 
-    public static void configSpinner(Activity activity, String[] values, Spinner... spinners) {
+    public static void configSpinner(Activity activity, ArrayList<String> arrayList, Spinner... spinners) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, arrayList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         for (Spinner spinner : spinners) {
             spinner.setAdapter(adapter);

@@ -15,8 +15,28 @@ public class LoginSignupResponse extends BaseResponse {
     @Expose
     private String mToken;
 
+    @SerializedName("id")
+    @Expose
+    private int salonId;
+
     public String getToken() {
         return mToken;
+    }
+
+    public String getmToken() {
+        return mToken;
+    }
+
+    public void setmToken(String mToken) {
+        this.mToken = mToken;
+    }
+
+    public int getSalonId() {
+        return salonId;
+    }
+
+    public void setSalonId(int salonId) {
+        this.salonId = salonId;
     }
 
     public int getStatus() {

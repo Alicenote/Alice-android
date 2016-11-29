@@ -134,13 +134,11 @@ public class SubArtActivity extends BaseActivity implements ArtGroupAdapter.OnAr
         MaterialSpinner mSpinner = (MaterialSpinner) dialogCreatArt.findViewById(R.id.spinner_creat_art);
         String[] timeDuration = getResources().getStringArray(R.array.duration_time_service);
         mSpinner.setItems(timeDuration);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mSpinner.setTextColor(this.getResources().getColor(android.R.color.black, this.getTheme()));
         } else {
             mSpinner.setTextColor(this.getResources().getColor(android.R.color.black));
         }
-
         mSpinner.setDropdownMaxHeight(AppUtils.getHeightScreen(this) / 3);
 
         Button buttonCancel = (Button) dialogCreatArt.findViewById(R.id.action_bar).findViewById(R.id.button_cancel);

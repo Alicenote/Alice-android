@@ -9,15 +9,10 @@
         <item android:id="@+id/action_day_view"
             android:title="Day View"
             android:orderInCategory="100"
-            app:showAsAction="ifRoom"/>
-        <item android:id="@+id/action_three_day_view"
-            android:title="3 Day View"
-            android:orderInCategory="100"
-            app:showAsAction="ifRoom"
-            android:checked="true"/>
+            app:showAsAction="never"/>
         <item android:id="@+id/action_week_view"
             android:title="Week View"
             android:orderInCategory="100"
-            app:showAsAction="ifRoom"/>
+            app:showAsAction="never"/>
     </group>
 </menu>
