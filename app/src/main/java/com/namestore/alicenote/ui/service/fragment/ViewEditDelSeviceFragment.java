@@ -90,8 +90,8 @@ public class ViewEditDelSeviceFragment extends BaseFragment {
                     mEdSvPrice.setText(response.body().getData().getPrice());
                     mEdSvOldPrice.setText(response.body().getData().getOldPrice());
                     mEdSvGroup.setText(response.body().getData().getGroupId());
-                    mEdSvDuration.setText(response.body().getData().get);
-                    mEdSvDescription.setText(response.body().getData().getClient().getAddress());
+                    mEdSvDuration.setText(response.body().getData().getDuration());
+                    mEdSvDescription.setText(response.body().getData().getDescription());
 
 
            //         prgDialog.hide();

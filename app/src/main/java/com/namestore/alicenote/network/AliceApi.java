@@ -12,6 +12,7 @@ import com.namestore.alicenote.models.UserObj;
 import com.namestore.alicenote.network.reponse.ServiceEditDelResponse;
 import com.namestore.alicenote.network.reponse.ServiceResponse;
 import com.namestore.alicenote.network.reponse.ClientViewResponse;
+import com.namestore.alicenote.network.reponse.ServiceViewResponse;
 
 import java.util.List;
 
@@ -80,7 +81,7 @@ public interface AliceApi {
     Call<ServiceEditDelResponse> delService (@Query("salon_id") Integer salonId, @Query("id") Integer id);
 
     @PUT(Constants.API_VIEW_SERVICE)
-    Call<ServiceEditDelResponse> searchViewService(@Query("salon_id") Integer salonId, @Query("id") Integer id);
+    Call<ServiceViewResponse> searchViewService(@Query("salon_id") Integer salonId, @Query("id") Integer id);
 
 }
 
