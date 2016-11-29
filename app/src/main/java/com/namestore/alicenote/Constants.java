@@ -32,6 +32,14 @@ public class Constants {
     public static final String API_UPDATE_CLIENT="/v1/clients/update";
     public static final String API_DEL_CLIENT ="/v1/clients/delete";
 
+    /*Service*/
+
+    public static final String API_SERVICE ="v1/services";
+    public static final String API_VIEW_SERVICE ="/v1/services/view";
+    public static final String API_ADD_SERVICE="/v1/services/create";
+    public static final String API_UPDATE_SERVICE="/v1/services/update";
+    public static final String API_DEL_SERVICE ="/v1/services/delete";
+
     /*END API SERVER*/
 
     /* LoginSignup Activity */
@@ -43,12 +51,17 @@ public class Constants {
 
     public static final String KEY_CHECK_CLIENT = "client.check";
     public static final String KEY_ID ="client.id";
-    public static final String KEY_RESUME ="client.resume";
-    public static final String KEY_CHECK_EDIT_CLIENT="clien.check.edit";
     public static final String ADD_CLIENT = "client.add";
     public static final String VIEW_CLIENT = "client.view";
     public static final String EDIT_CLIENT = "client.edit";
-    public static final String DEL_CLIENT = "client.del";
+
+    public static final String KEY_CHECK_SERVICE = "service.check";
+    public static final String KEY_ID_SERVICE ="service.id";
+    public static final String ADD_SERVICE = "service.add";
+    public static final String VIEW_SERVICE = "service.view";
+    public static final String EDIT_SERVICE = "service.edit";
+
+
 
     public static final String LOGIN_SIGNUP_SCREEN = "screen.login.signup";
     public static final String LOGIN_FRAGMENT = "FragmentLogin.Login";

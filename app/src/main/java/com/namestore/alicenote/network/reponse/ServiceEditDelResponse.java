@@ -3,10 +3,8 @@ package com.namestore.alicenote.network.reponse;
 import com.namestore.alicenote.network.BaseResponse;
 
 /**
- * Created by nhocnhinho on 17/11/2016.
+ * Created by nhocnhinho on 24/11/2016.
  */
 
-public class AddEditDelClientResponse extends BaseResponse {
-
-
+public class ServiceEditDelResponse extends BaseResponse {
 }

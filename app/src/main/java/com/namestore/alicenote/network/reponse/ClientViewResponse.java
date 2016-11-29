@@ -13,7 +13,7 @@ import java.util.List;
  * Created by nhocnhinho on 15/11/2016.
  */
 
-public class ViewClientResponse extends BaseResponse {
+public class ClientViewResponse extends BaseResponse {
 
     @SerializedName("data")
     @Expose

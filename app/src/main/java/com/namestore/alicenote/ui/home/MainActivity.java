@@ -27,6 +27,7 @@ import com.namestore.alicenote.ui.calendar.CalendarActivity;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
+import com.namestore.alicenote.ui.home.fragment.ServiceFragment;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
 
@@ -82,7 +83,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           //    showServiceFragment();
+             showServiceFragment();
 
             }
         });
@@ -111,11 +112,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(1);
     }
 
-  /*  public void showServiceFragment() {
+    public void showServiceFragment() {
         mPager.setCurrentItem(2);
     }
 
-    public void showCalendarFragment() {
+   /* public void showCalendarFragment() {
         mPager.setCurrentItem(3);
 
     }
@@ -148,9 +149,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 case 1:
                     // Fragment # 1 - This will show SecondFragment
                     return new ClientFragment();
-              /*  case 2:
-                    return new ClientFragment();
-                case 3:
+               case 2:
+                    return new ServiceFragment();
+        /*        case 3:
                     return new ClientFragment();
                 case 4:
                     return new ClientFragment();*/
@@ -163,7 +164,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public int getCount() {
           /*  return NUM_PAGES;*/
-            return 2;
+            return 3;
         }
     }
 

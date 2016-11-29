@@ -2,7 +2,6 @@ package com.namestore.alicenote.ui.client.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,16 +24,14 @@ import android.widget.Toast;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.AppUtils;
-import com.namestore.alicenote.models.DashboardObj;
 import com.namestore.alicenote.models.ViewClientObj;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.ServiceGenerator;
-import com.namestore.alicenote.network.reponse.AddEditDelClientResponse;
-import com.namestore.alicenote.network.reponse.ViewClientResponse;
+import com.namestore.alicenote.network.reponse.ClientAddEditDelResponse;
+import com.namestore.alicenote.network.reponse.ClientViewResponse;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.client.ClientDetailActivity;
 import com.namestore.alicenote.ui.client.adapter.ViewClientCustomRecycleAdapter;
-import com.namestore.alicenote.ui.home.adapter.DashboardCustomRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,10 +113,10 @@ public class ViewClientFragment extends BaseFragment {
 
     public void searchViewClient() {
 
-        mAliceApi.searchViewClient(130, mId).enqueue(new Callback<ViewClientResponse>() {
+        mAliceApi.searchViewClient(130, mId).enqueue(new Callback<ClientViewResponse>() {
 
             @Override
-            public void onResponse(Call<ViewClientResponse> call, Response<ViewClientResponse> response) {
+            public void onResponse(Call<ClientViewResponse> call, Response<ClientViewResponse> response) {
                 if (response.isSuccessful()) {
                     tvClName.setText(response.body().getData().getClient().getFirstName() + " " +
                             response.body().getData().getClient().getLastName());
@@ -147,7 +143,7 @@ public class ViewClientFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<ViewClientResponse> call, Throwable t) {
+            public void onFailure(Call<ClientViewResponse> call, Throwable t) {
 
                 if (call.isCanceled()) {
                     AppUtils.logE("request was cancelled");
@@ -185,9 +181,9 @@ public class ViewClientFragment extends BaseFragment {
     }
 
     public void delInfoClient() {
-        mAliceApi.delClient(130, mClientDetailActivity.mId).enqueue(new Callback<AddEditDelClientResponse>() {
+        mAliceApi.delClient(130, mClientDetailActivity.mId).enqueue(new Callback<ClientAddEditDelResponse>() {
             @Override
-            public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
+            public void onResponse(Call<ClientAddEditDelResponse> call, Response<ClientAddEditDelResponse> response) {
 
                 if (response.isSuccessful()) {
                     if (response.body().getStatus() == 1) {
@@ -204,7 +200,7 @@ public class ViewClientFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<AddEditDelClientResponse> call, Throwable t) {
+            public void onFailure(Call<ClientAddEditDelResponse> call, Throwable t) {
 
             }
         });
