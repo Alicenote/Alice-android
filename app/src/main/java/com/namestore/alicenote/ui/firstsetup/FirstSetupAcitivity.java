@@ -83,6 +83,7 @@ public class FirstSetupAcitivity extends BaseActivity implements OnFragmentInter
 
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Loading...");
+        prgDialog.setCancelable(true);
         prgDialog.show();
 
         serviceArrayList.add(Constants.NAIL, null);
