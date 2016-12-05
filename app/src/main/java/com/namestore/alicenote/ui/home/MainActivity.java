@@ -3,6 +3,8 @@ package com.namestore.alicenote.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -27,6 +29,7 @@ import com.namestore.alicenote.ui.calendar.CalendarActivity;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
+import com.namestore.alicenote.ui.home.fragment.ServiceFragment;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
 
@@ -36,9 +39,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-    private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
+
     private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
-    public  DrawerLayout drawer;
+    public DrawerLayout drawer;
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,57 +53,61 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
-        btnDashBoard = (Button) findViewById(R.id.btnDashBoard);
-        btnCalendar = (Button) findViewById(R.id.btnCalendar);
-        btnClient = (Button) findViewById(R.id.btnClient);
-        btnService = (Button) findViewById(R.id.btnService);
-        btnMore = (Button) findViewById(R.id.btnMore);
-
-        btnClient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showClientFragment();
-
-            }
-        });
-        btnDashBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDashBoardFragment();
-
-            }
-        });
-
-        btnCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            //    showCalendarFragment();
-                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
-            }
-        });
-
-
-
-        btnService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-           //    showServiceFragment();
-
-            }
-        });
-
-        btnMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-             //  showMoreFragment();
-
-            }
-        });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_dashboard:
+                                showDashBoardFragment();
+                                break;
+                            case R.id.action_calendar:
+                                showServiceFragment();
+                                break;
+                            case R.id.action_client:
+                                showClientFragment();
+                                break;
+                            case R.id.action_setting_venue:
+                                showServiceFragment();
+                                break;
+                            case R.id.action_service:
+                                showServiceFragment();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
+        bottomNavigationView.getMaxItemCount();
+
+       /* mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+
+
+                onNavigationItemSelected(bottomNavigationView.getMenu().getItem(position));
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });*/
     }
 
 
@@ -111,11 +120,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(1);
     }
 
-  /*  public void showServiceFragment() {
+    public void showServiceFragment() {
         mPager.setCurrentItem(2);
     }
 
-    public void showCalendarFragment() {
+   /* public void showCalendarFragment() {
         mPager.setCurrentItem(3);
 
     }
@@ -148,9 +157,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 case 1:
                     // Fragment # 1 - This will show SecondFragment
                     return new ClientFragment();
-              /*  case 2:
-                    return new ClientFragment();
-                case 3:
+                case 2:
+                    return new ServiceFragment();
+        /*        case 3:
                     return new ClientFragment();
                 case 4:
                     return new ClientFragment();*/
@@ -163,7 +172,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public int getCount() {
           /*  return NUM_PAGES;*/
-            return 2;
+            return 3;
         }
     }
 
@@ -244,21 +253,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnCalendar:
-         //       showCalendarFragment(); // e ko hieu implement onclick roi ma sao ko click dc ha anh
-                Log.w("dasdfaf", "fasdfsaf");
-            case R.id.btnClient:
-                showClientFragment();
-            case R.id.btnDashBoard:
-                showDashBoardFragment();
-            case R.id.btnService:
-        //        showServiceFragment();
-            case R.id.btnMore:
-        //        showMoreFragment();
 
 
         }
 
     }
+
 
 }

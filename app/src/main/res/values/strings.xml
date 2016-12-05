@@ -316,12 +316,15 @@
     </string-array>
 
 
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_start_activity">StartActivity</string>
-
+    <string name="title_start_activity">a</string>
+    <string name="bottom_navigation_client">Client</string>
+    <string name="bottom_navigation_dashboard">Pendding</string>
+    <string name="bottom_navigation_service">Service</string>
+    <string name="bottom_navigation_calendar">Calendar</string>
+    <string name="bottom_navigation_setting_venue">Setting Venue</string>
 </resources>

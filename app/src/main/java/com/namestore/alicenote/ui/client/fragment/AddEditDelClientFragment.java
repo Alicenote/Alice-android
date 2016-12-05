@@ -7,9 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,8 +30,8 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.models.AddEditClientObj;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.network.ServiceGenerator;
-import com.namestore.alicenote.network.reponse.AddEditDelClientResponse;
-import com.namestore.alicenote.network.reponse.ViewClientResponse;
+import com.namestore.alicenote.network.reponse.ClientAddEditDelResponse;
+import com.namestore.alicenote.network.reponse.ClientViewResponse;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.client.ClientDetailActivity;
 
@@ -43,16 +41,7 @@ import retrofit2.Response;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.graphics.Color;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.widget.DatePicker;
-import android.widget.RelativeLayout;
-import android.app.DialogFragment;
-import android.widget.RelativeLayout.LayoutParams;
-
-import java.util.Calendar;
 
 /**
  * Created by nhocnhinho on 09/11/2016.
@@ -281,9 +270,9 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
 
     public void pushInfoClient() {
         prgDialog.show();
-        mAliceApi.pushInfoClient(mAddEditClientObj, 130).enqueue(new Callback<AddEditDelClientResponse>() {
+        mAliceApi.pushInfoClient(mAddEditClientObj, 130).enqueue(new Callback<ClientAddEditDelResponse>() {
             @Override
-            public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
+            public void onResponse(Call<ClientAddEditDelResponse> call, Response<ClientAddEditDelResponse> response) {
 
                 if (response.isSuccessful()) {
                     if (response.body().getStatus() == 1) {
@@ -303,7 +292,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
             }
 
             @Override
-            public void onFailure(Call<AddEditDelClientResponse> call, Throwable t) {
+            public void onFailure(Call<ClientAddEditDelResponse> call, Throwable t) {
 
             }
         });
@@ -312,9 +301,9 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
 
     public void updateInfoClient() {
         prgDialog.show();
-        mAliceApi.updateInfoClient(mAddEditClientObj, 130, mClientDetailActivity.mId).enqueue(new Callback<AddEditDelClientResponse>() {
+        mAliceApi.updateInfoClient(mAddEditClientObj, 130, mClientDetailActivity.mId).enqueue(new Callback<ClientAddEditDelResponse>() {
             @Override
-            public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
+            public void onResponse(Call<ClientAddEditDelResponse> call, Response<ClientAddEditDelResponse> response) {
 
                 if (response.isSuccessful()) {
                     if (response.body().getStatus() == 1) {
@@ -332,7 +321,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
             }
 
             @Override
-            public void onFailure(Call<AddEditDelClientResponse> call, Throwable t) {
+            public void onFailure(Call<ClientAddEditDelResponse> call, Throwable t) {
 
             }
         });
@@ -342,9 +331,9 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
 
     public void searchViewClient() {
         prgDialog.show();
-        mAliceApi.searchViewClient(130, mClientDetailActivity.mId).enqueue(new Callback<ViewClientResponse>() {
+        mAliceApi.searchViewClient(130, mClientDetailActivity.mId).enqueue(new Callback<ClientViewResponse>() {
             @Override
-            public void onResponse(Call<ViewClientResponse> call, Response<ViewClientResponse> response) {
+            public void onResponse(Call<ClientViewResponse> call, Response<ClientViewResponse> response) {
                 if (response.isSuccessful()) {
                     edFistName.setText(response.body().getData().getClient().getFirstName());
                     edLastName.setText(response.body().getData().getClient().getLastName());
@@ -361,7 +350,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
             }
 
             @Override
-            public void onFailure(Call<ViewClientResponse> call, Throwable t) {
+            public void onFailure(Call<ClientViewResponse> call, Throwable t) {
 
                 if (call.isCanceled()) {
                     AppUtils.logE("request was cancelled");
@@ -376,9 +365,9 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
 
     public void delInfoClient() {
         prgDialog.show();
-        mAliceApi.delClient(130, mClientDetailActivity.mId).enqueue(new Callback<AddEditDelClientResponse>() {
+        mAliceApi.delClient(130, mClientDetailActivity.mId).enqueue(new Callback<ClientAddEditDelResponse>() {
             @Override
-            public void onResponse(Call<AddEditDelClientResponse> call, Response<AddEditDelClientResponse> response) {
+            public void onResponse(Call<ClientAddEditDelResponse> call, Response<ClientAddEditDelResponse> response) {
 
                 if (response.isSuccessful()) {
                     if (response.body().getStatus() == 1) {
@@ -396,7 +385,7 @@ public class AddEditDelClientFragment extends BaseFragment implements AdapterVie
             }
 
             @Override
-            public void onFailure(Call<AddEditDelClientResponse> call, Throwable t) {
+            public void onFailure(Call<ClientAddEditDelResponse> call, Throwable t) {
 
             }
         });

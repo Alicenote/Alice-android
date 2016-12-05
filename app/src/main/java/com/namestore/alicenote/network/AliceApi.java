@@ -1,16 +1,23 @@
 package com.namestore.alicenote.network;
 
+import com.namestore.alicenote.models.EditServiceObj;
+
+import com.namestore.alicenote.models.AddEditClientObj;
+import com.namestore.alicenote.network.reponse.ClientAddEditDelResponse;
 import com.namestore.alicenote.models.AppointmentObj;
 import com.namestore.alicenote.models.AddEditClientObj;
 import com.namestore.alicenote.network.reponse.FillFirstSetupResponse;
 
-import com.namestore.alicenote.network.reponse.AddEditDelClientResponse;
+
 import com.namestore.alicenote.network.reponse.ClientResponse;
 import com.namestore.alicenote.network.reponse.DashBoardRespone;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.models.UserObj;
-import com.namestore.alicenote.network.reponse.ViewClientResponse;
+import com.namestore.alicenote.network.reponse.ServiceEditDelResponse;
+import com.namestore.alicenote.network.reponse.ServiceResponse;
+import com.namestore.alicenote.network.reponse.ClientViewResponse;
+import com.namestore.alicenote.network.reponse.ServiceViewResponse;
 import com.namestore.alicenote.network.request.FirstSetupRequest;
 
 import java.util.List;
@@ -63,15 +70,33 @@ public interface AliceApi {
                                       @Query("sort") String sortId);
 
     @GET(Constants.API_VIEW_CLIENT)
-    Call<ViewClientResponse> searchViewClient(@Query("salon_id") Integer salonId, @Query("id") Integer id);
+
+    Call<ClientViewResponse> searchViewClient(@Query("salon_id") Integer salonId, @Query("id") Integer id);
+
 
     @POST(Constants.API_ADD_CLIENT)
-    Call<AddEditDelClientResponse> pushInfoClient (@Body AddEditClientObj addEditClientObj, @Query("salon_id") Integer salonId);
+    Call<ClientAddEditDelResponse> pushInfoClient (@Body AddEditClientObj addEditClientObj, @Query("salon_id") Integer salonId);
+
     @PUT(Constants.API_UPDATE_CLIENT)
-    Call<AddEditDelClientResponse> updateInfoClient (@Body AddEditClientObj addEditClientObj,
+    Call<ClientAddEditDelResponse> updateInfoClient (@Body AddEditClientObj addEditClientObj,
                                                      @Query("salon_id") Integer salonId, @Query("id") Integer id);
     @DELETE(Constants.API_DEL_CLIENT)
-    Call<AddEditDelClientResponse> delClient (@Query("salon_id") Integer salonId, @Query("id") Integer id);
+    Call<ClientAddEditDelResponse> delClient (@Query("salon_id") Integer salonId, @Query("id") Integer id);
+
+
+    @GET(Constants.API_SERVICE)
+    Call<ServiceResponse> searchService(@Query("salon_id") Integer salonId, @Query("group_id")Integer id,
+                                        @Query("page")Integer page,@Query("per-page")Integer perPage,
+                                        @Query("key")String key);
+
+    @PUT(Constants.API_UPDATE_SERVICE)
+    Call<ServiceEditDelResponse> updateInfoService(@Body EditServiceObj editServiceObj,
+                                                   @Query("salon_id") Integer salonId, @Query("id") Integer id);
+    @DELETE(Constants.API_DEL_SERVICE)
+    Call<ServiceEditDelResponse> delService (@Query("salon_id") Integer salonId, @Query("id") Integer id);
+
+    @PUT(Constants.API_VIEW_SERVICE)
+    Call<ServiceViewResponse> searchViewService(@Query("salon_id") Integer salonId, @Query("id") Integer id);
 
 }
 
