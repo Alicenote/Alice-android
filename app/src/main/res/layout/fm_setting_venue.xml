@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Setting Venue"
+            android:textColor="@color/black"
             android:textSize="25dp" />
 
         <ImageView

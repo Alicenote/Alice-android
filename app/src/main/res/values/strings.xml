@@ -324,7 +324,7 @@
     <string name="title_start_activity">a</string>
     <string name="bottom_navigation_client">Client</string>
     <string name="bottom_navigation_dashboard">Pendding</string>
-    <string name="bottom_navigation_service">Service</string>
+    <string name="bottom_navigation_ranking">Ranking</string>
     <string name="bottom_navigation_calendar">Calendar</string>
     <string name="bottom_navigation_setting_venue">Setting Venue</string>
     <string name="venue">Venue</string>
@@ -339,7 +339,6 @@
     <string name="detail_teams">Setup your team members</string>
     <string name="other">Other</string>
     <string name="detail_other">More config</string>
-
 
 
 </resources>

@@ -41,11 +41,6 @@ public class Constants {
 
     /*Service*/
 
-    public static final String API_SERVICE ="v1/services";
-    public static final String API_VIEW_SERVICE ="/v1/services/view";
-    public static final String API_ADD_SERVICE="/v1/services/create";
-    public static final String API_UPDATE_SERVICE="/v1/services/update";
-    public static final String API_DEL_SERVICE ="/v1/services/delete";
 
     /*END API SERVER*/
 
@@ -72,6 +67,10 @@ public class Constants {
     public static final String VIEW_SERVICE = "service.view";
     public static final String EDIT_SERVICE = "service.edit";
 
+    public static final String VENUE_KEY_CHECK="venue.check";
+    public static final String VENUE_VIEW = "venue.view";
+    public static final String VENUE_EDIT="venue.edit";
+    public static final String VENUE_VIEW_EDIT_OPENHOURS="venue.view.edit.openhours";
 
 
     public static final String LOGIN_SIGNUP_SCREEN = "screen.login.signup";

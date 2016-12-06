@@ -12,18 +12,19 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bottom_navigation_calendar" />
     <item
+        android:id="@+id/action_ranking"
+
+
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/bottom_navigation_ranking" />
+    <item
         android:id="@+id/action_client"
 
 
 
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bottom_navigation_client" />
-    <item
-        android:id="@+id/action_service"
 
-
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/bottom_navigation_service" />
 
 
     <item

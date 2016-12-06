@@ -20,26 +20,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
     }
 
-    public void hideKeyBoard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager keyBoard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            keyBoard.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
 
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+
 }

@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -66,19 +67,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_dashboard:
-                                showDashBoardFragment();
+                                showPenddingFragment();
                                 break;
                             case R.id.action_calendar:
-                                showServiceFragment();
+                                showRankingFragment();
                                 break;
                             case R.id.action_client:
                                 showClientFragment();
                                 break;
                             case R.id.action_setting_venue:
-                               showVenueFragment();
+                                showVenueFragment();
                                 break;
-                            case R.id.action_service:
-                                showServiceFragment();
+                            case R.id.action_ranking:
+                                showRankingFragment();
                                 break;
                         }
                         return false;
@@ -110,7 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
 
-    public void showDashBoardFragment() {
+    public void showPenddingFragment() {
         mPager.setCurrentItem(0);
 
     }
@@ -119,7 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(1);
     }
 
-    public void showServiceFragment() {
+    public void showRankingFragment() {
         mPager.setCurrentItem(2);
     }
 
@@ -152,15 +153,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new SettingVenueFragment();
+
+                    return new ClientFragment();
                 case 1:
                     return new ClientFragment();
-
-
-        /*        case 3:
+                case 2:
+                    return new ClientFragment();
+                case 3:
                     return new ClientFragment();
                 case 4:
-                    return new ClientFragment();*/
+                    return new SettingVenueFragment();
 
                 default:
                     return null;
@@ -170,7 +172,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public int getCount() {
           /*  return NUM_PAGES;*/
-            return 2;
+            return 5;
         }
     }
 

@@ -19,13 +19,14 @@
             android:name=".ui.home.MainActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
+            android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>>
+        </activity>
+        >
         <activity
             android:name=".ui.signinup.LoginSignupActivity"
             android:configChanges="orientation|screenSize"
@@ -76,7 +77,8 @@
             android:authorities="com.facebook.app.FacebookContentProvider563635057157680"
             android:exported="true" />
 
-        <activity android:name=".ui.service.ServiceDetailActivity"></activity>
+        <activity android:name=".ui.service.ServiceDetailActivity" />
+        <activity android:name=".ui.venue.VenueDetail"></activity>
     </application>
 
 </manifest>
