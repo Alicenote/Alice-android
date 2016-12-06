@@ -28,8 +28,8 @@ import com.namestore.alicenote.ui.calendar.CalendarActivity;
 
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
-import com.namestore.alicenote.ui.home.fragment.DashBoardFragment;
-import com.namestore.alicenote.ui.home.fragment.ServiceFragment;
+
+import com.namestore.alicenote.ui.home.fragment.SettingVenueFragment;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
 
@@ -40,7 +40,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
-    private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
     public DrawerLayout drawer;
     private BottomNavigationView bottomNavigationView;
 
@@ -76,7 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                                 showClientFragment();
                                 break;
                             case R.id.action_setting_venue:
-                                showServiceFragment();
+                               showVenueFragment();
                                 break;
                             case R.id.action_service:
                                 showServiceFragment();
@@ -124,15 +123,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(2);
     }
 
-   /* public void showCalendarFragment() {
+  /*  public void showCalendarFragment() {
         mPager.setCurrentItem(3);
 
-    }
+    }*/
 
-    public void showMoreFragment() {
+    public void showVenueFragment() {
         mPager.setCurrentItem(4);
 
-    }*/
+    }
 
     @Override
     public void onViewClick(String tag) {
@@ -152,13 +151,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
-                    return new DashBoardFragment();
+                case 0:
+                    return new SettingVenueFragment();
                 case 1:
-                    // Fragment # 1 - This will show SecondFragment
                     return new ClientFragment();
-                case 2:
-                    return new ServiceFragment();
+
+
         /*        case 3:
                     return new ClientFragment();
                 case 4:
@@ -172,7 +170,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public int getCount() {
           /*  return NUM_PAGES;*/
-            return 3;
+            return 2;
         }
     }
 

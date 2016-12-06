@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+
+        >
+
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Setting Venue"
+            android:textSize="25dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/icon_business_adress"
+
+            ></ImageView>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_top"
+        android:background="#F6F6F6"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+           >
+
+            <include
+                android:id="@+id/venueMoreDetail"
+                layout="@layout/layout_item_venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               />
+
+            <include
+                android:id="@+id/venueOpenHour"
+                layout="@layout/layout_item_venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/venueMoreDetail"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <include
+                android:id="@+id/venuePolicies"
+                layout="@layout/layout_item_venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/venueOpenHour"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <include
+                android:id="@+id/venueNotification"
+                layout="@layout/layout_item_venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/venuePolicies"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <include
+                android:id="@+id/venueTeams"
+                layout="@layout/layout_item_venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/venueNotification"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <include
+                android:id="@+id/venueOther"
+                layout="@layout/layout_item_venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/venueTeams"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+        >
+    </android.support.v4.widget.NestedScrollView>
+    >
+</RelativeLayout>

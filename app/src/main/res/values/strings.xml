@@ -327,4 +327,19 @@
     <string name="bottom_navigation_service">Service</string>
     <string name="bottom_navigation_calendar">Calendar</string>
     <string name="bottom_navigation_setting_venue">Setting Venue</string>
+    <string name="venue">Venue</string>
+    <string name="detail_venue">Setup more details for your Venue</string>
+    <string name="open_hours">Open Hours</string>
+    <string name="detail_open_hours">Set up business times</string>
+    <string name="polocies">Policies</string>
+    <string name="detail_policies">Setup rule your business</string>
+    <string name="notification">Notification</string>
+    <string name="detail_notification">How you and your customer get notification</string>
+    <string name="teams">Teams</string>
+    <string name="detail_teams">Setup your team members</string>
+    <string name="other">Other</string>
+    <string name="detail_other">More config</string>
+
+
+
 </resources>
