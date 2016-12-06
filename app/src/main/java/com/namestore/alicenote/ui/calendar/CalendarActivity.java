@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.namestore.alicenote.models.AppointmentObj;
 import com.namestore.alicenote.network.AliceApi;
-import com.namestore.alicenote.network.ServiceGenerator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,7 +34,7 @@ public class CalendarActivity extends CalendarBaseActivity implements Callback<L
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Loading");
         prgDialog.show();
-        aliceApi = ServiceGenerator.creatService(AliceApi.class);
+        //aliceApi = ServiceGenerator.creatService(AliceApi.class);
     }
 
     @Override

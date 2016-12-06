@@ -107,17 +107,14 @@ public class ArtGroupActivity extends BaseActivity implements ArtGroupAdapter.On
         final EditText editText = (EditText) dialog.findViewById(R.id.edittext_add_art);
 
         Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String string = editText.getText().toString();
-                ArtObj artObj = new ArtObj();
-                artObj.setNameArt(string);
-                artObj.setDrawableArt(0);
-                artGroupAdapter.addItem(artObj);
-                arrayListData.add(new Pair<String, Integer>(string, 0));
-                dialog.dismiss();
-            }
+        dialogButton.setOnClickListener(view -> {
+            String string = editText.getText().toString();
+            ArtObj artObj = new ArtObj();
+            artObj.setNameArt(string);
+            artObj.setDrawableArt(0);
+            artGroupAdapter.addItem(artObj);
+            arrayListData.add(new Pair<String, Integer>(string, 0));
+            dialog.dismiss();
         });
 
         dialog.show();

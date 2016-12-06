@@ -99,26 +99,23 @@ public class ShopServicesCategoryFragment extends BaseFragment {
         recyclerView.setAdapter(servicesCategoryAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        switch (position) {
-                            case Constants.NAIL:
-                                if (mActivity instanceof OnFirstSetupActivityListener) {
-                                    ((OnFirstSetupActivityListener) mActivity).showNailServiceFragment();
-                                }
-                                break;
-                            case Constants.HAIR:
-                                if (mActivity instanceof OnFirstSetupActivityListener) {
-                                    ((OnFirstSetupActivityListener) mActivity).showHairServiceFragment();
-                                }
-                                break;
-                            case 2:
-                                AppUtils.showShortToast(getActivity(), "BEAUTY SERVICE");
-                                break;
-                        }
-
+                new RecyclerItemClickListener(getActivity(), (view, position) -> {
+                    switch (position) {
+                        case Constants.NAIL:
+                            if (mActivity instanceof OnFirstSetupActivityListener) {
+                                ((OnFirstSetupActivityListener) mActivity).showNailServiceFragment();
+                            }
+                            break;
+                        case Constants.HAIR:
+                            if (mActivity instanceof OnFirstSetupActivityListener) {
+                                ((OnFirstSetupActivityListener) mActivity).showHairServiceFragment();
+                            }
+                            break;
+                        case 2:
+                            AppUtils.showShortToast(getActivity(), "BEAUTY SERVICE");
+                            break;
                     }
+
                 })
         );
     }

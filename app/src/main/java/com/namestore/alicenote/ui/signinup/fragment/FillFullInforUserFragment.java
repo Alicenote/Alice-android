@@ -92,14 +92,11 @@ public class FillFullInforUserFragment extends BaseFragment {
         ArrayList<String> gender = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gender)));
         ViewUtils.configSpinner(getActivity(), gender, mSpinnerGender);
 
-        mSpinnerGender.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager keyBoard =
-                        (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                keyBoard.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
-                return false;
-            }
+        mSpinnerGender.setOnTouchListener((view, motionEvent) -> {
+            InputMethodManager keyBoard =
+                    (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            keyBoard.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+            return false;
         });
 
         fillUser();

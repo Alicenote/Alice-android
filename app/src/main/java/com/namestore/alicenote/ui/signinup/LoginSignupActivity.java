@@ -26,8 +26,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.PrefUtils;
-import com.namestore.alicenote.network.ServiceGenerator;
-import com.namestore.alicenote.network.AliceApi;
+import com.namestore.alicenote.network.ObservableManager;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.Constants;
@@ -47,9 +46,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Subscriber;
 
 /**
  * Created by kienht on 10/25/16.
@@ -70,7 +67,6 @@ public class LoginSignupActivity extends BaseActivity
     private LoginFragment mLoginFragment;
     private SignUpFragment mSignUpFragment;
     private FillFullInforUserFragment mFillFullInforUserFragment;
-    private AliceApi aliceApi;
     public UserObj mUser = new UserObj();
     private LoginButton mLoginButtonFb;
     private ProgressDialog prgDialog;
@@ -81,12 +77,7 @@ public class LoginSignupActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback() {
-            @Override
-            public void onInitialized() {
-                mAccessToken = AccessToken.getCurrentAccessToken();
-            }
-        });
+        FacebookSdk.sdkInitialize(getApplicationContext(), () -> mAccessToken = AccessToken.getCurrentAccessToken());
 
         setContentView(R.layout.activity_login_signup);
 
@@ -106,12 +97,9 @@ public class LoginSignupActivity extends BaseActivity
             showSignupView();
         }
 
-        aliceApi = ServiceGenerator.creatService(AliceApi.class);
-
         mLoginButtonFb = (LoginButton) findViewById(R.id.button_facebook_login);
 
         loginFb();
-
 
         //Google Sign-in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -135,46 +123,36 @@ public class LoginSignupActivity extends BaseActivity
         mCallbackManagerFb = CallbackManager.Factory.create();
         mLoginButtonFb.setVisibility(View.GONE);
         mLoginButtonFb.setReadPermissions(Arrays.asList("public_profile", "email"));
-        mLoginButtonFb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mLoginButtonFb.setClickable(false);
-                mAccessTokenTracker = new AccessTokenTracker() {
-                    @Override
-                    protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
-                        AccessToken mAccessToken = newToken;
-                    }
-                };
-                FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback() {
-                    @Override
-                    public void onInitialized() {
-                        mLoginButtonFb.registerCallback(mCallbackManagerFb, new FacebookCallback<LoginResult>() {
-                            @Override
-                            public void onSuccess(LoginResult loginResult) {
-                                //AccessToken mAccessToken = loginResult.getAccessToken();
-                                // PrefUtils.getInstance(LoginScreen.this).set(PrefUtils.KEY_ACCESS_TOKEN_FB, mAccessToken.getToken());
-                                getUserInfoFromFb();
-                                setPrgDialog("Loging");
-                            }
+        mLoginButtonFb.setOnClickListener(view -> {
+            mLoginButtonFb.setClickable(false);
+            mAccessTokenTracker = new AccessTokenTracker() {
+                @Override
+                protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
+                }
+            };
+            FacebookSdk.sdkInitialize(getApplicationContext(), () ->
+                    mLoginButtonFb.registerCallback(mCallbackManagerFb, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    getUserInfoFromFb();
+                    setPrgDialog("Loging");
+                }
 
-                            @Override
-                            public void onCancel() {
-                                AppUtils.logE("FB CANCEL");
-                                mLoginButtonFb.setClickable(true);
-                            }
+                @Override
+                public void onCancel() {
+                    AppUtils.logE("FB CANCEL");
+                    mLoginButtonFb.setClickable(true);
+                }
 
-                            @Override
-                            public void onError(FacebookException exception) {
-                                AppUtils.logE("FB ERROR");
-                                mLoginButtonFb.setClickable(true);
+                @Override
+                public void onError(FacebookException exception) {
+                    AppUtils.logE("FB ERROR");
+                    mLoginButtonFb.setClickable(true);
 
-                            }
-                        });
-                    }
-                });
+                }
+            }));
 
-                mAccessTokenTracker.startTracking();
-            }
+            mAccessTokenTracker.startTracking();
         });
 
     }
@@ -183,28 +161,24 @@ public class LoginSignupActivity extends BaseActivity
      * @get user info after login fb success
      */
     private void getUserInfoFromFb() {
-        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(
-                    JSONObject object, GraphResponse response) {
-                try {
-                    mUser.id = object.getString("id");
-                    mUser.email = object.getString("email");
-                    mUser.firstName = object.getString("first_name");
-                    mUser.lastName = object.getString("last_name");
-                    String gender = object.getString("gender");
-                    if (gender.equals("male")) {
-                        mUser.gender = SignUpFragment.GENDER_MALE;
-                    } else {
-                        mUser.gender = SignUpFragment.GENDER_FEMALE;
-                    }
-                    mUser.imageAvatar = "http://graph.facebook.com/" + mUser.id + "/picture?type=square&width=300&height=300";
-                    prgDialog.dismiss();
-                    showFillInforUserView();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+            try {
+                mUser.id = object.getString("id");
+                mUser.email = object.getString("email");
+                mUser.firstName = object.getString("first_name");
+                mUser.lastName = object.getString("last_name");
+                String gender = object.getString("gender");
+                if (gender.equals("male")) {
+                    mUser.gender = SignUpFragment.GENDER_MALE;
+                } else {
+                    mUser.gender = SignUpFragment.GENDER_FEMALE;
                 }
+                mUser.imageAvatar = "http://graph.facebook.com/" + mUser.id + "/picture?type=square&width=300&height=300";
+                prgDialog.dismiss();
+                showFillInforUserView();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         });
         Bundle parameters = new Bundle();
@@ -330,38 +304,37 @@ public class LoginSignupActivity extends BaseActivity
      * @param user to  LOGIN
      */
     public void login(UserObj user) {
-        aliceApi.login(user).enqueue(new Callback<LoginSignupResponse>() {
+        ObservableManager.login(user).subscribe(new Subscriber<LoginSignupResponse>() {
             @Override
-            public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                if (response.isSuccessful()) {
-                    prgDialog.hide();
-                    switch (response.body().getStatus()) {
-                        case LOGIN_ERROR:
-                            AppUtils.showShortToast(LoginSignupActivity.this, response.body().getErrors());
-                            break;
-                        case SUCCESS:
-                            Constants.TOKEN = response.body().getmToken();
-                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-                            break;
-                        case LOGED:
-                            AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
-                            break;
-                        case FIRST_LOGIN:
-                            Constants.TOKEN = response.body().getmToken();
-                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-                            break;
-                    }
-                }
+            public void onCompleted() {
+                AppUtils.logE("LOGIN COMPLETE");
             }
 
             @Override
-            public void onFailure(Call<LoginSignupResponse> call, Throwable t) {
-                if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
-                } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+            public void onError(Throwable e) {
+                AppUtils.logE("login FAILED " + e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onNext(LoginSignupResponse response) {
+                prgDialog.hide();
+                switch (response.getStatus()) {
+                    case LOGIN_ERROR:
+                        AppUtils.showShortToast(LoginSignupActivity.this, response.getErrors());
+                        break;
+                    case SUCCESS:
+                        Constants.TOKEN = response.getmToken();
+                        PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.getSalonId());
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+                        break;
+                    case LOGED:
+                        AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
+                        break;
+                    case FIRST_LOGIN:
+                        Constants.TOKEN = response.getmToken();
+                        PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.getSalonId());
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                        break;
                 }
             }
         });
@@ -371,33 +344,32 @@ public class LoginSignupActivity extends BaseActivity
      * @param user to  SIGNUP
      */
     public void signUp(UserObj user) {
-        aliceApi.signup(user).enqueue(new Callback<LoginSignupResponse>() {
+        ObservableManager.signup(user).subscribe(new Subscriber<LoginSignupResponse>() {
             @Override
-            public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                prgDialog.hide();
-                if (response.isSuccessful()) {
-                    switch (response.body().getStatus()) {
-                        case REGISTER_ERROR:
-                            AppUtils.showShortToast(LoginSignupActivity.this, response.body().getErrors());
-                            break;
-                        case SUCCESS:
-                            Constants.TOKEN = response.body().getmToken();
-                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-                            break;
-                        case LOGED:
-                            AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
-                            break;
-                    }
-                }
+            public void onCompleted() {
+                AppUtils.logE("SIGNUP COMPLETE");
             }
 
             @Override
-            public void onFailure(Call<LoginSignupResponse> call, Throwable t) {
-                if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
-                } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+            public void onError(Throwable e) {
+                AppUtils.logE("SIGNUP FAILED " + e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onNext(LoginSignupResponse response) {
+                prgDialog.hide();
+                switch (response.getStatus()) {
+                    case REGISTER_ERROR:
+                        AppUtils.showShortToast(LoginSignupActivity.this, response.getErrors());
+                        break;
+                    case SUCCESS:
+                        Constants.TOKEN = response.getmToken();
+                        PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.getSalonId());
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                        break;
+                    case LOGED:
+                        AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
+                        break;
                 }
             }
         });
@@ -407,32 +379,31 @@ public class LoginSignupActivity extends BaseActivity
      * @param user to LOGIN FB or GOOGLE PLUS
      */
     public void loginSocial(UserObj user) {
-        aliceApi.socialLogin(user).enqueue(new Callback<LoginSignupResponse>() {
+        ObservableManager.socialLogin(user).subscribe(new Subscriber<LoginSignupResponse>() {
             @Override
-            public void onResponse(Call<LoginSignupResponse> call, Response<LoginSignupResponse> response) {
-                if (response.isSuccessful()) {
-                    switch (response.body().getStatus()) {
-                        case SUCCESS:
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
-                            break;
-                        case LOGED:
-                            AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
-                            break;
-                        case FIRST_LOGIN:
-                            Constants.TOKEN = response.body().getmToken();
-                            PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.body().getSalonId());
-                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
-                            break;
-                    }
-                }
+            public void onCompleted() {
+                AppUtils.logE("loginSocial COMPLETE");
             }
 
             @Override
-            public void onFailure(Call<LoginSignupResponse> call, Throwable t) {
-                if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
-                } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+            public void onError(Throwable e) {
+                AppUtils.logE("loginSocial FAILED " + e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onNext(LoginSignupResponse response) {
+                switch (response.getStatus()) {
+                    case SUCCESS:
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+                        break;
+                    case LOGED:
+                        AppUtils.showShortToast(LoginSignupActivity.this, "Loged");
+                        break;
+                    case FIRST_LOGIN:
+                        Constants.TOKEN = response.getmToken();
+                        PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.SALON_ID, response.getSalonId());
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                        break;
                 }
             }
         });
@@ -459,6 +430,7 @@ public class LoginSignupActivity extends BaseActivity
         if (prgDialog != null) {
             prgDialog.dismiss();
         }
+
         super.onDestroy();
     }
 

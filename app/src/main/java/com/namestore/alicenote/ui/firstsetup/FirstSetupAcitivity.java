@@ -4,9 +4,8 @@ import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.PrefUtils;
 import com.namestore.alicenote.models.SubServicesObj;
 import com.namestore.alicenote.network.BaseResponse;
+import com.namestore.alicenote.network.ObservableManager;
 import com.namestore.alicenote.network.reponse.FillFirstSetupResponse;
-import com.namestore.alicenote.network.AliceApi;
-import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.Constants;
 
@@ -35,9 +34,7 @@ import com.namestore.alicenote.ui.firstsetup.fragment.ShopWorkingDayFragment;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Subscriber;
 
 /**
  * Created by kienht on 10/25/16.
@@ -59,7 +56,6 @@ public class FirstSetupAcitivity extends BaseActivity implements OnFragmentInter
     private ProgressDialog prgDialog;
     Handler handler = new Handler();
     private ArrayList<BaseFragment> fragmentsArrayList = new ArrayList<>();
-    public AliceApi aliceApi;
     private FillFirstSetupResponse fillFirstSetupResponse = new FillFirstSetupResponse(); //list data lấy từ server để fill vào view của các fragment
     public FirstSetupRequest firstSetupRequest = new FirstSetupRequest(); //đối tượng để post lên server
     public ArrayList<FirstSetupRequest.Service> serviceArrayList = new ArrayList<>(); //list các services category (NAIL, HAIR,...)
@@ -78,9 +74,6 @@ public class FirstSetupAcitivity extends BaseActivity implements OnFragmentInter
             finish();
             return;
         }
-
-        aliceApi = ServiceGenerator.creatService(AliceApi.class);
-
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Loading...");
         prgDialog.setCancelable(true);
@@ -134,14 +127,20 @@ public class FirstSetupAcitivity extends BaseActivity implements OnFragmentInter
     }
 
     public void getDataFromServerToFillView(int salonId) {
-        aliceApi.fillFirstSetup(salonId).enqueue(new Callback<FillFirstSetupResponse>() {
-            @Override
-            public void onResponse(Call<FillFirstSetupResponse> call, Response<FillFirstSetupResponse> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-                fillFirstSetupResponse = response.body();
 
+        ObservableManager.fillFirstSetup(salonId).subscribe(new Subscriber<FillFirstSetupResponse>() {
+            @Override
+            public void onCompleted() {
+                AppUtils.logE("fillFirstSetup  Completed");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                AppUtils.logE("FAILED " + t.getLocalizedMessage());
+            }
+
+            @Override
+            public void onNext(FillFirstSetupResponse fillFirstSetupResponse) {
                 PrefUtils.getInstance(getApplicationContext()).set(PrefUtils.OWNER_NAME, fillFirstSetupResponse.getOwnerName());
 
                 //Fill infor business Type list SPinner
@@ -184,21 +183,7 @@ public class FirstSetupAcitivity extends BaseActivity implements OnFragmentInter
                 }
                 mHairServicesFragment.updateRecyclerView(hairArrayList);
 
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        prgDialog.dismiss();
-                    }
-                }, 1000);
-            }
-
-            @Override
-            public void onFailure(Call<FillFirstSetupResponse> call, Throwable t) {
-                if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
-                } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
-                }
+                handler.postDelayed(() -> prgDialog.dismiss(), 1000);
             }
         });
     }
@@ -257,36 +242,35 @@ public class FirstSetupAcitivity extends BaseActivity implements OnFragmentInter
         switch (tag) {
             case Constants.DASHBOARD_SCREEN:
                 prgDialog.show();
-                aliceApi.requestFirstSetupSalon(salonId, firstSetupRequest).enqueue(new Callback<BaseResponse>() {
+
+                ObservableManager.requestFirstSetupSalon(salonId, firstSetupRequest).subscribe(new Subscriber<BaseResponse>() {
                     @Override
-                    public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                        if (response.isSuccessful()) {
-                            switch (response.body().getStatus()) {
-                                case SUCCESS:
-                                    prgDialog.dismiss();
-                                    Intent intent = new Intent(FirstSetupAcitivity.this, MainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case CONFIGURED:
-                                    prgDialog.dismiss();
-                                    AppUtils.showNoticeDialog(FirstSetupAcitivity.this, "CONFIGURED");
-                                    break;
-                            }
-                        }
+                    public void onCompleted() {
+                        AppUtils.logE("requestFirstSetupSalon Completed ");
                     }
 
                     @Override
-                    public void onFailure(Call<BaseResponse> call, Throwable t) {
-                        if (call.isCanceled()) {
-                            AppUtils.logE("request was cancelled");
-                        } else {
-                            AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                    public void onError(Throwable e) {
+                        AppUtils.logE("FAILED " + e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        switch (baseResponse.getStatus()) {
+                            case SUCCESS:
+                                prgDialog.dismiss();
+                                Intent intent = new Intent(FirstSetupAcitivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
+                                finish();
+                                break;
+                            case CONFIGURED:
+                                prgDialog.dismiss();
+                                AppUtils.showNoticeDialog(FirstSetupAcitivity.this, "CONFIGURED");
+                                break;
                         }
                     }
                 });
-                break;
         }
     }
 

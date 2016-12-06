@@ -37,7 +37,6 @@ import java.util.ArrayList;
 
 public class SubArtActivity extends BaseActivity implements ArtGroupAdapter.OnArtItemClickListener {
 
-
     TextView mTextViewTitle;
     Button mButtonAdd;
     Button mButtonBack;
@@ -144,24 +143,16 @@ public class SubArtActivity extends BaseActivity implements ArtGroupAdapter.OnAr
         Button buttonCancel = (Button) dialogCreatArt.findViewById(R.id.action_bar).findViewById(R.id.button_cancel);
         Button buttonOk = (Button) dialogCreatArt.findViewById(R.id.action_bar).findViewById(R.id.button_ok);
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogCreatArt.dismiss();
-            }
-        });
+        buttonCancel.setOnClickListener(view -> dialogCreatArt.dismiss());
 
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String string = inputName.getText().toString();
-                ArtObj artObj = new ArtObj();
-                artObj.setNameArt(string);
-                artObj.setDrawableArt(0);
-                artGroupAdapter.addItem(artObj);
-                arrayListData.add(new Pair<String, Integer>(string, 0));
-                dialogCreatArt.dismiss();
-            }
+        buttonOk.setOnClickListener(view -> {
+            String string = inputName.getText().toString();
+            ArtObj artObj = new ArtObj();
+            artObj.setNameArt(string);
+            artObj.setDrawableArt(0);
+            artGroupAdapter.addItem(artObj);
+            arrayListData.add(new Pair<String, Integer>(string, 0));
+            dialogCreatArt.dismiss();
         });
         dialogCreatArt.show();
     }
@@ -215,28 +206,15 @@ public class SubArtActivity extends BaseActivity implements ArtGroupAdapter.OnAr
         Button buttonOk = (Button) dialogEditArt.findViewById(R.id.action_bar).findViewById(R.id.button_ok);
         Button buttonDelete = (Button) dialogEditArt.findViewById(R.id.button_delete);
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogEditArt.dismiss();
-            }
-        });
+        buttonCancel.setOnClickListener(view -> dialogEditArt.dismiss());
 
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogEditArt.dismiss();
-            }
-        });
+        buttonOk.setOnClickListener(view -> dialogEditArt.dismiss());
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogEditArt.dismiss();
-                artArrayList.remove(itemId);
-                artGroupAdapter.notifyItemRemoved(itemId);
-                artGroupAdapter.notifyItemRangeChanged(itemId, artArrayList.size());
-            }
+        buttonDelete.setOnClickListener(view -> {
+            dialogEditArt.dismiss();
+            artArrayList.remove(itemId);
+            artGroupAdapter.notifyItemRemoved(itemId);
+            artGroupAdapter.notifyItemRangeChanged(itemId, artArrayList.size());
         });
 
         dialogEditArt.show();

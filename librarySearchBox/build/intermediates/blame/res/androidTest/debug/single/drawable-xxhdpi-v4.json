@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/ic_action_mic.png",
+        "source": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/ic_action_mic.png"
+    },
+    {
+        "merged": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/ic_clear.png",
+        "source": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/ic_clear.png"
+    },
+    {
+        "merged": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/ic_up.png",
+        "source": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/ic_up.png"
+    },
+    {
+        "merged": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/search_bg.9.png",
+        "source": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/search_bg.9.png"
+    },
+    {
+        "merged": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/search_bg_transparent.9.png",
+        "source": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/search_bg_transparent.9.png"
+    },
+    {
+        "merged": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/search_frame.9.png",
+        "source": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/search_frame.9.png"
+    },
+    {
+        "merged": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/search_bg_shadow.9.png",
+        "source": "/Users/kienht/AndroidStudioProjects/Alice-android/librarySearchBox/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/search_bg_shadow.9.png"
+    }
+]
