@@ -53,6 +53,7 @@ public class ArtGroupActivity extends BaseActivity implements ArtGroupAdapter.On
     protected void initViews() {
         recyclerViewArt = (RecyclerView) findViewById(R.id.list_art_group);
         recyclerViewArt.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerViewArt.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewArt.setHasFixedSize(true);
 
         mButtonAdd = (Button) findViewById(R.id.action_bar).findViewById(R.id.button_add_art);
