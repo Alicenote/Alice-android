@@ -18,7 +18,7 @@ import com.namestore.alicenote.ui.venue.interfaces.OnSettingVenueListener;
 
 import java.util.ArrayList;
 
-public class VenueDetail extends BaseActivity implements OnSettingVenueListener, OnFragmentInteractionListener {
+public class VenueDetailActivity extends BaseActivity implements OnSettingVenueListener, OnFragmentInteractionListener {
     private ArrayList<BaseFragment> fragmentsArrayList = new ArrayList<>();
     private EditVenueFragment mEditVenueFragment;
     private ViewVenueFragment mViewVenueFragment;
@@ -30,15 +30,14 @@ public class VenueDetail extends BaseActivity implements OnSettingVenueListener,
 
         mEditVenueFragment = new EditVenueFragment();
         mViewVenueFragment = new ViewVenueFragment();
-       /* fragmentsArrayList.add(mEditVenueFragment);
+        fragmentsArrayList.add(mEditVenueFragment);
         fragmentsArrayList.add(mEditVenueFragment);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, mEditVenueFragment)
                 .add(R.id.container, mViewVenueFragment)
-                .commit();*/
+                .commit();
         if (getIntent().getExtras().getString(Constants.VENUE_KEY_CHECK).equals(Constants.VENUE_VIEW)) {
-
-           showViewVenue();
+            showFragment(mViewVenueFragment);
         }
 
     }
@@ -63,13 +62,13 @@ public class VenueDetail extends BaseActivity implements OnSettingVenueListener,
 
     @Override
     public void showEditVenue() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mEditVenueFragment).commit();
+        showFragment(mEditVenueFragment);
 
     }
 
     @Override
     public void showViewVenue() {
-         getSupportFragmentManager().beginTransaction().replace(R.id.container, mViewVenueFragment).commit();
+        showFragment(mViewVenueFragment);
 
     }
 

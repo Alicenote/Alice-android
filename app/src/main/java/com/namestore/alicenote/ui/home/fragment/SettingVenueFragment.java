@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,7 +16,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.home.MainActivity;
-import com.namestore.alicenote.ui.venue.VenueDetail;
+import com.namestore.alicenote.ui.venue.VenueDetailActivity;
 
 /**
  * Created by nhocnhinho on 05/12/2016.
@@ -107,7 +105,7 @@ public class SettingVenueFragment extends BaseFragment {
     protected void initModels() {
 
         mRelativeLayoutVenue.setOnClickListener(view -> {
-            Intent _intent =new Intent(getContext(), VenueDetail.class);
+            Intent _intent =new Intent(getContext(), VenueDetailActivity.class);
             _intent.putExtra(Constants.VENUE_KEY_CHECK,Constants.VENUE_VIEW);
             startActivity(_intent);
         });

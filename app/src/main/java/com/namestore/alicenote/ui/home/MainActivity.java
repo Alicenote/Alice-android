@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
@@ -70,10 +71,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                                 showPenddingFragment();
                                 break;
                             case R.id.action_calendar:
-                                showRankingFragment();
+                               showCalendarFragment();
                                 break;
                             case R.id.action_client:
-                                showClientFragment();
+                              showClientFragment();
                                 break;
                             case R.id.action_setting_venue:
                                 showVenueFragment();
@@ -112,25 +113,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
 
     public void showPenddingFragment() {
-        mPager.setCurrentItem(0);
+        mPager.setCurrentItem(Constants.NUM_PENDING);
 
     }
 
     public void showClientFragment() {
-        mPager.setCurrentItem(1);
+        mPager.setCurrentItem(Constants.NUM_CLIENT);
     }
 
     public void showRankingFragment() {
-        mPager.setCurrentItem(2);
+        mPager.setCurrentItem(Constants.NUM_RANKING);
     }
 
-  /*  public void showCalendarFragment() {
-        mPager.setCurrentItem(3);
+    public void showCalendarFragment() {
+        mPager.setCurrentItem(Constants.NUM_CALENDAR);
 
-    }*/
+    }
 
     public void showVenueFragment() {
-        mPager.setCurrentItem(4);
+        mPager.setCurrentItem(Constants.NUM_SETTING_VENUE);
 
     }
 
@@ -152,16 +153,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
+                case Constants.NUM_PENDING:
 
-                    return new ClientFragment();
-                case 1:
-                    return new ClientFragment();
-                case 2:
+                    return new ClientFragment();//chua co pending
+                case Constants.NUM_CALENDAR:
+                    return new ClientFragment();//chua co calendar
+                case Constants.NUM_RANKING:
                     return new RankingFragment();
-                case 3:
-                    return new ClientFragment();
-                case 4:
+                case Constants.NUM_CLIENT:
+                    return new ClientFragment();//chua co client
+                case Constants.NUM_SETTING_VENUE:
                     return new SettingVenueFragment();
 
                 default:
@@ -171,8 +172,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         @Override
         public int getCount() {
-          /*  return NUM_PAGES;*/
-            return 5;
+            return NUM_PAGES;
+
         }
     }
 
@@ -183,7 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             drawer.closeDrawer(GravityCompat.START);
         }
 
-        if (mPager.getCurrentItem() == 0) {
+        if (mPager.getCurrentItem() == Constants.NUM_PENDING) {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed();
