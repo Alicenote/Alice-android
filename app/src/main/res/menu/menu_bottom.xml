@@ -2,36 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_dashboard"
-
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bottom_navigation_dashboard" />
     <item
         android:id="@+id/action_calendar"
-
-
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bottom_navigation_calendar" />
     <item
         android:id="@+id/action_ranking"
-
-
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bottom_navigation_ranking" />
     <item
         android:id="@+id/action_client"
-
-
-
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bottom_navigation_client" />
-
-
-
     <item
         android:id="@+id/action_setting_venue"
-
-
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bottom_navigation_setting_venue" />
-
 </menu>

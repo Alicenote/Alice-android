@@ -16,8 +16,10 @@
     <color name="text_error">#FE0000</color>
     <color name="grey">#a3a9a0</color>
 
-    <color name="pink">#F20082</color>
-    <color name="white">#fff</color>
     <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="pink">#F20082</color>
+    <color name="trout">#54595B</color>
+    <color name="aquasqueeze">#DEDFDE</color>
     <color name="blackcurrant">#17003E</color>
 </resources>

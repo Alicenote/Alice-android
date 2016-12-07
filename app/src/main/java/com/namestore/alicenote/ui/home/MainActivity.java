@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.calendar.CalendarActivity;
@@ -41,7 +42,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-
     public DrawerLayout drawer;
     private BottomNavigationView bottomNavigationView;
 
@@ -61,59 +61,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_dashboard:
-                                showPenddingFragment();
-                                break;
-                            case R.id.action_calendar:
-                                showRankingFragment();
-                                break;
-                            case R.id.action_client:
-                                showClientFragment();
-                                break;
-                            case R.id.action_setting_venue:
-                                showVenueFragment();
-                                break;
-                            case R.id.action_ranking:
-                                showRankingFragment();
-                                break;
-                        }
-                        return false;
-                    }
-                });
+        ViewUtils.removeShiftMode(bottomNavigationView);
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_dashboard:
+                    showPenddingFragment();
+                    break;
+                case R.id.action_calendar:
+                    showPenddingFragment();
+                    break;
+                case R.id.action_client:
+                    showClientFragment();
+                    break;
+                case R.id.action_setting_venue:
+                    showVenueFragment();
+                    break;
+                case R.id.action_ranking:
+                    showRankingFragment();
+                    break;
+            }
+            return false;
+        });
         bottomNavigationView.getMaxItemCount();
-
-       /* mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-
-
-                onNavigationItemSelected(bottomNavigationView.getMenu().getItem(position));
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
     }
-
 
     public void showPenddingFragment() {
         mPager.setCurrentItem(0);
-
     }
 
     public void showClientFragment() {
@@ -124,14 +98,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(2);
     }
 
-  /*  public void showCalendarFragment() {
-        mPager.setCurrentItem(3);
-
-    }*/
-
     public void showVenueFragment() {
         mPager.setCurrentItem(4);
-
     }
 
     @Override
@@ -153,7 +121,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-
                     return new ClientFragment();
                 case 1:
                     return new ClientFragment();
@@ -163,7 +130,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     return new ClientFragment();
                 case 4:
                     return new SettingVenueFragment();
-
                 default:
                     return null;
             }
@@ -254,10 +220,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
 
-
         }
-
     }
-
-
 }
