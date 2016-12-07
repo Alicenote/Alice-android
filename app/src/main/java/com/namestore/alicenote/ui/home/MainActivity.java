@@ -3,25 +3,21 @@ package com.namestore.alicenote.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.annotation.NonNull;
+
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.BaseActivity;
@@ -42,6 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+
     public DrawerLayout drawer;
     private BottomNavigationView bottomNavigationView;
 
@@ -63,43 +60,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         ViewUtils.removeShiftMode(bottomNavigationView);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.action_dashboard:
-                    showPenddingFragment();
-                    break;
-                case R.id.action_calendar:
-                    showPenddingFragment();
-                    break;
-                case R.id.action_client:
-                    showClientFragment();
-                    break;
-                case R.id.action_setting_venue:
-                    showVenueFragment();
-                    break;
-                case R.id.action_ranking:
-                    showRankingFragment();
-                    break;
-            }
-            return false;
-        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.action_dashboard:
+                            showPenddingFragment();
+                            break;
+                        case R.id.action_calendar:
+                            showCalendarFragment();
+                            break;
+                        case R.id.action_client:
+                            showClientFragment();
+                            break;
+                        case R.id.action_setting_venue:
+                            showVenueFragment();
+                            break;
+                        case R.id.action_ranking:
+                            showRankingFragment();
+                            break;
+                    }
+                    return false;
+                });
+
         bottomNavigationView.getMaxItemCount();
     }
 
+
     public void showPenddingFragment() {
-        mPager.setCurrentItem(0);
+        mPager.setCurrentItem(Constants.NUM_PENDING);
+
     }
 
     public void showClientFragment() {
-        mPager.setCurrentItem(1);
+        mPager.setCurrentItem(Constants.NUM_CLIENT);
     }
 
     public void showRankingFragment() {
-        mPager.setCurrentItem(2);
+        mPager.setCurrentItem(Constants.NUM_RANKING);
+    }
+
+    public void showCalendarFragment() {
+        mPager.setCurrentItem(Constants.NUM_CALENDAR);
+
     }
 
     public void showVenueFragment() {
-        mPager.setCurrentItem(4);
+        mPager.setCurrentItem(Constants.NUM_SETTING_VENUE);
+
     }
 
     @Override
@@ -120,16 +127,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
-                    return new ClientFragment();
-                case 1:
-                    return new ClientFragment();
-                case 2:
+                case Constants.NUM_PENDING:
+                    return new ClientFragment();//chua co pending
+                case Constants.NUM_CALENDAR:
+                    return new ClientFragment();//chua co calendar
+                case Constants.NUM_RANKING:
                     return new RankingFragment();
-                case 3:
-                    return new ClientFragment();
-                case 4:
+                case Constants.NUM_CLIENT:
+                    return new ClientFragment();//chua co client
+                case Constants.NUM_SETTING_VENUE:
                     return new SettingVenueFragment();
+
                 default:
                     return null;
             }
@@ -137,8 +145,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         @Override
         public int getCount() {
-          /*  return NUM_PAGES;*/
-            return 5;
+            return NUM_PAGES;
+
         }
     }
 
@@ -149,7 +157,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             drawer.closeDrawer(GravityCompat.START);
         }
 
-        if (mPager.getCurrentItem() == 0) {
+        if (mPager.getCurrentItem() == Constants.NUM_PENDING) {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed();
@@ -192,7 +200,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             case R.id.calendar:
                 startActivity(new Intent(MainActivity.this, CalendarActivity.class));
                 break;
-
         }
 
         int id = item.getItemId();
@@ -220,6 +227,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
 
+
         }
+
     }
+
+
 }

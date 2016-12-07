@@ -347,4 +347,5 @@
     <string name="views">%s views</string>
 
     <!--End Ranking Fragment-->
+    <string name="your_venue">Your Venue</string>
 </resources>

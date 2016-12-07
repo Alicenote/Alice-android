@@ -56,6 +56,11 @@ public class Constants {
     /* LoginSignup Activity */
 
     public static final int NUM_PAGES = 5;
+    public static final int NUM_PENDING =0;
+    public static final int NUM_CALENDAR=1;
+    public static final int NUM_RANKING=2;
+    public static final int NUM_CLIENT=3;
+    public static final int NUM_SETTING_VENUE=4;
     public static final int KEY_LOGIN = 0;
     public static final int KEY_SIGNUP = 1;
 

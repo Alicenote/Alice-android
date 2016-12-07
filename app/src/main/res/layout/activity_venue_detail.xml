@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.namestore.alicenote.ui.venue.VenueDetail">
+    tools:context="com.namestore.alicenote.ui.venue.VenueDetailActivity">
 
 
    <FrameLayout
