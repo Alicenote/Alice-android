@@ -53,6 +53,7 @@ public class ArtGroupActivity extends BaseActivity implements ArtGroupAdapter.On
     protected void initViews() {
         recyclerViewArt = (RecyclerView) findViewById(R.id.list_art_group);
         recyclerViewArt.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerViewArt.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewArt.setHasFixedSize(true);
 
         mButtonAdd = (Button) findViewById(R.id.action_bar).findViewById(R.id.button_add_art);
@@ -106,17 +107,14 @@ public class ArtGroupActivity extends BaseActivity implements ArtGroupAdapter.On
         final EditText editText = (EditText) dialog.findViewById(R.id.edittext_add_art);
 
         Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String string = editText.getText().toString();
-                ArtObj artObj = new ArtObj();
-                artObj.setNameArt(string);
-                artObj.setDrawableArt(0);
-                artGroupAdapter.addItem(artObj);
-                arrayListData.add(new Pair<String, Integer>(string, 0));
-                dialog.dismiss();
-            }
+        dialogButton.setOnClickListener(view -> {
+            String string = editText.getText().toString();
+            ArtObj artObj = new ArtObj();
+            artObj.setNameArt(string);
+            artObj.setDrawableArt(0);
+            artGroupAdapter.addItem(artObj);
+            arrayListData.add(new Pair<String, Integer>(string, 0));
+            dialog.dismiss();
         });
 
         dialog.show();

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.models.ArtObj;
 
 import java.util.ArrayList;
@@ -78,7 +79,6 @@ public class ArtGroupAdapter extends RecyclerView.Adapter<ArtGroupAdapter.ViewHo
             mButtonArt = (Button) view.findViewById(R.id.button_item_art_group);
             swipeLayout = (SwipeLayout) view.findViewById(R.id.swipe_layout);
             linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout_swipe);
-
             try {
                 listener = (OnArtItemClickListener) activity;
             } catch (ClassCastException e) {

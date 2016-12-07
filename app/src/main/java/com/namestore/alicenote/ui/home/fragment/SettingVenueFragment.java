@@ -2,6 +2,7 @@ package com.namestore.alicenote.ui.home.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.home.MainActivity;
+import com.namestore.alicenote.ui.venue.VenueDetail;
 
 /**
  * Created by nhocnhinho on 05/12/2016.
@@ -103,42 +106,22 @@ public class SettingVenueFragment extends BaseFragment {
     @Override
     protected void initModels() {
 
-        mRelativeLayoutVenue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("veenuee","ahihih");
-            }
+        mRelativeLayoutVenue.setOnClickListener(view -> {
+            Intent _intent =new Intent(getContext(), VenueDetail.class);
+            _intent.putExtra(Constants.VENUE_KEY_CHECK,Constants.VENUE_VIEW);
+            startActivity(_intent);
         });
-        mRelativeLayoutOpenHours.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("veenuee","ahihih");
-            }
-        });
-        mRelativeLayoutPolicies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("veenuee","ahihih");
-            }
-        });
-        mRelativeLayoutNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("veenuee","ahihih");
-            }
-        });
-        mRelativeLayoutTeams.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("veenuee","ahihih");
-            }
-        });
-        mRelativeLayoutOther.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("veenuee","ahihih");
-            }
-        });
+
+        mRelativeLayoutOpenHours.setOnClickListener(view -> {});
+
+        mRelativeLayoutPolicies.setOnClickListener(view -> {});
+
+        mRelativeLayoutNotification.setOnClickListener(view -> {});
+
+        mRelativeLayoutTeams.setOnClickListener(view -> {});
+
+        mRelativeLayoutOther.setOnClickListener(view -> {});
+
 
         mTextVenue.setText(R.string.venue); mTextDetailVenue.setText(R.string.detail_venue);
         mTextOpenHours.setText(R.string.open_hours); mTextDetailOpenHours.setText(R.string.detail_open_hours);

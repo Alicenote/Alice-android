@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             onFragmentInteractionListener = (OnFragmentInteractionListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -44,7 +44,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             onFragmentInteractionListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 

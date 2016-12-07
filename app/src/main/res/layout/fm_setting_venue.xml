@@ -38,6 +38,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_top"
         android:background="#F6F6F6"
+        android:overScrollMode="never"
         android:fillViewport="true">
 
         <RelativeLayout

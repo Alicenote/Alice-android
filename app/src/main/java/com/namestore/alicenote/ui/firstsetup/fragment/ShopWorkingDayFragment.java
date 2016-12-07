@@ -167,12 +167,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
      */
 
     private void initScheduleMonday() {
-        mCheckBoxMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                status.add(0, b ? "on" : "off");
-            }
-        });
+        mCheckBoxMonday.setOnCheckedChangeListener((compoundButton, b) -> status.add(0, b ? "on" : "off"));
 
         mSpinnerTimeStartMonday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -200,12 +195,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     private void initScheduleTuesday() {
-        mCheckBoxTuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                status.add(1, b ? "on" : "off");
-            }
-        });
+        mCheckBoxTuesday.setOnCheckedChangeListener((compoundButton, b) -> status.add(1, b ? "on" : "off"));
 
         mSpinnerTimeStartTuesday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -233,12 +223,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     private void initScheduleWednesday() {
-        mCheckBoxWednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                status.add(2, b ? "on" : "off");
-            }
-        });
+        mCheckBoxWednesday.setOnCheckedChangeListener((compoundButton, b) -> status.add(2, b ? "on" : "off"));
 
         mSpinnerTimeStartWednesday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -266,12 +251,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     private void initScheduleThursDay() {
-        mCheckBoxThursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                status.add(3, b ? "on" : "off");
-            }
-        });
+        mCheckBoxThursday.setOnCheckedChangeListener((compoundButton, b) -> status.add(3, b ? "on" : "off"));
 
         mSpinnerTimeStartThursday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -299,12 +279,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     private void initScheduleFriday() {
-        mCheckBoxFriday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                status.add(4, b ? "on" : "off");
-            }
-        });
+        mCheckBoxFriday.setOnCheckedChangeListener((compoundButton, b) -> status.add(4, b ? "on" : "off"));
 
         mSpinnerTimeStartFriday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -332,12 +307,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     private void initScheduleSaturday() {
-        mCheckBoxSaturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                status.add(5, b ? "on" : "off");
-            }
-        });
+        mCheckBoxSaturday.setOnCheckedChangeListener((compoundButton, b) -> status.add(5, b ? "on" : "off"));
 
         mSpinnerTimeStartSaturday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -365,12 +335,7 @@ public class ShopWorkingDayFragment extends BaseFragment {
     }
 
     private void initScheduleSunday() {
-        mCheckBoxSunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                status.add(6, b ? "on" : "off");
-            }
-        });
+        mCheckBoxSunday.setOnCheckedChangeListener((compoundButton, b) -> status.add(6, b ? "on" : "off"));
 
         mSpinnerTimeStartSunday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

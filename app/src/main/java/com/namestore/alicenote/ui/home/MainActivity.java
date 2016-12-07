@@ -30,6 +30,7 @@ import com.namestore.alicenote.ui.calendar.CalendarActivity;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 
+import com.namestore.alicenote.ui.home.fragment.RankingFragment;
 import com.namestore.alicenote.ui.home.fragment.SettingVenueFragment;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
@@ -52,7 +53,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager = (ViewPager) findViewById(R.id.viewPagerMain);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 case 1:
                     return new ClientFragment();
                 case 2:
-                    return new ClientFragment();
+                    return new RankingFragment();
                 case 3:
                     return new ClientFragment();
                 case 4:

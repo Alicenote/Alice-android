@@ -5,4 +5,7 @@ package com.namestore.alicenote.ui.venue.interfaces;
  */
 
 public interface OnSettingVenueListener {
+    void showEditVenue ();
+    void showViewVenue();
+
 }

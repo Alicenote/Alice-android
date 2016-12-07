@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.network.AliceApi;
-import com.namestore.alicenote.network.ServiceGenerator;
 import com.namestore.alicenote.ui.BaseFragment;
 
 import com.namestore.alicenote.ui.home.MainActivity;
@@ -37,7 +36,7 @@ public class ServiceFragment  extends BaseFragment {
 
     @Override
     protected void initViews(View view) {
-        mAliceApi = ServiceGenerator.creatService(AliceApi.class);
+       // mAliceApi = ServiceGenerator.creatService(AliceApi.class);
 
 
     }

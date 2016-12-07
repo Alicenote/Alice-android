@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.calendar.CalendarActivity;
 import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
 import com.namestore.alicenote.ui.home.MainActivity;
@@ -49,7 +50,7 @@ public class StartActivity extends BaseActivity implements OnFragmentInteraction
         mButtonLogin.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-//        Intent mIntent = new Intent(StartActivity.this, MainActivity.class);
+//        Intent mIntent = new Intent(StartActivity.this, ArtGroupActivity.class);
 //        mIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //        mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, Constants.SETUP_INFO_SALON);
 //        startActivity(mIntent);
