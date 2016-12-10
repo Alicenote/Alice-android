@@ -341,4 +341,6 @@
     <string name="detail_other">More config</string>
 
     <string name="your_venue">Your Venue</string>
+
+    <string name="API_KEY">AIzaSyA5NWqQqXzOicErCdRfwg_2o0YiOuArGCg</string>
 </resources>

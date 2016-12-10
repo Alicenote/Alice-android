@@ -1,12 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         layout="@layout/layout_toolbar"
-        ></include>>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="#F6F6F6"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/mVenueCoverImage"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/winter" />
+
+            <RelativeLayout
+                android:id="@+id/RelativeSlonName"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/mVenueCoverImage"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/mVenueTvNameSalon"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center"
+                    android:text="Salon Ten Body and Beautiful"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/mVenueTvVote"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/mVenueTvNameSalon"
+                    android:gravity="right"
+                    android:text="4.7"
+                    android:textColor="@color/yellow" />
+
+                <TextView
+                    android:id="@+id/mVenueTvReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/mVenueTvNameSalon"
+                    android:layout_toRightOf="@+id/imgVote"
+                    android:text="39 Reiviews"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgVote"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/mVenueTvNameSalon"
+                    android:layout_toRightOf="@+id/mVenueTvVote" />
+
+                <ImageView
+                    android:id="@+id/mVenueBossImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/mVenueTvReviews"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/boss" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeDetailReviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeSlonName">
+
+                <TextView
+                    android:id="@+id/mVenueTvUnderReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="39 Reviews"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/mVenueImageClient"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/mVenueTvUnderReviews"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="28dp"
+                    app:srcCompat="@drawable/boss" />
+
+                <TextView
+                    android:id="@+id/mVenueTvClientName"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/mVenueImageClient"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="Jenny Ha"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/mVenueTvClientDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mVenueTvClientName"
+                    android:layout_centerHorizontal="true"
+                    android:text="August 15 2016" />
+
+                <TextView
+                    android:id="@+id/mVenueTvComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mVenueTvClientDate"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="Doi loi tam su toi thay ung dung cua ban hay co gang phat huy" />
+
+                <Button
+                    android:id="@+id/mVenueBtnViewAll"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/mVenueTvComment"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/white_button"
+                    android:text="View All"
+                    android:textColor="@color/pink" />
+
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/mVenueGoogleMap"
+                class="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/RelativeDetailReviews">
+
+            </FrameLayout>>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mVenueGoogleMap">
+
+
+                <TextView
+                    android:id="@+id/aboutYourVenue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="About Your Venue"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mVenueTvInforSalon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/aboutYourVenue"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+
+                    android:gravity="center"
+                    android:text="Immerse website users with a detailed interactive 3D map. Take deposits, Low no-show rates, quality customers."
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/otherDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:layout_below="@id/mVenueTvInforSalon"
+                    android:text="Other Details" />
+
+
+                <include
+                    android:id="@+id/mVenueFormPostCode"
+                    layout="@layout/layout_item_venue_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@+id/otherDetail"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="20dp" />
+                <include
+                    android:id="@+id/mVenueFormPhone"
+                    layout="@layout/layout_item_venue_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@+id/mVenueFormPostCode"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    />
+                <include
+                    android:id="@+id/mVenueFormEmail"
+                    layout="@layout/layout_item_venue_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@+id/mVenueFormPhone"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                   />
+                <include
+                    android:id="@+id/mVenueFormWebsite"
+                    layout="@layout/layout_item_venue_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@+id/mVenueFormEmail"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="40dp"
+                    />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+        >
+    </android.support.v4.widget.NestedScrollView>
+    >
+
+
 </RelativeLayout>
