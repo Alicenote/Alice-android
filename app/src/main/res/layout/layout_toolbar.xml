@@ -7,9 +7,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/AppTheme.NoActionBar">
-
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -28,7 +27,7 @@
             android:layout_marginRight="15dp"
             android:text="Edit"
             android:textColor="@color/pink"
-            android:textSize="20dp"></TextView>
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/toolbar_backpress"
@@ -38,7 +37,7 @@
             android:layout_marginRight="15dp"
             android:text="Back"
             android:textColor="@color/pink"
-            android:textSize="20dp"></TextView>
-
+            android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
+
 </LinearLayout>
