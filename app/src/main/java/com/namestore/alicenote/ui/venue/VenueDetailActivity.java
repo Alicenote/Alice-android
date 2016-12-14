@@ -30,7 +30,7 @@ public class VenueDetailActivity extends BaseActivity implements OnSettingVenueL
 
         mEditVenueFragment = new EditVenueFragment();
         mViewVenueFragment = new ViewVenueFragment();
-        fragmentsArrayList.add(mEditVenueFragment);
+        fragmentsArrayList.add(mViewVenueFragment);
         fragmentsArrayList.add(mEditVenueFragment);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, mEditVenueFragment)

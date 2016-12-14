@@ -342,5 +342,7 @@
 
     <string name="your_venue">Your Venue</string>
 
-    <string name="API_KEY">AIzaSyA5NWqQqXzOicErCdRfwg_2o0YiOuArGCg</string>
+    <string name="API_KEY">AIzaSyBT_kA739BehFr6Ljnun_yJNqB3fzEhjHA</string>
+    <string name ="Visibility">Your venue is unlisted and can not be seen publicly.
+        Any comfirmed reservations will remain on your calendar</string>>
 </resources>

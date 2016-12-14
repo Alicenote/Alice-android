@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="#F6F6F6"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/mVenueEditImageCover"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+
+                android:background="@drawable/autumn" />
+            >
+
+            <TextView
+                android:id="@+id/mVenueEditNameSalon"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/mVenueEditImageCover"
+                android:gravity="center"
+                android:text="Name of Salon"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/mTvVenueEditClickNameSalon"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/mVenueEditNameSalon"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Edit Venue's Name"
+                android:textColor="@color/pink" />
+
+
+            <LinearLayout
+                android:id="@+id/lnVenueEditLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/mTvVenueEditClickNameSalon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:background="#E3E4E3"
+                android:orientation="horizontal"></LinearLayout>
+
+            <TextView
+                android:id="@+id/VenueDetails"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/lnVenueEditLine"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="Venue Details"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/mRelativeViewEditLocation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/VenueDetails"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="Location"
+                    android:textSize="17dp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center"
+                    android:text=">"
+
+                    android:textSize="30sp" />
+
+
+                <LinearLayout
+                    android:id="@+id/lnVenueLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#E3E4E3"
+                    android:orientation="horizontal"></LinearLayout>
+
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/mVenueEditFormPostCode"
+                layout="@layout/layout_item_venue_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/mRelativeViewEditLocation"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <include
+                android:id="@+id/mVenueEditFormPhone"
+                layout="@layout/layout_item_venue_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/mVenueEditFormPostCode"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <include
+                android:id="@+id/mVenueEditFormEmail"
+                layout="@layout/layout_item_venue_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/mVenueEditFormPhone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <include
+                android:id="@+id/mVenueEditFormWebsite"
+                layout="@layout/layout_item_venue_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/mVenueEditFormEmail"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/mRelativeViewEditProduction"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/mVenueEditFormEmail"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="Product use"
+                    android:textSize="17dp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center"
+                    android:text=">"
+
+                    android:textSize="30sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#E3E4E3"
+                    android:orientation="horizontal"></LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/AboutYourVenue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/mRelativeViewEditProduction"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="About Your Venue"
+                android:textSize="17sp"></TextView>>
+
+            <TextView
+                android:id="@+id/mTvVenueEditInforSalon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/AboutYourVenue"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:text="@string/Visibility"
+                android:textSize="15sp"></TextView>>
+
+            <TextView
+                android:id="@+id/mTvVenueEditInforSalonClick"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/mTvVenueEditInforSalon"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="Edit About"
+                android:textColor="@color/pink"
+                android:textSize="15sp"></TextView>>
+
+            <RelativeLayout
+                android:id="@+id/mRelativeViewEditVisibility"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/mTvVenueEditInforSalonClick"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="Visibility"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center"
+                    android:text=">"
+
+                    android:textSize="30sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#E3E4E3"
+                    android:orientation="horizontal"></LinearLayout>
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/Visiblity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mRelativeViewEditVisibility"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:text="@string/Visibility"
+                android:textSize="15sp"></TextView>>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/Visiblity"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:text="Deactive Venue"
+                android:background="@drawable/pink_button"
+
+                />
+
+
+        </RelativeLayout>
+        >
+    </android.support.v4.widget.NestedScrollView>
+    >
+</RelativeLayout>

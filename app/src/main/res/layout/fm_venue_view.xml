@@ -28,7 +28,7 @@
             <ImageView
                 android:id="@+id/mVenueCoverImage"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
 
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -151,8 +151,8 @@
                     android:layout_below="@+id/mVenueTvClientDate"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:textSize="15sp"
-                    android:text="Doi loi tam su toi thay ung dung cua ban hay co gang phat huy" />
+                    android:text="Doi loi tam su toi thay ung dung cua ban hay co gang phat huy"
+                    android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/mVenueBtnViewAll"
@@ -173,10 +173,22 @@
                 android:id="@+id/mVenueGoogleMap"
                 class="com.google.android.gms.maps.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:layout_below="@+id/RelativeDetailReviews">
 
-            </FrameLayout>>
+
+            </FrameLayout>
+          <!--  <TextView
+                android:id="@+id/mVenueTvLocation"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_below="@+id/RelativeDetailReviews"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="180dp"></TextView>>
+            >-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -191,6 +203,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
+                    android:layout_marginTop="10dp"
                     android:text="About Your Venue"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -202,20 +215,19 @@
                     android:layout_below="@+id/aboutYourVenue"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
-
+                    android:textColor="@color/black"
                     android:gravity="center"
-                    android:text="Immerse website users with a detailed interactive 3D map. Take deposits, Low no-show rates, quality customers."
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/otherDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/mVenueTvInforSalon"
                     android:layout_marginTop="20dp"
                     android:gravity="center"
-                    android:textSize="18sp"
-                    android:layout_below="@id/mVenueTvInforSalon"
-                    android:text="Other Details" />
+                    android:text="Other Details"
+                    android:textSize="18sp" />
 
 
                 <include
@@ -223,46 +235,46 @@
                     layout="@layout/layout_item_venue_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_below="@+id/otherDetail"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:layout_below="@+id/otherDetail"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginTop="20dp" />
+
                 <include
                     android:id="@+id/mVenueFormPhone"
                     layout="@layout/layout_item_venue_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_below="@+id/mVenueFormPostCode"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    />
+                    android:layout_below="@+id/mVenueFormPostCode"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
+
                 <include
                     android:id="@+id/mVenueFormEmail"
                     layout="@layout/layout_item_venue_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_below="@+id/mVenueFormPhone"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                   />
+                    android:layout_below="@+id/mVenueFormPhone"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
+
                 <include
                     android:id="@+id/mVenueFormWebsite"
                     layout="@layout/layout_item_venue_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_below="@+id/mVenueFormEmail"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:layout_below="@+id/mVenueFormEmail"
                     android:layout_marginBottom="40dp"
-                    />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
 
             </RelativeLayout>
 
