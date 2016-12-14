@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -264,14 +265,14 @@ public class ClientDetailsActivity extends BaseActivity {
 
         mButtonDone.setOnClickListener(view -> {
             linearLayoutPicker.setVisibility(View.GONE);
-            if (!isChangedDatePicker && mDatePicker.getVisibility() == View.VISIBLE && !isAddClientActivity) {
+            if (!isChangedDatePicker && mDatePicker.getVisibility() == View.VISIBLE) {
                 Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
                 mDateOfBirth = mDay + "/" + mMonth + "/" + mYear;
             }
-            if (!isChangedGenderPicker && mNumberPicker.getVisibility() == View.VISIBLE && !isAddClientActivity) {
+            if (!isChangedGenderPicker && mNumberPicker.getVisibility() == View.VISIBLE) {
                 mGender = "Male";
             }
             mTextViewGender.setText(mGender);
@@ -301,6 +302,9 @@ public class ClientDetailsActivity extends BaseActivity {
                 finish();
                 overridePendingTransition(0, 0);
             } else {
+                if (linearLayoutPicker.getVisibility() == View.VISIBLE) {
+                    linearLayoutPicker.setVisibility(View.GONE);
+                }
                 setTextTitleBar("", "Client Details", "");
                 ViewUtils.setAndScaleDrawableButton(mButtonLeftBar, R.drawable.icon_back, 0, 0, 0, 0.8);
                 ViewUtils.setAndScaleDrawableButton(mButtonRightBar, 0, 0, R.drawable.icon_edit, 0, 0.7);
@@ -325,6 +329,9 @@ public class ClientDetailsActivity extends BaseActivity {
             } else {
                 if (!checkEmptyTextView()) {
                     isEditMode = false;
+                    if (linearLayoutPicker.getVisibility() == View.VISIBLE) {
+                        linearLayoutPicker.setVisibility(View.GONE);
+                    }
                     setTextTitleBar("", "Client Details", "");
                     ViewUtils.setAndScaleDrawableButton(mButtonLeftBar, R.drawable.icon_back, 0, 0, 0, 0.8);
                     ViewUtils.setAndScaleDrawableButton(mButtonRightBar, 0, 0, R.drawable.icon_edit, 0, 0.7);
@@ -689,9 +696,9 @@ public class ClientDetailsActivity extends BaseActivity {
                 pf.setAccessible(true);
                 try {
                     ColorDrawable colorDrawable = new ColorDrawable(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                            getApplicationContext().getColor(R.color.aquasqueeze) :
+                            getApplicationContext().getResources().getColor(R.color.aquasqueeze) :
                             getResources().getColor(R.color.aquasqueeze));
-                    pf.set(picker, colorDrawable);
+                     pf.set(picker, colorDrawable);
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 } catch (Resources.NotFoundException e) {

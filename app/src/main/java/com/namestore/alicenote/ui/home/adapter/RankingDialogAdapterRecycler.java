@@ -83,12 +83,12 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
                         case 1: //pink case 2
                         case 2:
                             mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                                    activity.getApplicationContext().getColor(R.color.pink) :
+                                    activity.getApplicationContext().getResources().getColor(R.color.pink) :
                                     activity.getResources().getColor(R.color.pink));
                             break;
                         default:
                             mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                                    activity.getApplicationContext().getColor(R.color.black) :
+                                    activity.getApplicationContext().getResources().getColor(R.color.black) :
                                     activity.getResources().getColor(R.color.black));
                             break;
                     }
@@ -97,7 +97,7 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
                     switch (position) {
                         case 0:
                             mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                                    activity.getApplicationContext().getColor(R.color.pink) :
+                                    activity.getApplicationContext().getResources().getColor(R.color.pink) :
                                     activity.getResources().getColor(R.color.pink));
                             mTextViewName.setTypeface(null, Typeface.BOLD);
                             mTextViewNumber.setTypeface(null, Typeface.BOLD);
@@ -107,7 +107,7 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
                         case 1: //black case 2
                         case 2:
                             mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                                    activity.getApplicationContext().getColor(R.color.black) :
+                                    activity.getApplicationContext().getResources().getColor(R.color.black) :
                                     activity.getResources().getColor(R.color.black));
                             mTextViewName.setTypeface(null, Typeface.BOLD);
                             mTextViewNumber.setTypeface(null, Typeface.BOLD);
@@ -116,7 +116,7 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
                             break;
                         default:
                             mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                                    activity.getApplicationContext().getColor(R.color.trout) :
+                                    activity.getApplicationContext().getResources().getColor(R.color.trout) :
                                     activity.getResources().getColor(R.color.trout));
                             AppUtils.setTypeFontForTextView(activity, AppUtils.MEDIUM, mTextViewName, mTextViewNumber, mTextViewSubTitle);
                             break;
