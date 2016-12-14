@@ -25,11 +25,11 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.recycler.SimpleDividerItemDecoration;
 import com.namestore.alicenote.common.recycler.SpacesItemDecoration;
-import com.namestore.alicenote.models.RankingObj;
+import com.namestore.alicenote.models.ReportObj;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.home.MainActivity;
-import com.namestore.alicenote.ui.home.adapter.RankingAdapterRecycler;
-import com.namestore.alicenote.ui.home.adapter.RankingDialogAdapterRecycler;
+import com.namestore.alicenote.ui.home.adapter.ReportAdapterRecycler;
+import com.namestore.alicenote.ui.home.adapter.ReportDialogAdapterRecycler;
 
 import java.util.ArrayList;
 
@@ -37,13 +37,13 @@ import java.util.ArrayList;
  * Created by kienht on 07/12/2016.
  */
 
-public class ReportFragment extends BaseFragment implements RankingAdapterRecycler.OnRankClickItemListener {
+public class ReportFragment extends BaseFragment implements ReportAdapterRecycler.OnRankClickItemListener {
 
     private MainActivity mainActivity;
     private RecyclerView recyclerView;
     private RecyclerView recyclerViewFullTopDialog;
-    private RankingAdapterRecycler rankingAdapterRecycler;
-    private RankingDialogAdapterRecycler adapterRecyclerViewFullTopDialog;
+    private ReportAdapterRecycler reportAdapterRecycler;
+    private ReportDialogAdapterRecycler adapterRecyclerViewFullTopDialog;
 
     private RelativeLayout titleTopEmployeeDialog;
     private Dialog mTopRankingDialog;
@@ -53,10 +53,10 @@ public class ReportFragment extends BaseFragment implements RankingAdapterRecycl
     private TextView mTextViewMonth;
     private TextView mTextViewProportion;
 
-    private ArrayList<RankingObj> rankingObjArrayList = new ArrayList<>();
-    private ArrayList<RankingObj.Data> topServicesArrayList = new ArrayList<>();
-    private ArrayList<RankingObj.Data> topEmployeeArrayList = new ArrayList<>();
-    private ArrayList<RankingObj.Data> reportView = new ArrayList<>();
+    private ArrayList<ReportObj> reportObjArrayList = new ArrayList<>();
+    private ArrayList<ReportObj.Data> topServicesArrayList = new ArrayList<>();
+    private ArrayList<ReportObj.Data> topEmployeeArrayList = new ArrayList<>();
+    private ArrayList<ReportObj.Data> reportView = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,34 +98,34 @@ public class ReportFragment extends BaseFragment implements RankingAdapterRecycl
         snapHelper.attachToRecyclerView(recyclerView);
 
         //fake data
-        topServicesArrayList.add(new RankingObj().new Data("01", R.drawable.avatar, "Haircut and Blow Dry", "1st", 40));
-        topServicesArrayList.add(new RankingObj().new Data("02", R.drawable.avatar, "Gents Haircut", "2nd", 38));
-        topServicesArrayList.add(new RankingObj().new Data("03", R.drawable.avatar, "GHD Styling", "3rd", 27));
-        topServicesArrayList.add(new RankingObj().new Data("04", R.drawable.avatar, "Body Massage", "4th", 12));
-        topServicesArrayList.add(new RankingObj().new Data("05", R.drawable.avatar, "Head Foils", "5th", 12));
-        topServicesArrayList.add(new RankingObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
-        topServicesArrayList.add(new RankingObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
-        topServicesArrayList.add(new RankingObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
-        topServicesArrayList.add(new RankingObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
-        topServicesArrayList.add(new RankingObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
+        topServicesArrayList.add(new ReportObj().new Data("01", R.drawable.avatar, "Haircut and Blow Dry", "1st", 40));
+        topServicesArrayList.add(new ReportObj().new Data("02", R.drawable.avatar, "Gents Haircut", "2nd", 38));
+        topServicesArrayList.add(new ReportObj().new Data("03", R.drawable.avatar, "GHD Styling", "3rd", 27));
+        topServicesArrayList.add(new ReportObj().new Data("04", R.drawable.avatar, "Body Massage", "4th", 12));
+        topServicesArrayList.add(new ReportObj().new Data("05", R.drawable.avatar, "Head Foils", "5th", 12));
+        topServicesArrayList.add(new ReportObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
+        topServicesArrayList.add(new ReportObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
+        topServicesArrayList.add(new ReportObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
+        topServicesArrayList.add(new ReportObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
+        topServicesArrayList.add(new ReportObj().new Data("06", R.drawable.avatar, "Full Head Tint, Hair cut a...", "6th", 6));
 
-        topEmployeeArrayList.add(new RankingObj().new Data("01", R.drawable.avatar, "kienht", "1st", 99));
-        topEmployeeArrayList.add(new RankingObj().new Data("02", R.drawable.avatar, "lucas vo", "2nd", 10));
-        topEmployeeArrayList.add(new RankingObj().new Data("03", R.drawable.avatar, "ngocnn", "3rd", 11));
-        topEmployeeArrayList.add(new RankingObj().new Data("04", R.drawable.avatar, "tien", "4th", 8));
-        topEmployeeArrayList.add(new RankingObj().new Data("05", R.drawable.avatar, "khacpv", "5th", 7));
-        topEmployeeArrayList.add(new RankingObj().new Data("06", R.drawable.avatar, "alicenote", "6th", 6));
+        topEmployeeArrayList.add(new ReportObj().new Data("01", R.drawable.avatar, "kienht", "1st", 99));
+        topEmployeeArrayList.add(new ReportObj().new Data("02", R.drawable.avatar, "lucas vo", "2nd", 10));
+        topEmployeeArrayList.add(new ReportObj().new Data("03", R.drawable.avatar, "ngocnn", "3rd", 11));
+        topEmployeeArrayList.add(new ReportObj().new Data("04", R.drawable.avatar, "tien", "4th", 8));
+        topEmployeeArrayList.add(new ReportObj().new Data("05", R.drawable.avatar, "khacpv", "5th", 7));
+        topEmployeeArrayList.add(new ReportObj().new Data("06", R.drawable.avatar, "alicenote", "6th", 6));
 
-        reportView.add(new RankingObj().new Data("", R.drawable.avatar, "Like", "", 2300));
-        reportView.add(new RankingObj().new Data("", R.drawable.avatar, "Phone View", "", 1130));
-        reportView.add(new RankingObj().new Data("", R.drawable.avatar, "Website View", "", 2300));
+        reportView.add(new ReportObj().new Data("", R.drawable.avatar, "Like", "", 2300));
+        reportView.add(new ReportObj().new Data("", R.drawable.avatar, "Phone View", "", 1130));
+        reportView.add(new ReportObj().new Data("", R.drawable.avatar, "Website View", "", 2300));
 
-        rankingObjArrayList.add(new RankingObj(RankingObj.TOP_SERVICES, "Top Services in December 2016", topServicesArrayList));
-        rankingObjArrayList.add(new RankingObj(RankingObj.TOP_EMPLOYEE, "Top Employee in December 2016", topEmployeeArrayList));
-        rankingObjArrayList.add(new RankingObj(RankingObj.REPORT_VIEW, "Reports view in November 2016", reportView));
+        reportObjArrayList.add(new ReportObj(ReportObj.TOP_SERVICES, "Top Services in December 2016", topServicesArrayList));
+        reportObjArrayList.add(new ReportObj(ReportObj.TOP_EMPLOYEE, "Top Employee in December 2016", topEmployeeArrayList));
+        reportObjArrayList.add(new ReportObj(ReportObj.REPORT_VIEW, "Reports view in November 2016", reportView));
 
-        rankingAdapterRecycler = new RankingAdapterRecycler(mainActivity, rankingObjArrayList, this);
-        recyclerView.setAdapter(rankingAdapterRecycler);
+        reportAdapterRecycler = new ReportAdapterRecycler(mainActivity, reportObjArrayList, this);
+        recyclerView.setAdapter(reportAdapterRecycler);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         configTopRankingDialog();
@@ -159,8 +159,8 @@ public class ReportFragment extends BaseFragment implements RankingAdapterRecycl
     public void onFullServiceButton() {
         titleTopEmployeeDialog.setVisibility(View.GONE);
         mTextViewTitleTopServiceDialog.setVisibility(View.VISIBLE);
-        adapterRecyclerViewFullTopDialog = new RankingDialogAdapterRecycler(mainActivity, topServicesArrayList,
-                RankingDialogAdapterRecycler.SERVICES);
+        adapterRecyclerViewFullTopDialog = new ReportDialogAdapterRecycler(mainActivity, topServicesArrayList,
+                ReportDialogAdapterRecycler.SERVICES);
         recyclerViewFullTopDialog.setAdapter(adapterRecyclerViewFullTopDialog);
         mTopRankingDialog.show();
     }
@@ -169,8 +169,8 @@ public class ReportFragment extends BaseFragment implements RankingAdapterRecycl
     public void onFullEmployeeButton() {
         titleTopEmployeeDialog.setVisibility(View.VISIBLE);
         mTextViewTitleTopServiceDialog.setVisibility(View.GONE);
-        adapterRecyclerViewFullTopDialog = new RankingDialogAdapterRecycler(mainActivity, topEmployeeArrayList,
-                RankingDialogAdapterRecycler.EMPLOYEE);
+        adapterRecyclerViewFullTopDialog = new ReportDialogAdapterRecycler(mainActivity, topEmployeeArrayList,
+                ReportDialogAdapterRecycler.EMPLOYEE);
         recyclerViewFullTopDialog.setAdapter(adapterRecyclerViewFullTopDialog);
         mTopRankingDialog.show();
     }

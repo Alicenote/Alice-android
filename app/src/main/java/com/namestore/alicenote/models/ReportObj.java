@@ -6,16 +6,16 @@ import java.util.ArrayList;
  * Created by kienht on 12/6/16.
  */
 
-public class RankingObj {
+public class ReportObj {
 
     public static final int TOP_SERVICES = 0;
     public static final int TOP_EMPLOYEE = 1;
     public static final int REPORT_VIEW = 2;
 
-    public RankingObj() {
+    public ReportObj() {
     }
 
-    public RankingObj(int TAG, String title, ArrayList<Data> datas) {
+    public ReportObj(int TAG, String title, ArrayList<Data> datas) {
         this.title = title;
         this.datas = datas;
         this.TAG = TAG;

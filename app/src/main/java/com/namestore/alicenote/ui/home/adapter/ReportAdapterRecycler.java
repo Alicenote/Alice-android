@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.AppUtils;
-import com.namestore.alicenote.models.RankingObj;
+import com.namestore.alicenote.models.ReportObj;
 
 import java.util.ArrayList;
 
@@ -21,13 +21,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by kienht on 12/5/16.
  */
 
-public class RankingAdapterRecycler extends RecyclerView.Adapter<RankingAdapterRecycler.ViewHolder> {
+public class ReportAdapterRecycler extends RecyclerView.Adapter<ReportAdapterRecycler.ViewHolder> {
 
     public static final int FIRST = 0;
     public static final int SECOND = 1;
     public static final int THIRD = 2;
 
-    private ArrayList<RankingObj> arrayList;
+    private ArrayList<ReportObj> arrayList;
     private Activity activity;
     private OnRankClickItemListener listener;
 
@@ -37,20 +37,20 @@ public class RankingAdapterRecycler extends RecyclerView.Adapter<RankingAdapterR
         void onFullEmployeeButton();
     }
 
-    public RankingAdapterRecycler(Activity activity, ArrayList<RankingObj> arrayList, OnRankClickItemListener listener) {
+    public ReportAdapterRecycler(Activity activity, ArrayList<ReportObj> arrayList, OnRankClickItemListener listener) {
         this.activity = activity;
         this.arrayList = arrayList;
         this.listener = listener;
     }
 
     @Override
-    public RankingAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReportAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ranking, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RankingAdapterRecycler.ViewHolder holder, int position) {
+    public void onBindViewHolder(ReportAdapterRecycler.ViewHolder holder, int position) {
         holder.bindData(arrayList.get(position));
         holder.mTextViewTitle.setText(arrayList.get(position).getTitle());
 
@@ -96,9 +96,9 @@ public class RankingAdapterRecycler extends RecyclerView.Adapter<RankingAdapterR
             mTextViewSubTitle3rd = (TextView) itemView.findViewById(R.id.subtile_3rd);
         }
 
-        public void bindData(RankingObj obj) {
+        public void bindData(ReportObj obj) {
             switch (obj.getTAG()) {
-                case RankingObj.TOP_SERVICES:
+                case ReportObj.TOP_SERVICES:
                     mButtonRanking.setText("Full Service Rankings");
                     mImgViewAvatar1st.setVisibility(View.GONE);
                     mImgViewAvatar2nd.setVisibility(View.GONE);
@@ -125,7 +125,7 @@ public class RankingAdapterRecycler extends RecyclerView.Adapter<RankingAdapterR
                     mButtonRanking.setOnClickListener(view -> listener.onFullServiceButton());
                     break;
 
-                case RankingObj.TOP_EMPLOYEE:
+                case ReportObj.TOP_EMPLOYEE:
                     mButtonRanking.setText("Full Employee Rankings");
 
                     mTextViewName1st.setText(obj.getDatas().get(FIRST).getName());
@@ -139,7 +139,7 @@ public class RankingAdapterRecycler extends RecyclerView.Adapter<RankingAdapterR
                     mButtonRanking.setOnClickListener(view -> listener.onFullEmployeeButton());
                     break;
 
-                case RankingObj.REPORT_VIEW:
+                case ReportObj.REPORT_VIEW:
                     mButtonRanking.setVisibility(View.INVISIBLE);
 
                     mTextViewName1st.setText(obj.getDatas().get(FIRST).getName());

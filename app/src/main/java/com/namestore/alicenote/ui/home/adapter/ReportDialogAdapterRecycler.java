@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.namestore.alicenote.common.AppUtils;
-import com.namestore.alicenote.models.RankingObj;
+import com.namestore.alicenote.models.ReportObj;
 
 import java.util.ArrayList;
 
@@ -22,25 +22,25 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by kienht on 12/7/16.
  */
 
-public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDialogAdapterRecycler.ViewHolder> {
+public class ReportDialogAdapterRecycler extends RecyclerView.Adapter<ReportDialogAdapterRecycler.ViewHolder> {
 
     public static final int SERVICES = 0;
     public static final int EMPLOYEE = 1;
 
-    private ArrayList<RankingObj.Data> arrayList;
+    private ArrayList<ReportObj.Data> arrayList;
     private Activity activity;
     private int TAG;
 
-    public RankingDialogAdapterRecycler(Activity activity, ArrayList<RankingObj.Data> arrayList, int TAG) {
+    public ReportDialogAdapterRecycler(Activity activity, ArrayList<ReportObj.Data> arrayList, int TAG) {
         this.activity = activity;
         this.arrayList = arrayList;
         this.TAG = TAG;
     }
 
     @Override
-    public RankingDialogAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReportDialogAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ranking_dialog, parent, false);
-        return new RankingDialogAdapterRecycler.ViewHolder(view);
+        return new ReportDialogAdapterRecycler.ViewHolder(view);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
             mTextViewSubTitle = (TextView) itemView.findViewById(R.id.subtile);
         }
 
-        public void bindData(RankingObj.Data obj, int position) {
+        public void bindData(ReportObj.Data obj, int position) {
             switch (TAG) {
                 case SERVICES:
                     mImgViewAvatar.setVisibility(View.GONE);
