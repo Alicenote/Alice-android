@@ -2,6 +2,8 @@ package com.namestore.alicenote.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -82,6 +85,30 @@ public class ViewUtils {
             spinner.setSelection(0);
         }
 
+    }
+
+    public static void setAndScaleDrawableButton(Button btn, int left, int top, int right, int bottom, double fitFactor) {
+        btn.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        Drawable[] drawables = btn.getCompoundDrawables();
+        for (int i = 0; i < drawables.length; i++) {
+            if (drawables[i] != null) {
+                if (drawables[i] instanceof ScaleDrawable) {
+                    drawables[i].setLevel(1);
+                }
+                drawables[i].setBounds(0, 0, (int) (drawables[i].getIntrinsicWidth() * fitFactor),
+                        (int) (drawables[i].getIntrinsicHeight() * fitFactor));
+                ScaleDrawable sd = new ScaleDrawable(drawables[i], 0, drawables[i].getIntrinsicWidth(), drawables[i].getIntrinsicHeight());
+                if (i == 0) {
+                    btn.setCompoundDrawables(sd.getDrawable(), drawables[1], drawables[2], drawables[3]);
+                } else if (i == 1) {
+                    btn.setCompoundDrawables(drawables[0], sd.getDrawable(), drawables[2], drawables[3]);
+                } else if (i == 2) {
+                    btn.setCompoundDrawables(drawables[0], drawables[1], sd.getDrawable(), drawables[3]);
+                } else {
+                    btn.setCompoundDrawables(drawables[0], drawables[1], drawables[2], sd.getDrawable());
+                }
+            }
+        }
     }
 
     //remove animation ShiftMode of BottomNavigationView

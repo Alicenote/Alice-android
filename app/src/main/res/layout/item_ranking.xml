@@ -18,13 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="30dp"
             android:text="Top services in December 2015"
             android:textColor="#000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,9 +50,10 @@
                 android:ellipsize="end"
                 android:gravity="left"
                 android:lines="1"
+                android:singleLine="true"
                 android:text="Han Trung Kien"
                 android:textColor="@color/trout"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/subtile_1st"
@@ -67,7 +67,7 @@
                 android:lines="1"
                 android:text="1st"
                 android:textColor="@color/pink"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -103,13 +103,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
+                android:singleLine="true"
                 android:layout_weight="0.3"
                 android:ellipsize="end"
                 android:gravity="left"
                 android:lines="1"
                 android:text="Han Trung Kien"
                 android:textColor="@color/trout"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/subtile_2nd"
@@ -123,7 +124,7 @@
                 android:lines="1"
                 android:text="2nd"
                 android:textColor="@color/pink"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -163,9 +164,10 @@
                 android:ellipsize="end"
                 android:gravity="left"
                 android:lines="1"
+                android:singleLine="true"
                 android:text="Han Trung Kien"
                 android:textColor="@color/trout"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/subtile_3rd"
@@ -179,7 +181,7 @@
                 android:lines="1"
                 android:text="3rd"
                 android:textColor="@color/pink"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -194,12 +196,14 @@
         <Button
             android:id="@+id/btn_ranking"
             style="@style/Button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginBottom="20dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/white_button"
+            android:gravity="center"
             android:text="BUTTON"
             android:textColor="@color/pink" />
 

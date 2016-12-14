@@ -3,57 +3,85 @@ package com.namestore.alicenote.models;
 import java.io.Serializable;
 
 /**
- * Created by Nhocnhinho on 5/26/2015.
+ * Created by kienht on 12/10/16.
  */
 
-
 public class ClientObj implements Serializable {
-    public int getId() {
-        return id;
+
+    private String mName;
+    private String mEmail;
+    private String mTimeOnline;
+    private String mPhone;
+    private int mGender;
+    private String mDob;
+    private boolean mReceive;
+
+    public ClientObj() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public ClientObj(String mName, String mEmail, String mTimeOnline, String mPhone, int mGender, String mDob, boolean mReceive) {
+        this.mName = mName;
+        this.mEmail = mEmail;
+        this.mTimeOnline = mTimeOnline;
+        this.mPhone = mPhone;
+        this.mGender = mGender;
+        this.mDob = mDob;
+        this.mReceive = mReceive;
     }
 
-    public String getTvLastName() {
-        return tvLastName;
+    public String getmName() {
+        return mName;
     }
 
-    public void setTvLastName(String tvLastName) {
-        this.tvLastName = tvLastName;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public String getTvFirstName() {
-        return tvFirstName;
+    public String getmEmail() {
+        return mEmail;
     }
 
-    public void setTvFirstName(String tvFirstName) {
-        this.tvFirstName = tvFirstName;
+    public void setmEmail(String mEmail) {
+        this.mEmail = mEmail;
     }
 
-    private int id;
-    private String tvFirstName;
-    private String tvLastName;
-    private String imgAvatar;
-
-    public String getImgAvatar() {
-        return imgAvatar;
+    public String getmTimeOnline() {
+        return mTimeOnline;
     }
 
-    public void setImgAvatar(String imgAvatar) {
-        this.imgAvatar = imgAvatar;
+    public void setmTimeOnline(String mTimeOnline) {
+        this.mTimeOnline = mTimeOnline;
     }
 
+    public String getmPhone() {
+        return mPhone;
+    }
 
-    public ClientObj(int id ,String tvFirstName,String tvLastName,String imgAvatar) {
-        super();
+    public void setmPhone(String mPhone) {
+        this.mPhone = mPhone;
+    }
 
-        this.id = id;
-        this.tvFirstName = tvFirstName;
-        this.tvLastName = tvLastName;
-        this.imgAvatar = imgAvatar;
+    public int getmGender() {
+        return mGender;
+    }
 
+    public void setmGender(int mGender) {
+        this.mGender = mGender;
+    }
 
+    public String getmDob() {
+        return mDob;
+    }
+
+    public void setmDob(String mDob) {
+        this.mDob = mDob;
+    }
+
+    public boolean ismReceive() {
+        return mReceive;
+    }
+
+    public void setmReceive(boolean mReceive) {
+        this.mReceive = mReceive;
     }
 }

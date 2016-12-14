@@ -324,7 +324,7 @@
     <string name="title_start_activity">a</string>
     <string name="bottom_navigation_client">Client</string>
     <string name="bottom_navigation_dashboard">Pendding</string>
-    <string name="bottom_navigation_ranking">Ranking</string>
+    <string name="bottom_navigation_report">Report</string>
     <string name="bottom_navigation_calendar">Calendar</string>
     <string name="bottom_navigation_setting_venue">Setting</string>
     <string name="venue">Venue</string>
@@ -347,5 +347,16 @@
     <string name="views">%s views</string>
 
     <!--End Ranking Fragment-->
+
+    <!--Start Client Fragment-->
+
+    <string name="time_online">online %s ago</string>
+
+    <!--End Client Fragment-->
+
     <string name="your_venue">Your Venue</string>
+
+    <string name="API_KEY">AIzaSyBT_kA739BehFr6Ljnun_yJNqB3fzEhjHA</string>
+    <string name="Visibility">Your venue is unlisted and can not be seen publicly.
+        Any comfirmed reservations will remain on your calendar</string>>
 </resources>

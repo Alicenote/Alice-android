@@ -1,6 +1,5 @@
 package com.namestore.alicenote;
 
-import java.io.Serializable;
 
 /**
  * Created by kienht on 10/28/16.
@@ -9,16 +8,11 @@ import java.io.Serializable;
 public class Constants {
 
     public static final String TAG = "ALICE";
-    public static String TOKEN = "null";
+    public static String TOKEN = "jDUBzRdIJc2Vdm8LsVWoKclt07EFWHJ9";
 
     public static final int NAIL = 0;
     public static final int HAIR = 1;
 
-    public static final class Database {
-        public static final String DB_NAME = "alice.db";
-        public static final int DB_VER = 1;
-
-    }
 
      /*START API SERVER*/
 
@@ -30,25 +24,12 @@ public class Constants {
     public static final String API_REQUEST_SETUP_SALON = "/v1/welcomes/set-setup";
 
 
-    /*DashBoard*/
-    public static final String API_DASHBOARD_WEEK_APPOINTMENT = "/v1/dash-boards/get-week-appointment";
-    public static final String API_DASHBOARD_UPCOMMING_APPOINTMENT = "v1/dash-boards/get-upcomming-appointment";
-
-    /*Client*/
-    public static final String API_CLIENT = "v1/clients";
-    public static final String API_VIEW_CLIENT = "/v1/clients/view";
-    public static final String API_ADD_CLIENT = "/v1/clients/create";
-    public static final String API_UPDATE_CLIENT = "/v1/clients/update";
-    public static final String API_DEL_CLIENT = "/v1/clients/delete";
-
-    /*Service*/
+   /*Venue API*/
 
 
-    public static final String API_SERVICE = "v1/services";
-    public static final String API_VIEW_SERVICE = "/v1/services/view";
-    public static final String API_ADD_SERVICE = "/v1/services/create";
-    public static final String API_UPDATE_SERVICE = "/v1/services/update";
-    public static final String API_DEL_SERVICE = "/v1/services/delete";
+    public static final String API_VENUE_VIEW="/v1/locations/view";
+    public static final String API_VENUE_EDIT="/v1/locations/update";
+    public static final String API_VENUE_DEL="/v1/locations/delete";
 
 
     /*END API SERVER*/
@@ -58,28 +39,13 @@ public class Constants {
     public static final int NUM_PAGES = 5;
     public static final int NUM_PENDING =0;
     public static final int NUM_CALENDAR=1;
-    public static final int NUM_RANKING=2;
+    public static final int NUM_REPORT =2;
     public static final int NUM_CLIENT=3;
     public static final int NUM_SETTING_VENUE=4;
     public static final int KEY_LOGIN = 0;
     public static final int KEY_SIGNUP = 1;
 
 
-    public static final String KEY_CHECK_CLIENT = "client.check";
-
-    public static final String KEY_ID = "client.id";
-    public static final String KEY_RESUME = "client.resume";
-    public static final String KEY_CHECK_EDIT_CLIENT = "clien.check.edit";
-
-    public static final String ADD_CLIENT = "client.add";
-    public static final String VIEW_CLIENT = "client.view";
-    public static final String EDIT_CLIENT = "client.edit";
-
-    public static final String KEY_CHECK_SERVICE = "service.check";
-    public static final String KEY_ID_SERVICE = "service.id";
-    public static final String ADD_SERVICE = "service.add";
-    public static final String VIEW_SERVICE = "service.view";
-    public static final String EDIT_SERVICE = "service.edit";
 
     public static final String VENUE_KEY_CHECK="venue.check";
     public static final String VENUE_VIEW = "venue.view";

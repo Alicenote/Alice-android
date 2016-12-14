@@ -31,14 +31,4 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    public void hideKeyBoard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager keyBoard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            keyBoard.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-
-
 }

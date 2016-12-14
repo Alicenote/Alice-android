@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.models.RankingObj;
 
 import java.util.ArrayList;
@@ -45,9 +46,9 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bindData(arrayList.get(position), position);
-        holder.number.setText(arrayList.get(position).getStt());
-        holder.name.setText(arrayList.get(position).getName());
-        holder.subtTile.setText(activity.getResources().getString(R.string.bookings,
+        holder.mTextViewNumber.setText(arrayList.get(position).getStt());
+        holder.mTextViewName.setText(arrayList.get(position).getName());
+        holder.mTextViewSubTitle.setText(activity.getResources().getString(R.string.bookings,
                 String.valueOf(arrayList.get(position).getBooks())));
     }
 
@@ -59,33 +60,34 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView number;
-        private CircleImageView imageView;
-        private TextView name;
-        private TextView subtTile;
+        private TextView mTextViewNumber;
+        private CircleImageView mImgViewAvatar;
+        private TextView mTextViewName;
+        private TextView mTextViewSubTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            number = (TextView) itemView.findViewById(R.id.number);
-            imageView = (CircleImageView) itemView.findViewById(R.id.image);
-            name = (TextView) itemView.findViewById(R.id.name);
-            subtTile = (TextView) itemView.findViewById(R.id.subtile);
+            mTextViewNumber = (TextView) itemView.findViewById(R.id.number);
+            mImgViewAvatar = (CircleImageView) itemView.findViewById(R.id.image);
+            mTextViewName = (TextView) itemView.findViewById(R.id.name);
+            mTextViewSubTitle = (TextView) itemView.findViewById(R.id.subtile);
         }
 
         public void bindData(RankingObj.Data obj, int position) {
             switch (TAG) {
                 case SERVICES:
-                    imageView.setVisibility(View.GONE);
+                    mImgViewAvatar.setVisibility(View.GONE);
+                    AppUtils.setTypeFontForTextView(activity, AppUtils.MEDIUM, mTextViewName, mTextViewNumber, mTextViewSubTitle);
                     switch (position) {
                         case 0: //pink case 2
                         case 1: //pink case 2
                         case 2:
-                            subtTile.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
+                            mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
                                     activity.getApplicationContext().getColor(R.color.pink) :
                                     activity.getResources().getColor(R.color.pink));
                             break;
                         default:
-                            subtTile.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
+                            mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
                                     activity.getApplicationContext().getColor(R.color.black) :
                                     activity.getResources().getColor(R.color.black));
                             break;
@@ -94,24 +96,29 @@ public class RankingDialogAdapterRecycler extends RecyclerView.Adapter<RankingDi
                 case EMPLOYEE:
                     switch (position) {
                         case 0:
-                            subtTile.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
+                            mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
                                     activity.getApplicationContext().getColor(R.color.pink) :
                                     activity.getResources().getColor(R.color.pink));
-                            name.setTypeface(null, Typeface.BOLD);
-                            number.setTypeface(null, Typeface.BOLD);
+                            mTextViewName.setTypeface(null, Typeface.BOLD);
+                            mTextViewNumber.setTypeface(null, Typeface.BOLD);
+                            AppUtils.setTypeFontForTextView(activity, AppUtils.BOLD, mTextViewName, mTextViewNumber);
+                            AppUtils.setTypeFontForTextView(activity, AppUtils.MEDIUM, mTextViewSubTitle);
                             break;
                         case 1: //black case 2
                         case 2:
-                            subtTile.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
+                            mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
                                     activity.getApplicationContext().getColor(R.color.black) :
                                     activity.getResources().getColor(R.color.black));
-                            name.setTypeface(null, Typeface.BOLD);
-                            number.setTypeface(null, Typeface.BOLD);
+                            mTextViewName.setTypeface(null, Typeface.BOLD);
+                            mTextViewNumber.setTypeface(null, Typeface.BOLD);
+                            AppUtils.setTypeFontForTextView(activity, AppUtils.BOLD, mTextViewName, mTextViewNumber);
+                            AppUtils.setTypeFontForTextView(activity, AppUtils.MEDIUM, mTextViewSubTitle);
                             break;
                         default:
-                            subtTile.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
+                            mTextViewSubTitle.setTextColor(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
                                     activity.getApplicationContext().getColor(R.color.trout) :
                                     activity.getResources().getColor(R.color.trout));
+                            AppUtils.setTypeFontForTextView(activity, AppUtils.MEDIUM, mTextViewName, mTextViewNumber, mTextViewSubTitle);
                             break;
 
 

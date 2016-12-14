@@ -56,7 +56,7 @@ public class SettingVenueFragment extends BaseFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fm_setting_venue, container, false);
+        View view = inflater.inflate(R.layout.fm_venue_setting, container, false);
 
 
         initViews(view);

@@ -26,11 +26,11 @@
             android:paddingBottom="15dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/trophy" />
+                android:layout_marginTop="25dp"
+                android:background="@drawable/icon_trophy" />
 
             <TextView
                 android:id="@+id/textview_employee"
@@ -49,11 +49,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textview_employee"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="26dp"
                 android:gravity="right"
                 android:text="TOP RANKING"
                 android:textColor="#fff"
-                android:textSize="10sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>

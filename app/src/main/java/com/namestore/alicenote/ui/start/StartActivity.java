@@ -27,7 +27,6 @@ import me.relex.circleindicator.CircleIndicator;
 public class StartActivity extends BaseActivity implements OnFragmentInteractionListener {
 
     Button mButtonLogin;
-
     Button mButtonSignup;
 
     @Override
@@ -35,6 +34,12 @@ public class StartActivity extends BaseActivity implements OnFragmentInteraction
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_start);
+
+        Intent mIntent = new Intent(StartActivity.this, MainActivity.class);
+        mIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, Constants.SETUP_INFO_SALON);
+        startActivity(mIntent);
+        finish();
 
         AutoScrollViewPager viewpager = (AutoScrollViewPager) findViewById(R.id.viewpager);
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
@@ -50,11 +55,6 @@ public class StartActivity extends BaseActivity implements OnFragmentInteraction
         mButtonLogin.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-        Intent mIntent = new Intent(StartActivity.this, MainActivity.class);
-        mIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, Constants.SETUP_INFO_SALON);
-        startActivity(mIntent);
-        finish();
     }
 
     @Override
