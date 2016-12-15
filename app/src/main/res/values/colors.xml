@@ -15,6 +15,7 @@
     <color name="text_error_background">#FFFFFF</color>
     <color name="text_error">#FE0000</color>
     <color name="grey">#a3a9a0</color>
+    <color name="transparent">#0000</color>
 
     <color name="black">#000</color>
     <color name="white">#fff</color>

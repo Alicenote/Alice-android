@@ -41,7 +41,6 @@ public class DialogNotice {
         });
 
         dialog.show();
-
     }
 }
 

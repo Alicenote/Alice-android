@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.recycler.SimpleDividerItemDecoration;

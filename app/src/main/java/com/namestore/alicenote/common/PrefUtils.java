@@ -11,7 +11,6 @@ public class PrefUtils {
     public static final String SALON_ID = "salon_id";
     public static final String KEY_ACCESS_TOKEN = "access_token";
     public static final String OWNER_NAME = "owner_name";
-
     public static final String PREF_NAME = "MyPrefs";
 
     private static PrefUtils _instance;
