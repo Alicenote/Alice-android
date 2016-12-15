@@ -1,6 +1,8 @@
 package com.namestore.alicenote.ui.venue.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.network.ObservableManager;
 import com.namestore.alicenote.network.reponse.VenueViewResponse;
 import com.namestore.alicenote.ui.BaseFragment;
+import com.namestore.alicenote.ui.venue.VenueDetailActivity;
 import com.namestore.alicenote.ui.venue.interfaces.OnSettingVenueListener;
 
 import rx.Subscriber;
@@ -61,7 +64,7 @@ public class VenueViewEditFragment extends BaseFragment {
     private TextView mVenueEditFormEmailValue;
 
     private ProgressDialog prgDialog;
-    private String mAboutSalon,mNameSalon;
+    private VenueDetailActivity mVenueDetailActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,7 +109,6 @@ public class VenueViewEditFragment extends BaseFragment {
         mVenueEditFormEmailValue = (TextView) mVenueEditFormEmail.findViewById(R.id.tvViewVenueValue);
 
 
-
         prgDialog = new ProgressDialog(getContext());
         prgDialog.setMessage("Loading...");
         prgDialog.setCancelable(false);
@@ -122,6 +124,7 @@ public class VenueViewEditFragment extends BaseFragment {
             }
         });
         mToolbarSave.setText("Save");
+
         mToolbarSave.setOnClickListener(view -> {
 
             if (mActivity instanceof OnSettingVenueListener) {
@@ -129,17 +132,45 @@ public class VenueViewEditFragment extends BaseFragment {
             }
         });
 
-        mVenueEditButtonVisibility.setOnClickListener(view -> {});
-                mTvVenueEditInforSalonClick.setOnClickListener(view -> {});
-        mTvVenueEditClickNameSalon.setOnClickListener(view -> {});
+        mVenueEditButtonVisibility.setOnClickListener(view -> {
+        });
+
+
+        mTvVenueEditInforSalonClick.setOnClickListener(view -> {
+
+            if (mActivity instanceof OnSettingVenueListener) {
+                ((OnSettingVenueListener) mActivity).showVenueViewEditAbout();
+            }
+
+        });
+
+
+        mTvVenueEditClickNameSalon.setOnClickListener(view -> {
+
+            if (mActivity instanceof OnSettingVenueListener) {
+                ((OnSettingVenueListener) mActivity).showVenueViewEditNameSalon();
+            }
+
+        });
+
+
+        mRelativeViewEditLocation.setOnClickListener(view -> {
+            if (mActivity instanceof OnSettingVenueListener) {
+                ((OnSettingVenueListener) mActivity).showVenueViewEditLocation();
+            }
+
+        });
 
         mVenueEditFormPostCodeName.setText(mFormPostCodeName);
-                mVenueEditFormEmailName.setText(mFormPhoneName);
+        mVenueEditFormEmailName.setText(mFormPhoneName);
         mVenueEditFormPhoneName.setText(mFormEmailName);
+        getDataForVenueViewEdit(1, 1, this);
+        mVenueEditNameSalon.setText(mVenueDetailActivity.mNameSalon);
+        mTvVenueEditInforSalon.setText(mVenueDetailActivity.mAboutSalon);
 
     }
 
-    public void getDataForVenueViewEdit(int salonId, int location, VenueViewFragment context) {
+    public void getDataForVenueViewEdit(int salonId, int location, VenueViewEditFragment context) {
         prgDialog.show();
         ObservableManager.VenueView(salonId, location).subscribe(new Subscriber<VenueViewResponse>() {
             @Override
@@ -161,18 +192,34 @@ public class VenueViewEditFragment extends BaseFragment {
                 Glide.with(context).load(venueViewResponse.getData().getLocations()
                         .getImageCover().toString()).into(mVenueEditImageCover);
 
-                mNameSalon =venueViewResponse.getData().getLocations().getNameSalon();
-                mVenueEditNameSalon.setText(mNameSalon);
-                mAboutSalon =venueViewResponse.getData().getLocations().getDescription();
-                mTvVenueEditInforSalon.setText(mAboutSalon);
+                mVenueDetailActivity.mNameSalon = venueViewResponse.getData().getLocations().getNameSalon();
+                mVenueEditNameSalon.setText(mVenueDetailActivity.mNameSalon);
+                mVenueDetailActivity.mAboutSalon = venueViewResponse.getData().getLocations().getDescription();
+                mTvVenueEditInforSalon.setText(mVenueDetailActivity.mAboutSalon);
 
                 mVenueEditFormPhoneValue.setText(venueViewResponse.getData().getLocations().getTelephone());
-                        mVenueEditFormPostCodeValue.setText(venueViewResponse.getData().getLocations().getPostcode());
+                mVenueEditFormPostCodeValue.setText(venueViewResponse.getData().getLocations().getPostcode());
                 mVenueEditFormEmailValue.setText(venueViewResponse.getData().getLocations().getEmail());
             }
         });
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof VenueDetailActivity) {
+            this.mVenueDetailActivity = (VenueDetailActivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof VenueDetailActivity) {
+            this.mVenueDetailActivity = (VenueDetailActivity) activity;
+        }
+    }
 
 }

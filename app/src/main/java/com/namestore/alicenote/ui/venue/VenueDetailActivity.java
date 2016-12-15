@@ -29,6 +29,7 @@ public class VenueDetailActivity extends BaseActivity implements OnSettingVenueL
     private VenueViewEditNameSalonFragment mVenueViewEditNameSalonFragment;
     private VenueViewEditPhotoFragment mVenueViewEditPhotoFragment;
     private float mMapX,mMapY;
+    public String mAboutSalon,mNameSalon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +43,8 @@ public class VenueDetailActivity extends BaseActivity implements OnSettingVenueL
         mVenueViewEditNameSalonFragment = new VenueViewEditNameSalonFragment();
         mVenueViewEditPhotoFragment = new VenueViewEditPhotoFragment();
 
-        fragmentsArrayList.add(mVenueViewFragment);
-        fragmentsArrayList.add(mVenueViewEditFragment);
-        fragmentsArrayList.add(mVenueViewEditAboutFragment);
-        fragmentsArrayList.add(mVenueViewEditLocationFragment);
-        fragmentsArrayList.add(mVenueViewEditNameSalonFragment);
-        fragmentsArrayList.add(mVenueViewEditPhotoFragment);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, mVenueViewEditFragment)
-                .add(R.id.container, mVenueViewFragment)
-                .add(R.id.container, mVenueViewEditAboutFragment)
-                .add(R.id.container, mVenueViewEditLocationFragment)
-                .add(R.id.container, mVenueViewEditNameSalonFragment)
-                .add(R.id.container, mVenueViewEditPhotoFragment)
-
-                .commit();
         if (getIntent().getExtras().getString(Constants.VENUE_KEY_CHECK).equals(Constants.VENUE_VIEW)) {
-            showFragment(mVenueViewFragment);
+           showVenueView();
         }
 
     }
@@ -69,52 +55,43 @@ public class VenueDetailActivity extends BaseActivity implements OnSettingVenueL
 
     }
 
-    public void showFragment(Fragment fragmentToShow) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        for (BaseFragment _fragment : fragmentsArrayList) {
-            if (_fragment == fragmentToShow) {
-                transaction.show(fragmentToShow);
-            } else {
-                transaction.hide(_fragment);
-            }
-        }
-        transaction.commit();
-    }
+
 
     @Override
     public void showVenueViewEdit() {
-        showFragment(mVenueViewEditFragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mVenueViewEditFragment).commit();
 
     }
 
     @Override
     public void showVenueView() {
-        showFragment(mVenueViewFragment);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mVenueViewFragment).commit();
     }
 
     @Override
     public void showVenueViewEditLocation() {
-        showFragment(mVenueViewEditLocationFragment);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mVenueViewEditLocationFragment).commit();
 
     }
 
     @Override
     public void showVenueViewEditAbout() {
-        showFragment(mVenueViewEditAboutFragment);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mVenueViewEditAboutFragment).commit();
     }
 
     @Override
     public void showVenueViewEditPhoto() {
-        showFragment(mVenueViewEditPhotoFragment);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mVenueViewEditPhotoFragment).commit();
     }
 
     @Override
     public void showVenueViewEditNameSalon() {
-        showFragment(mVenueViewEditNameSalonFragment);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mVenueViewEditNameSalonFragment).commit();
     }
 
 
