@@ -73,9 +73,9 @@ public class VenueViewResponse extends BaseResponse {
             @Expose
             String email;
 
-            @SerializedName("website")
+         /*   @SerializedName("website")
             @Expose
-            String website;
+            String website;*/
 
             @SerializedName("point")
             @Expose
@@ -121,9 +121,9 @@ public class VenueViewResponse extends BaseResponse {
                 return email;
             }
 
-            public String getWebsite() {
+          /*  public String getWebsite() {
                 return website;
-            }
+            }*/
 
             public int getPoint() {
                 return point;

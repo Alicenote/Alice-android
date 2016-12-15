@@ -3,27 +3,23 @@ package com.namestore.alicenote.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.annotation.NonNull;
+
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
 import com.namestore.alicenote.ui.calendar.CalendarActivity;
@@ -62,53 +58,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
+        ViewUtils.removeShiftMode(bottomNavigationView);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_dashboard:
-                                showPenddingFragment();
-                                break;
-                            case R.id.action_calendar:
-                               showCalendarFragment();
-                                break;
-                            case R.id.action_client:
-                              showClientFragment();
-                                break;
-                            case R.id.action_setting_venue:
-                                showVenueFragment();
-                                break;
-                            case R.id.action_ranking:
-                                showRankingFragment();
-                                break;
-                        }
-                        return false;
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.action_dashboard:
+                            showPenddingFragment();
+                            break;
+                        case R.id.action_calendar:
+                            showCalendarFragment();
+                            break;
+                        case R.id.action_client:
+                            showClientFragment();
+                            break;
+                        case R.id.action_setting_venue:
+                            showVenueFragment();
+                            break;
+                        case R.id.action_ranking:
+                            showRankingFragment();
+                            break;
                     }
+                    return false;
                 });
 
         bottomNavigationView.getMaxItemCount();
-
-       /* mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-
-
-                onNavigationItemSelected(bottomNavigationView.getMenu().getItem(position));
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
     }
 
 
@@ -154,7 +128,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         public Fragment getItem(int position) {
             switch (position) {
                 case Constants.NUM_PENDING:
-
                     return new ClientFragment();//chua co pending
                 case Constants.NUM_CALENDAR:
                     return new ClientFragment();//chua co calendar
@@ -227,7 +200,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             case R.id.calendar:
                 startActivity(new Intent(MainActivity.this, CalendarActivity.class));
                 break;
-
         }
 
         int id = item.getItemId();
