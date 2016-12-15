@@ -19,16 +19,18 @@ import android.view.MenuItem;
 
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.ui.appointment.AppointmentScheduleActivity;
 import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.BaseActivity;
 import com.namestore.alicenote.ui.art.ArtGroupActivity;
-import com.namestore.alicenote.ui.calendar.CalendarActivity;
 
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 
+import com.namestore.alicenote.ui.home.fragment.PendingFragment;
 import com.namestore.alicenote.ui.home.fragment.ReportFragment;
 import com.namestore.alicenote.ui.home.fragment.SettingVenueFragment;
+import com.namestore.alicenote.ui.home.fragment.TreatmentsListingFragment;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
 
@@ -67,7 +69,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                             showPenddingFragment();
                             break;
                         case R.id.action_calendar:
-                            showCalendarFragment();
+                            showTreatmentsListingFragment();
                             break;
                         case R.id.action_client:
                             showClientFragment();
@@ -88,7 +90,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     public void showPenddingFragment() {
         mPager.setCurrentItem(Constants.NUM_PENDING);
-
     }
 
     public void showClientFragment() {
@@ -99,14 +100,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(Constants.NUM_REPORT);
     }
 
-    public void showCalendarFragment() {
-        mPager.setCurrentItem(Constants.NUM_CALENDAR);
-
+    public void showTreatmentsListingFragment() {
+        mPager.setCurrentItem(Constants.NUM_TREATMENTS_LISTING);
     }
 
     public void showVenueFragment() {
         mPager.setCurrentItem(Constants.NUM_SETTING_VENUE);
-
     }
 
     @Override
@@ -128,9 +127,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         public Fragment getItem(int position) {
             switch (position) {
                 case Constants.NUM_PENDING:
-                    return new ClientFragment();//chua co pending
-                case Constants.NUM_CALENDAR:
-                    return new ClientFragment();//chua co calendar
+                    return new PendingFragment();//chua co pending
+                case Constants.NUM_TREATMENTS_LISTING:
+                    return new TreatmentsListingFragment();
                 case Constants.NUM_REPORT:
                     return new ReportFragment();
                 case Constants.NUM_CLIENT:
@@ -198,7 +197,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.calendar:
-                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+                startActivity(new Intent(MainActivity.this, AppointmentScheduleActivity.class));
                 break;
         }
 

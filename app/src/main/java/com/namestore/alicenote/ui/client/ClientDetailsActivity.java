@@ -698,7 +698,7 @@ public class ClientDetailsActivity extends BaseActivity {
                     ColorDrawable colorDrawable = new ColorDrawable(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
                             getApplicationContext().getResources().getColor(R.color.aquasqueeze) :
                             getResources().getColor(R.color.aquasqueeze));
-                     pf.set(picker, colorDrawable);
+                    pf.set(picker, colorDrawable);
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 } catch (Resources.NotFoundException e) {

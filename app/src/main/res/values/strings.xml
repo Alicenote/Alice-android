@@ -325,7 +325,7 @@
     <string name="bottom_navigation_client">Client</string>
     <string name="bottom_navigation_dashboard">Pendding</string>
     <string name="bottom_navigation_report">Report</string>
-    <string name="bottom_navigation_calendar">Calendar</string>
+    <string name="bottom_navigation_calendar">Treatments Listing</string>
     <string name="bottom_navigation_setting_venue">Setting</string>
     <string name="venue">Venue</string>
     <string name="detail_venue">Setup more details for your Venue</string>

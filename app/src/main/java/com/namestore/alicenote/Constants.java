@@ -24,33 +24,30 @@ public class Constants {
     public static final String API_REQUEST_SETUP_SALON = "/v1/welcomes/set-setup";
 
 
-   /*Venue API*/
-
-
-    public static final String API_VENUE_VIEW="/v1/locations/view";
-    public static final String API_VENUE_EDIT="/v1/locations/update";
-    public static final String API_VENUE_DEL="/v1/locations/delete";
-
-
+    /*Venue API*/
+    public static final String API_VENUE_VIEW = "/v1/locations/view";
+    public static final String API_VENUE_EDIT = "/v1/locations/update";
+    public static final String API_VENUE_DEL = "/v1/locations/delete";
     /*END API SERVER*/
 
     /* LoginSignup Activity */
 
     public static final int NUM_PAGES = 5;
-    public static final int NUM_PENDING =0;
-    public static final int NUM_CALENDAR=1;
-    public static final int NUM_REPORT =2;
-    public static final int NUM_CLIENT=3;
-    public static final int NUM_SETTING_VENUE=4;
+    public static final int NUM_PENDING = 0;
+    public static final int NUM_TREATMENTS_LISTING = 1;
+    public static final int NUM_REPORT = 2;
+    public static final int NUM_CLIENT = 3;
+    public static final int NUM_SETTING_VENUE = 4;
+
+
     public static final int KEY_LOGIN = 0;
     public static final int KEY_SIGNUP = 1;
 
 
-
-    public static final String VENUE_KEY_CHECK="venue.check";
+    public static final String VENUE_KEY_CHECK = "venue.check";
     public static final String VENUE_VIEW = "venue.view";
-    public static final String VENUE_EDIT="venue.edit";
-    public static final String VENUE_VIEW_EDIT_OPENHOURS="venue.view.edit.openhours";
+    public static final String VENUE_EDIT = "venue.edit";
+    public static final String VENUE_VIEW_EDIT_OPENHOURS = "venue.view.edit.openhours";
 
     public static final String LOGIN_SIGNUP_SCREEN = "screen.login.signup";
     public static final String LOGIN_FRAGMENT = "FragmentLogin.Login";
@@ -88,11 +85,9 @@ public class Constants {
 
     /* End of First Setup Activity */
 
-       /* First Setup Activity */
+     /* First Setup Activity */
 
     public static final String ART_SCREEN = "screen.art";
-
-
     /* End of First Setup Activity */
 
 }

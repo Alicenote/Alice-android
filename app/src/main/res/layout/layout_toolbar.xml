@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.6"
         android:gravity="center"
-        android:text="Your Venue Venue"
+        android:text="Appointment Sechedule"
         android:textColor="@color/bossanova"
-        android:textSize="24sp" />
+        android:textSize="19sp" />
 
     <Button
         android:id="@+id/toolbar_edit"

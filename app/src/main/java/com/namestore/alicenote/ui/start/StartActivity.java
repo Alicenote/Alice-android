@@ -6,9 +6,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.namestore.alicenote.R;
-import com.namestore.alicenote.ui.art.ArtGroupActivity;
-import com.namestore.alicenote.ui.calendar.CalendarActivity;
-import com.namestore.alicenote.ui.firstsetup.FirstSetupAcitivity;
 import com.namestore.alicenote.ui.home.MainActivity;
 import com.namestore.alicenote.ui.signinup.LoginSignupActivity;
 import com.namestore.alicenote.ui.home.adapter.ViewPagerAdapter;
