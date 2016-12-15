@@ -325,7 +325,7 @@
     <string name="bottom_navigation_client">Client</string>
     <string name="bottom_navigation_dashboard">Pendding</string>
     <string name="bottom_navigation_report">Report</string>
-    <string name="bottom_navigation_calendar">Treatments Listing</string>
+    <string name="bottom_navigation_treatment">Treatments Listing</string>
     <string name="bottom_navigation_setting_venue">Setting</string>
     <string name="venue">Venue</string>
     <string name="detail_venue">Setup more details for your Venue</string>
@@ -355,6 +355,7 @@
     <!--End Client Fragment-->
 
     <string name="your_venue">Your Venue</string>
+    <string name="edit_your_venue">Edit Your Venue</string>
 
     <string name="API_KEY">AIzaSyBT_kA739BehFr6Ljnun_yJNqB3fzEhjHA</string>
     <string name="Visibility">Your venue is unlisted and can not be seen publicly.

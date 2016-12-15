@@ -108,16 +108,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mPager.setCurrentItem(Constants.NUM_SETTING_VENUE);
     }
 
-    @Override
-    public void onViewClick(String tag) {
-
-    }
-
-    @Override
-    public void onViewClick(String tag, Object object) {
-
-    }
-
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -127,21 +117,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         public Fragment getItem(int position) {
             switch (position) {
                 case Constants.NUM_PENDING:
-                    return new PendingFragment();//chua co pending
+                    return new PendingFragment();
                 case Constants.NUM_TREATMENTS_LISTING:
                     return new TreatmentsListingFragment();
                 case Constants.NUM_REPORT:
                     return new ReportFragment();
                 case Constants.NUM_CLIENT:
-                    return new ClientFragment();//chua co client
+                    return new ClientFragment();
                 case Constants.NUM_SETTING_VENUE:
                     return new SettingVenueFragment();
-
                 default:
                     return null;
             }
         }
-
         @Override
         public int getCount() {
             return NUM_PAGES;
@@ -175,14 +163,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_settings) {
 //            return true;
 //        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -200,9 +186,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 startActivity(new Intent(MainActivity.this, AppointmentScheduleActivity.class));
                 break;
         }
-
         int id = item.getItemId();
-
         if (id == R.id.calendar) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
@@ -216,7 +200,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         } else if (id == R.id.nav_send) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -225,10 +208,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
-
         }
+    }
+    @Override
+    public void onViewClick(String tag) {
+    }
 
+    @Override
+    public void onViewClick(String tag, Object object) {
     }
 
 

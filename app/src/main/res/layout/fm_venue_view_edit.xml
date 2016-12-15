@@ -158,7 +158,7 @@
                 android:layout_marginRight="10dp" />
 
             <include
-                android:id="@+id/mVenueEditFormWebsite"
+                android:id="@+id/mVenueEditProduction"
                 layout="@layout/layout_item_venue_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -268,27 +268,34 @@
                     android:text="Visibility"
 
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:id="@+id/Visibility" />
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/mVenueEditButtonVisibility"
+                    style="@style/SwitchButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:gravity="center"
-                    android:text=">"
 
-                    android:textSize="30sp" />
+                    app:kswAnimationDuration="300"
+                    app:kswBackDrawable="@drawable/ios_back_drawable"
+                    app:kswBackMeasureRatio="1.4"
+                    app:kswThumbDrawable="@drawable/ios_thumb_selector"
+                    app:kswThumbMarginBottom="-8dp"
+                    app:kswThumbMarginLeft="-5dp"
+                    app:kswThumbMarginRight="-5dp"
+                    app:kswThumbMarginTop="-2.5dp"
+                    android:layout_above="@+id/linearLayout"
+                 />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
                     android:layout_alignParentBottom="true"
                     android:background="#E3E4E3"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayout"></LinearLayout>
 
             </RelativeLayout>
 
@@ -307,6 +314,7 @@
 
 
             <Button
+                android:id="@+id/mVenueEditButtonDeactive"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_below="@+id/Visiblity"

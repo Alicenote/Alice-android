@@ -26,8 +26,8 @@ public class Constants {
 
     /*Venue API*/
     public static final String API_VENUE_VIEW = "/v1/locations/view";
-    public static final String API_VENUE_EDIT = "/v1/locations/update";
-    public static final String API_VENUE_DEL = "/v1/locations/delete";
+    public static final String API_VENUE_VIEW_EDIT = "/v1/locations/update";
+    public static final String API_VENUE_VIEW_DEL = "/v1/locations/delete";
     /*END API SERVER*/
 
     /* LoginSignup Activity */
@@ -85,9 +85,10 @@ public class Constants {
 
     /* End of First Setup Activity */
 
-     /* First Setup Activity */
+       /* First Setup Activity */
 
     public static final String ART_SCREEN = "screen.art";
+
     /* End of First Setup Activity */
 
 }

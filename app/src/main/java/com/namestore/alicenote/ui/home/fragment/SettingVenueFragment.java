@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.network.AliceApi;
 import com.namestore.alicenote.ui.BaseFragment;
 import com.namestore.alicenote.ui.home.MainActivity;
@@ -57,8 +58,6 @@ public class SettingVenueFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_venue_setting, container, false);
-
-
         initViews(view);
         initModels();
         return view;
@@ -67,6 +66,7 @@ public class SettingVenueFragment extends BaseFragment {
 
     @Override
     protected void initViews(View view) {
+        AppUtils.setTypeFontForTextView(mMainActivity, AppUtils.BOLD, (TextView) view.findViewById(R.id.toolbar_title));
 
         mRelativeLayoutVenue = (RelativeLayout) view.findViewById(R.id.venueMoreDetail);
         mTextVenue = (TextView) mRelativeLayoutVenue.findViewById(R.id.tvVenueName);
@@ -105,28 +105,45 @@ public class SettingVenueFragment extends BaseFragment {
     protected void initModels() {
 
         mRelativeLayoutVenue.setOnClickListener(view -> {
-            Intent _intent =new Intent(getContext(), VenueDetailActivity.class);
-            _intent.putExtra(Constants.VENUE_KEY_CHECK,Constants.VENUE_VIEW);
+            Intent _intent = new Intent(getContext(), VenueDetailActivity.class);
+            _intent.putExtra(Constants.VENUE_KEY_CHECK, Constants.VENUE_VIEW);
             startActivity(_intent);
         });
 
-        mRelativeLayoutOpenHours.setOnClickListener(view -> {});
+        mRelativeLayoutOpenHours.setOnClickListener(view -> {
+        });
 
-        mRelativeLayoutPolicies.setOnClickListener(view -> {});
+        mRelativeLayoutPolicies.setOnClickListener(view -> {
+        });
 
-        mRelativeLayoutNotification.setOnClickListener(view -> {});
+        mRelativeLayoutNotification.setOnClickListener(view -> {
+        });
 
-        mRelativeLayoutTeams.setOnClickListener(view -> {});
+        mRelativeLayoutTeams.setOnClickListener(view -> {
+        });
 
-        mRelativeLayoutOther.setOnClickListener(view -> {});
+        mRelativeLayoutOther.setOnClickListener(view -> {
+        });
 
 
-        mTextVenue.setText(R.string.venue); mTextDetailVenue.setText(R.string.detail_venue);
-        mTextOpenHours.setText(R.string.open_hours); mTextDetailOpenHours.setText(R.string.detail_open_hours);
-        mTextPolices.setText(R.string.polocies); mTextDetailPolices.setText(R.string.detail_policies);
-        mTextNotification.setText(R.string.notification); mTextDetailNotification.setText(R.string.detail_notification);
-        mTextTeams.setText(R.string.teams); mTextDetailTeams.setText(R.string.detail_teams);
-        mTextOther.setText(R.string.other); mTextDetailOther.setText(R.string.detail_other);
+        mTextVenue.setText(R.string.venue);
+        mTextDetailVenue.setText(R.string.detail_venue);
+        mTextOpenHours.setText(R.string.open_hours);
+        mTextDetailOpenHours.setText(R.string.detail_open_hours);
+        mTextPolices.setText(R.string.polocies);
+        mTextDetailPolices.setText(R.string.detail_policies);
+        mTextNotification.setText(R.string.notification);
+        mTextDetailNotification.setText(R.string.detail_notification);
+        mTextTeams.setText(R.string.teams);
+        mTextDetailTeams.setText(R.string.detail_teams);
+        mTextOther.setText(R.string.other);
+        mTextDetailOther.setText(R.string.detail_other);
+        mImgVenue.setImageResource(R.drawable.icon_venue_venue);
+        mImgNotification.setImageResource(R.drawable.icon_venue_noti);
+        mImgOpenHours.setImageResource(R.drawable.icon_venue_openhour);
+        mImgPolicies.setImageResource(R.drawable.icon_venue_policies);
+        mImgOther.setImageResource(R.drawable.icon_venue_setting);
+        mImgTeams.setImageResource(R.drawable.icon_venue_team);
     }
 
     @Override

@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_dashboard"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/bottom_navigation_dashboard" />
+        android:icon="@drawable/icon_treatment"
+        android:title=""
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_calendar"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/bottom_navigation_calendar" />
+        android:icon="@drawable/icon_menu"
+        android:title=""
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_ranking"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/bottom_navigation_report" />
+        android:icon="@drawable/report"
+        android:title=""
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_client"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/bottom_navigation_client" />
+        android:icon="@drawable/icon_client"
+        android:title=""
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_setting_venue"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/bottom_navigation_setting_venue" />
+        android:icon="@drawable/icon_venue"
+        android:title=""
+        app:showAsAction="never"/>
 </menu>

@@ -18,11 +18,11 @@
     <color name="transparent">#0000</color>
 
     <color name="black">#000</color>
+    <color name="yellow">#FFFF00</color>
     <color name="white">#fff</color>
     <color name="pink">#F20082</color>
     <color name="trout">#54595B</color>
     <color name="aquasqueeze">#DEDFDE</color>
-    <color name="yellow">#FFFF00</color>
     <color name="blackcurrant">#17003E</color>
     <color name="whitesmoke">#F6F6F6</color>
     <color name="darkgray">#A6A6A6</color>

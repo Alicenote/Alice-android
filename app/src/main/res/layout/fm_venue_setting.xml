@@ -8,11 +8,7 @@
         android:id="@+id/toolbar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-
-        >
-
-
+        android:minHeight="?attr/actionBarSize">
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
@@ -20,14 +16,14 @@
             android:layout_gravity="center"
             android:text="Setting Venue"
             android:textColor="@color/black"
-            android:textSize="25dp" />
+            android:textSize="19dp" />
 
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="right"
             android:layout_marginRight="15dp"
-            android:background="@drawable/icon_business_adress"
+            android:background="@drawable/icon_vanue_user"
 
             ></ImageView>
 
@@ -38,65 +34,64 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_top"
         android:background="#F6F6F6"
-        android:overScrollMode="never"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="16dp"
-           >
+            android:paddingLeft="16dp">
 
             <include
                 android:id="@+id/venueMoreDetail"
                 layout="@layout/layout_item_venue"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               />
+                android:layout_height="wrap_content" />
+
             <include
                 android:id="@+id/venueOpenHour"
                 layout="@layout/layout_item_venue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/venueMoreDetail"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/venueMoreDetail" />
 
             <include
                 android:id="@+id/venuePolicies"
                 layout="@layout/layout_item_venue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/venueOpenHour"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/venueOpenHour" />
 
             <include
                 android:id="@+id/venueNotification"
                 layout="@layout/layout_item_venue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/venuePolicies"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/venuePolicies" />
 
             <include
                 android:id="@+id/venueTeams"
                 layout="@layout/layout_item_venue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/venueNotification"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/venueNotification" />
 
             <include
                 android:id="@+id/venueOther"
                 layout="@layout/layout_item_venue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/venueTeams"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/venueTeams" />
 
         </RelativeLayout>
         >
