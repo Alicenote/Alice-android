@@ -1,6 +1,5 @@
 package com.namestore.alicenote;
 
-import java.io.Serializable;
 
 /**
  * Created by kienht on 10/28/16.
@@ -14,11 +13,6 @@ public class Constants {
     public static final int NAIL = 0;
     public static final int HAIR = 1;
 
-    public static final class Database {
-        public static final String DB_NAME = "alice.db";
-        public static final int DB_VER = 1;
-
-    }
 
      /*START API SERVER*/
 
@@ -34,8 +28,8 @@ public class Constants {
 
 
     public static final String API_VENUE_VIEW="/v1/locations/view";
-    public static final String API_VENUE_EDIT="/v1/locations/update";
-    public static final String API_VENUE_DEL="/v1/locations/delete";
+    public static final String API_VENUE_VIEW_EDIT="/v1/locations/update";
+    public static final String API_VENUE_VIEW_DEL="/v1/locations/delete";
 
 
     /*END API SERVER*/
@@ -45,7 +39,7 @@ public class Constants {
     public static final int NUM_PAGES = 5;
     public static final int NUM_PENDING =0;
     public static final int NUM_CALENDAR=1;
-    public static final int NUM_RANKING=2;
+    public static final int NUM_REPORT =2;
     public static final int NUM_CLIENT=3;
     public static final int NUM_SETTING_VENUE=4;
     public static final int KEY_LOGIN = 0;

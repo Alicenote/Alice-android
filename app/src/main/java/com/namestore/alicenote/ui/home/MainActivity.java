@@ -27,7 +27,7 @@ import com.namestore.alicenote.ui.calendar.CalendarActivity;
 import com.namestore.alicenote.ui.home.fragment.ClientFragment;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 
-import com.namestore.alicenote.ui.home.fragment.RankingFragment;
+import com.namestore.alicenote.ui.home.fragment.ReportFragment;
 import com.namestore.alicenote.ui.home.fragment.SettingVenueFragment;
 
 import static com.namestore.alicenote.Constants.NUM_PAGES;
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     public void showRankingFragment() {
-        mPager.setCurrentItem(Constants.NUM_RANKING);
+        mPager.setCurrentItem(Constants.NUM_REPORT);
     }
 
     public void showCalendarFragment() {
@@ -131,8 +131,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     return new ClientFragment();//chua co pending
                 case Constants.NUM_CALENDAR:
                     return new ClientFragment();//chua co calendar
-                case Constants.NUM_RANKING:
-                    return new RankingFragment();
+                case Constants.NUM_REPORT:
+                    return new ReportFragment();
                 case Constants.NUM_CLIENT:
                     return new ClientFragment();//chua co client
                 case Constants.NUM_SETTING_VENUE:

@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whitesmoke"
+    android:orientation="vertical">
 
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
->
-
-
-    <android.support.v4.widget.NestedScrollView
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/searchbox"
-        android:fillViewport="true">
+        android:layout_height="wrap_content" />
 
-        <RelativeLayout
+    <FrameLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:showAsAction="always" />
 
+        <Button
+            android:id="@+id/button_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/icon_search"
+            android:paddingLeft="150dp"
+            android:paddingRight="140dp"
+            android:text="Search"
+            android:textAllCaps="false"
+            android:textColor="@color/darkgray" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewSearchBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+    </FrameLayout>
 
-                android:scrollbars="vertical" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:overScrollMode="never" />
 
-        </RelativeLayout>
-
-
-    </android.support.v4.widget.NestedScrollView>
-
-
-</RelativeLayout>
+</LinearLayout>

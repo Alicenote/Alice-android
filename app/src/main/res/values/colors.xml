@@ -22,4 +22,10 @@
     <color name="trout">#54595B</color>
     <color name="aquasqueeze">#DEDFDE</color>
     <color name="blackcurrant">#17003E</color>
+    <color name="whitesmoke">#F6F6F6</color>
+    <color name="darkgray">#A6A6A6</color>
+    <color name="hitgrey">#A2A4A4</color>
+    <color name="fiord">#555A5C</color>
+    <color name="bossanova">#4A474A</color>
+    <color name="mardigras">#2C282D</color>
 </resources>

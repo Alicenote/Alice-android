@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,10 +26,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.AppUtils;
+import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.common.recycler.OnFragmentInteractionListener;
 import com.namestore.alicenote.network.ObservableManager;
 import com.namestore.alicenote.network.reponse.VenueViewResponse;
 import com.namestore.alicenote.ui.BaseFragment;
+import com.namestore.alicenote.ui.client.ClientDetailsActivity;
 import com.namestore.alicenote.ui.venue.VenueDetailActivity;
 import com.namestore.alicenote.ui.venue.interfaces.OnSettingVenueListener;
 
@@ -41,12 +45,12 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
 
     private VenueDetailActivity mVenueDetailActivity;
     private LinearLayout mToolbar;
-    private TextView mToolbarBack;
-    private TextView mToolbarEdit;
+    private Button mToolbarBack;
+    private Button mToolbarEdit;
     private TextView mToolbarTitle;
     private SupportMapFragment mSupportMapFragment;
 
-
+    private ImageView mVenueCoverImage;
     private TextView mVenueTvNameSalon;
     private TextView mVenueTvVote;
     private TextView mVenueTvReviews;
@@ -66,31 +70,32 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
     private RelativeLayout mVenueFormPostCode;
     private RelativeLayout mVenueFormPhone;
     private RelativeLayout mVenueFormEmail;
-   // private RelativeLayout mVenueFormWebsite;
+    // private RelativeLayout mVenueFormWebsite;
 
     private TextView mVenueFormPostCodeName;
     private String mFormPostCodeName = "Post Code";
-    private TextView mVenueFormPostCodeValue;
+    private EditText mVenueFormPostCodeValue;
 
     private TextView mVenueFormPhoneName;
     private String mFormPhoneName = "Phone";
-    private TextView mVenueFormPhoneValue;
+    private EditText mVenueFormPhoneValue;
 
     private TextView mVenueFormEmailName;
     private String mFormEmailName = "Email ";
-    private TextView mVenueFormEmailValue;
+    private EditText mVenueFormEmailValue;
 
     private LinearLayout linearLayoutLineEmail;
 
     private TextView mVenueFormWebsiteName;
     // private String mFormWebsiteName = "Website ";
-    private TextView mVenueFormWebsiteValue;
+    private EditText mVenueFormWebsiteValue;
     private ProgressDialog prgDialog;
 
     private String mMapX, mMapY;
     private String mLocation;
     private FragmentManager fragmentManager = getFragmentManager();
     private android.support.v4.app.FragmentTransaction fragmentTransaction;
+    private String mURLImageCover,mURLImageBoss,mURLImageCLient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,11 +113,11 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
 
     @Override
     protected void initViews(View view) {
-        mToolbarBack = (TextView) mToolbar.findViewById(R.id.toolbar_backpress);
-        mToolbarEdit = (TextView) mToolbar.findViewById(R.id.toolbar_edit);
+        mToolbarBack = (Button) mToolbar.findViewById(R.id.toolbar_backpress);
+        mToolbarEdit = (Button) mToolbar.findViewById(R.id.toolbar_edit);
         mToolbarTitle = (TextView) mToolbar.findViewById(R.id.toolbar_title);
 
-
+        mVenueCoverImage= (ImageView) view.findViewById(R.id.mVenueCoverImage);
         mVenueTvNameSalon = (TextView) view.findViewById(R.id.mVenueTvNameSalon);
         mVenueTvVote = (TextView) view.findViewById(R.id.mVenueTvVote);
         mVenueTvReviews = (TextView) view.findViewById(R.id.mVenueTvReviews);
@@ -140,13 +145,17 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
         mVenueFormEmailName = (TextView) mVenueFormEmail.findViewById(R.id.tvViewVenueName);
         //  mVenueFormWebsiteName = (TextView) mVenueFormWebsite.findViewById(R.id.tvViewVenueName);
 
-        mVenueFormPostCodeValue = (TextView) mVenueFormPostCode.findViewById(R.id.tvViewVenueValue);
-        mVenueFormPhoneValue = (TextView) mVenueFormPhone.findViewById(R.id.tvViewVenueValue);
-        mVenueFormEmailValue = (TextView) mVenueFormEmail.findViewById(R.id.tvViewVenueValue);
+        mVenueFormPostCodeValue = (EditText) mVenueFormPostCode.findViewById(R.id.tvViewVenueValue);
+        mVenueFormPhoneValue = (EditText) mVenueFormPhone.findViewById(R.id.tvViewVenueValue);
+        mVenueFormEmailValue = (EditText) mVenueFormEmail.findViewById(R.id.tvViewVenueValue);
         linearLayoutLineEmail = (LinearLayout) mVenueFormEmail.findViewById(R.id.lnVenueLine);
         linearLayoutLineEmail.setVisibility(View.GONE);
         //  mVenueFormWebsiteValue = (TextView) mVenueFormWebsite.findViewById(R.id.tvViewVenueValue);
-
+        AppUtils.setTypeFontForTextView(mVenueDetailActivity, AppUtils.MEDIUM,mVenueTvNameSalon,mVenueTvVote
+                ,mVenueTvReviews,mVenueTvUnderReviews, mVenueTvClientName, mVenueTvClientDate, mVenueTvComment,
+                mVenueTvInforSalon, mVenueFormPostCodeName, mVenueFormPhoneName, mVenueFormEmailName, mVenueFormPhoneValue,
+                mVenueFormPostCodeValue, mVenueFormEmailValue,mToolbarTitle,
+                (TextView) view.findViewById(R.id.aboutYourVenue), (TextView) view.findViewById(R.id.otherDetail));
 
         mSupportMapFragment = SupportMapFragment.newInstance();
         fragmentManager = getFragmentManager();
@@ -162,7 +171,9 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
     @Override
     protected void initModels() {
         mToolbarTitle.setText(R.string.your_venue);
+        ViewUtils.setAndScaleDrawableButton(mToolbarBack, R.drawable.icon_back, 0, 0, 0, 0.8);
         mToolbarBack.setOnClickListener(view -> getActivity().finish());
+        mToolbarEdit.setText("Edit");
         mToolbarEdit.setOnClickListener(view -> {
             if (mActivity instanceof OnSettingVenueListener) {
                 ((OnSettingVenueListener) mActivity).showVenueViewEdit();
@@ -173,8 +184,10 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
         mVenueFormEmailName.setText(mFormEmailName);
         //     mVenueFormWebsiteName.setText(mFormWebsiteName);
         mVenueFormPhoneName.setText(mFormPhoneName);
-
-        getDataForViewVenue(1, 1,this);
+        mVenueFormEmailValue.setFocusable(false);
+                mVenueFormPhoneValue.setFocusable(false);
+        mVenueFormPostCodeValue.setFocusable(false);
+        getDataForViewVenue(1, 1, this);
 
 
     }
@@ -182,7 +195,7 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng yourVenue = new LatLng( Float.valueOf(mMapX),Float.valueOf(mMapY));
+        LatLng yourVenue = new LatLng(Float.valueOf(mMapX), Float.valueOf(mMapY));
         MarkerOptions option = new MarkerOptions();
         option.position(yourVenue);
         option.title("Your Venue").snippet(mLocation);
@@ -212,7 +225,7 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
 
             @Override
             public void onNext(VenueViewResponse venueViewResponse) {
-
+                mVenueTvNameSalon.setText(venueViewResponse.getData().getLocations().getNameSalon());
                 mVenueTvVote.setText(String.valueOf(venueViewResponse.getData().getLocations().getPoint()));
                 mVenueTvReviews.setText(String.valueOf(venueViewResponse.getData().getLocations().getNo_review()) + " Reviews");
                 mVenueTvUnderReviews.setText(String.valueOf(venueViewResponse.getData().getLocations().getNo_review()) + " Reviews");
@@ -225,10 +238,17 @@ public class VenueViewFragment extends BaseFragment implements OnFragmentInterac
                 mVenueFormPhoneValue.setText(String.valueOf(venueViewResponse.getData().getLocations().getTelephone().toString()));
                 mVenueFormEmailValue.setText(venueViewResponse.getData().getLocations().getEmail().toString());
                 // mVenueFormWebsiteValue.setText(venueViewResponse.getData().getLocations().getWebsite().toString());
+                mURLImageCover =venueViewResponse.getData().getLocations().getImageCover();
+                mURLImageBoss =venueViewResponse.getData().getLocations().getImageAvatar();
+                mURLImageCLient=venueViewResponse.getData().getLocations().getClient().getAvatar();
+                Glide.with(context).load(mURLImageBoss).into(mVenueBossImage);
+                Glide.with(context).load(mURLImageCover).into(mVenueCoverImage);
+                Glide.with(context).load(mURLImageCLient).into(mVenueImageClient);
                 mLocation = venueViewResponse.getData().getLocations().getAddress();
                 mMapX = venueViewResponse.getData().getLocations().getLatitude();
                 mMapY = venueViewResponse.getData().getLocations().getLongitude();
                 mSupportMapFragment.getMapAsync(context);
+
 
             }
         });

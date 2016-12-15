@@ -28,6 +28,7 @@ public class VenueDetailActivity extends BaseActivity implements OnSettingVenueL
     private VenueViewEditLocationFragment mVenueViewEditLocationFragment;
     private VenueViewEditNameSalonFragment mVenueViewEditNameSalonFragment;
     private VenueViewEditPhotoFragment mVenueViewEditPhotoFragment;
+    private float mMapX,mMapY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

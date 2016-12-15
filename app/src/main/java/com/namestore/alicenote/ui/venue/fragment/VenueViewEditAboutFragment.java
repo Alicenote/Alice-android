@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
+import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.BaseFragment;
 
 /**
@@ -16,9 +18,10 @@ import com.namestore.alicenote.ui.BaseFragment;
 
 public class VenueViewEditAboutFragment extends BaseFragment {
     private LinearLayout mToolbar;
-    private TextView mToolbarBack;
-    private TextView mToolbarSave;
+    private Button mToolbarBack;
+    private Button mToolbarSave;
     private TextView mToolbarTitle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_venue_view_edit_about, container, false);
@@ -30,10 +33,12 @@ public class VenueViewEditAboutFragment extends BaseFragment {
         return view;
 
     }
+
     @Override
     protected void initViews(View view) {
-        mToolbarBack = (TextView) mToolbar.findViewById(R.id.toolbar_backpress);
-        mToolbarSave = (TextView) mToolbar.findViewById(R.id.toolbar_edit);
+        mToolbarBack = (Button) mToolbar.findViewById(R.id.toolbar_backpress);
+        ViewUtils.setAndScaleDrawableButton(mToolbarBack, R.drawable.icon_back, 0, 0, 0, 0.8);
+        mToolbarSave = (Button) mToolbar.findViewById(R.id.toolbar_edit);
         mToolbarTitle = (TextView) mToolbar.findViewById(R.id.toolbar_title);
     }
 

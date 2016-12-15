@@ -71,7 +71,7 @@
                 <TextView
                     android:id="@+id/mVenueTvReviews"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/mVenueTvNameSalon"
@@ -82,11 +82,11 @@
                 <ImageView
                     android:id="@+id/imgVote"
                     android:layout_width="40dp"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/mVenueTvNameSalon"
                     android:layout_toRightOf="@+id/mVenueTvVote" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/mVenueBossImage"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -106,7 +106,7 @@
                 <TextView
                     android:id="@+id/mVenueTvUnderReviews"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
@@ -115,7 +115,7 @@
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/mVenueImageClient"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -178,17 +178,17 @@
 
 
             </FrameLayout>
-          <!--  <TextView
-                android:id="@+id/mVenueTvLocation"
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_below="@+id/RelativeDetailReviews"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="180dp"></TextView>>
-            >-->
+            <!--  <TextView
+                  android:id="@+id/mVenueTvLocation"
+                  android:layout_width="match_parent"
+                  android:background="@color/white"
+                  android:layout_below="@+id/RelativeDetailReviews"
+                  android:layout_height="50dp"
+                  android:gravity="center"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
+                  android:layout_marginTop="180dp"></TextView>>
+              >-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -202,8 +202,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:gravity="center"
                     android:layout_marginTop="10dp"
+                    android:gravity="center"
                     android:text="About Your Venue"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -215,8 +215,8 @@
                     android:layout_below="@+id/aboutYourVenue"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
-                    android:textColor="@color/black"
                     android:gravity="center"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
@@ -261,21 +261,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/mVenueFormPhone"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="40dp"/>
-
-              <!--  <include
-                    android:id="@+id/mVenueFormWebsite"
-                    layout="@layout/layout_item_venue_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/mVenueFormEmail"
                     android:layout_marginBottom="40dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp" />-->
+                    android:layout_marginRight="15dp" />
+
+                <!--  <include
+                      android:id="@+id/mVenueFormWebsite"
+                      layout="@layout/layout_item_venue_view"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"
+                      android:layout_below="@+id/mVenueFormEmail"
+                      android:layout_marginBottom="40dp"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginRight="15dp" />-->
 
             </RelativeLayout>
 

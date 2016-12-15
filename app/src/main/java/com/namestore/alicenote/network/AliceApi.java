@@ -1,6 +1,7 @@
 package com.namestore.alicenote.network;
 
 import com.namestore.alicenote.models.AppointmentObj;
+import com.namestore.alicenote.models.VenueViewEditObj;
 import com.namestore.alicenote.network.reponse.FillFirstSetupResponse;
 
 
@@ -8,6 +9,7 @@ import com.namestore.alicenote.network.reponse.LoginSignupResponse;
 import com.namestore.alicenote.Constants;
 import com.namestore.alicenote.models.UserObj;
 
+import com.namestore.alicenote.network.reponse.VenueViewEditResponse;
 import com.namestore.alicenote.network.reponse.VenueViewResponse;
 import com.namestore.alicenote.network.request.FirstSetupRequest;
 
@@ -49,6 +51,8 @@ public interface AliceApi {
     Observable<VenueViewResponse> VenueView(@Query("salon_id") Integer salonId,@Query("location_id") Integer locationId);
 
 
+    @GET(Constants.API_VENUE_VIEW_EDIT)
+    Observable<VenueViewEditResponse> VenueViewEdit(@Query("salon_id") Integer salonId, @Query("location_id") Integer locationId ,@Body VenueViewEditObj venueEditObj);
 
 
 

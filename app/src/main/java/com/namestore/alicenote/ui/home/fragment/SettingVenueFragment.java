@@ -127,6 +127,12 @@ public class SettingVenueFragment extends BaseFragment {
         mTextNotification.setText(R.string.notification); mTextDetailNotification.setText(R.string.detail_notification);
         mTextTeams.setText(R.string.teams); mTextDetailTeams.setText(R.string.detail_teams);
         mTextOther.setText(R.string.other); mTextDetailOther.setText(R.string.detail_other);
+        mImgVenue.setImageResource(R.drawable.icon_venue_venue);
+        mImgNotification.setImageResource(R.drawable.icon_venue_noti);
+        mImgOpenHours.setImageResource(R.drawable.icon_venue_openhour);
+        mImgPolicies.setImageResource(R.drawable.icon_venue_policies);
+        mImgOther.setImageResource(R.drawable.icon_venue_setting);
+        mImgTeams.setImageResource(R.drawable.icon_venue_team);
     }
 
     @Override

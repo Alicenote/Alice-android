@@ -1,8 +1,10 @@
 package com.namestore.alicenote.network;
 
 import com.namestore.alicenote.models.UserObj;
+import com.namestore.alicenote.models.VenueViewEditObj;
 import com.namestore.alicenote.network.reponse.FillFirstSetupResponse;
 import com.namestore.alicenote.network.reponse.LoginSignupResponse;
+import com.namestore.alicenote.network.reponse.VenueViewEditResponse;
 import com.namestore.alicenote.network.reponse.VenueViewResponse;
 import com.namestore.alicenote.network.request.FirstSetupRequest;
 
@@ -69,5 +71,13 @@ public class ObservableManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .map(VenueViewResponse->VenueViewResponse);
+    }
+    public static Observable<VenueViewEditResponse> VenueViewEdit (Integer salongId, Integer locationId, VenueViewEditObj venueViewEditObj){
+        return NetworkGenerator.getInstance()
+                .getApi()
+                .VenueViewEdit(salongId,locationId,venueViewEditObj)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .map(VenueViewEditResponse->VenueViewEditResponse);
     }
 }

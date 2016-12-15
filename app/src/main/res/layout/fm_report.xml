@@ -14,29 +14,29 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textview_report_guests"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:text="134 Guests"
             android:textColor="#fff"
-            android:textSize="34sp"
-            android:textStyle="bold" />
+            android:textSize="36sp" />
 
         <TextView
+            android:id="@+id/textview_report_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:text="in December 2016"
             android:textColor="#fff"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/textview_report_proportion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:text="+10% than November 2016"
             android:textColor="#A10053"
