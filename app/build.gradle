@@ -54,7 +54,7 @@ dependencies {
     compile 'com.github.rubensousa:gravitysnaphelper:1.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.kyleduo.switchbutton:library:1.4.4'
-    compile 'com.prolificinteractive:material-calendarview:1.4.2'
+    compile 'com.github.hantrungkien:MaterialCalendarview:-SNAPSHOT'
     compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }

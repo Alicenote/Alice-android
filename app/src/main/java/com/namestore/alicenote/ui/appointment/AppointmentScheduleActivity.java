@@ -1,17 +1,18 @@
 package com.namestore.alicenote.ui.appointment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.kienht.materialcalendarview.CalendarDay;
+import com.kienht.materialcalendarview.MaterialCalendarView;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.common.AppUtils;
 import com.namestore.alicenote.common.ViewUtils;
 import com.namestore.alicenote.ui.BaseActivity;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,7 +66,9 @@ public class AppointmentScheduleActivity extends BaseActivity {
         });
         mMaterialCalendarView.setSelectedDate(Calendar.getInstance().getTime());
 
-        //Setup initial text
+        Typeface type = Typeface.createFromAsset(getAssets(), AppUtils.MEDIUM);
+        mMaterialCalendarView.setTypeFaceFont(type);
+
         mTextViewDaySelection.setText(getSelectedDatesString());
     }
 
