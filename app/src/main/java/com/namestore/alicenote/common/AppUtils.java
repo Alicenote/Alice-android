@@ -42,6 +42,10 @@ public class AppUtils {
     public static String BOLD = "fonts/brandon_bold.ttf";
     public static String BLACK = "fonts/brandon_black.ttf";
 
+    public static Typeface getTypeFont(Activity activity, String string) {
+        return Typeface.createFromAsset(activity.getAssets(), string);
+    }
+
     public static void setTypeFontForTextView(Activity activity, String tag, TextView... textViews) {
         Typeface type = Typeface.createFromAsset(activity.getAssets(), tag);
         for (TextView textview : textViews) {

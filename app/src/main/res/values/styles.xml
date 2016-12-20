@@ -58,8 +58,6 @@
 
         <!-- inactive thumb color -->
         <item name="colorSwitchThumbNormal">#ff0000</item>
-
-
     </style>
 
     <style name="SwitchButtonStyle">

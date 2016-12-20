@@ -66,8 +66,7 @@ public class AppointmentScheduleActivity extends BaseActivity {
         });
         mMaterialCalendarView.setSelectedDate(Calendar.getInstance().getTime());
 
-        Typeface type = Typeface.createFromAsset(getAssets(), AppUtils.MEDIUM);
-        mMaterialCalendarView.setTypeFaceFont(type);
+        mMaterialCalendarView.setTypeFaceFont(AppUtils.getTypeFont(this, AppUtils.MEDIUM));
 
         mTextViewDaySelection.setText(getSelectedDatesString());
     }
@@ -79,7 +78,6 @@ public class AppointmentScheduleActivity extends BaseActivity {
         }
         return FORMATTER.format(date.getDate());
     }
-
 
     @Override
     public void onClick(View view) {
