@@ -1,5 +1,7 @@
 package com.namestore.alicenote.network;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.namestore.alicenote.Constants;
@@ -52,7 +54,7 @@ public class NetworkGenerator {
                             @Override
                             public Response intercept(Interceptor.Chain chain) throws IOException {
                                 Request request = null;
-                                if (Constants.TOKEN != null) {
+                                if (!TextUtils.isEmpty(Constants.TOKEN)) {
                                     request = chain.request()
                                             .newBuilder()
                                             .addHeader("Content-Type", "application/json")
